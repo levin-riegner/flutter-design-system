@@ -1,0 +1,70 @@
+{
+    "theme": {
+        "colorPalettes": [{
+            "name": "light",
+            "colors": {
+                "primary": "FF6200EE",
+                "primaryVariant": "FF3700B3",
+                "secondary": "FF03DAC6",
+                "secondaryVariant": "FF018786",
+                "background": "FFFFFFFF",
+                "surface": "FFFFFFFF",
+                "error": "FFB00020",
+                "onPrimary": "FFFFFFFF",
+                "onSecondary": "FF000000",
+                "onBackground": "FF000000",
+                "onSurface": "FF000000",
+                "onError": "FFFFFFFF",
+                "disabled": "FF888888",
+                "interaction": "FFCCCCCC"
+            }
+        }],
+        "textStyles": {
+            "h1": {
+                "fontWeight": 300,
+                "fontSize": 96,
+                "letterSpacing": -1.5,
+                "height": 96,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h2": {
+                "fontWeight": 300,
+                "fontSize": 60,
+                "letterSpacing": -0.5,
+                "height": 60,
+                "style": "normal",
+                "fontFamily": "roboto"
+            }
+        },
+        "spacing": {
+            "xxxs": 2,
+            "xxs": 4,
+            "xs": 8,
+            "s": 12,
+            "m": 16,
+            "l": 24,
+            "xl": 32,
+            "xxl": 48,
+            "xxxl": 64
+        },
+        "dimensions": {
+            "radiusSmall": 4.0,
+            "radiusMedium": 8.0,
+            "radiusLarge": 16.0,
+
+            "listItemHeight": 48.0,
+            "listItemHeightLarge": 72.0,
+            "listItemHeightXLarge": 96.0,
+
+            "dividerHeight": 2.0,
+
+            "buttonHeight": 48.0,
+            "buttonMinWidth": 88.0,
+
+            "iconSize": 24.0,
+
+            "horizontalProgressHeight": 2.0
+        }
+    }
+}

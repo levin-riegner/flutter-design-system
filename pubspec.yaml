@@ -1,8 +1,7 @@
-name: designsystem
+name: lr_design_system
 description: L+R Design System Package
-version: 0.0.1
-author:
-homepage:
+version: 0.0.2
+homepage: https://levinriegner.com/home
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -22,9 +21,8 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/theme.json
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
