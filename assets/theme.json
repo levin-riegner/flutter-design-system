@@ -35,6 +35,94 @@
                 "height": 60,
                 "style": "normal",
                 "fontFamily": "roboto"
+            },
+            "h3": {
+                "fontWeight": 400,
+                "fontSize": 48,
+                "letterSpacing": 0,
+                "height": 48,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h4": {
+                "fontWeight": 400,
+                "fontSize": 34,
+                "letterSpacing": 0.24,
+                "height": 34,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h5": {
+                "fontWeight": 400,
+                "fontSize": 24,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h6": {
+                "fontWeight": 500,
+                "fontSize": 20,
+                "letterSpacing": 0.15,
+                "height": 20,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "subtitle1": {
+                "fontWeight": 400,
+                "fontSize": 16,
+                "letterSpacing": 0.15,
+                "height": 16,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "subtitle2": {
+                "fontWeight": 500,
+                "fontSize": 14,
+                "letterSpacing": 0.1,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "body1": {
+                "fontWeight": 400,
+                "fontSize": 16,
+                "letterSpacing": 0.5,
+                "height": 16,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "body2": {
+                "fontWeight": 400,
+                "fontSize": 14,
+                "letterSpacing": 0.25,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "button": {
+                "fontWeight": 500,
+                "fontSize": 14,
+                "letterSpacing": 1.25,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "caption": {
+                "fontWeight": 400,
+                "fontSize": 12,
+                "letterSpacing": 0.4,
+                "height": 12,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "overline": {
+                "fontWeight": 400,
+                "fontSize": 10,
+                "letterSpacing": 1.5,
+                "height": 10,
+                "style": "normal",
+                "fontFamily": "roboto"
             }
         },
         "spacing": {
@@ -64,7 +152,9 @@
 
             "iconSize": 24.0,
 
-            "horizontalProgressHeight": 2.0
+            "horizontalProgressHeight": 2.0,
+
+            "borderSmall": 1.5
         }
     }
 }

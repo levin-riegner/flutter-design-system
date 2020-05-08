@@ -22,7 +22,7 @@ class DSTag extends StatelessWidget {
       {@required this.text,
       this.iconPath,
       this.iconSelectedPath,
-      this.isSelected,
+      this.isSelected = false,
       this.onSelected,
       this.width = double.infinity,
       double height,
@@ -34,41 +34,31 @@ class DSTag extends StatelessWidget {
       TextStyle textStyle})
       : this.height = height ?? ThemeProvider.theme.dimensions.buttonHeight,
         this.radius = radius ?? ThemeProvider.theme.dimensions.radiusMedium,
-        this.selectedBorderWidth =
-            selectedBorderWidth ?? ThemeProvider.theme.dimensions.borderSmall,
-        this.selectedBorderColor = selectedBorderColor ??
-            ThemeProvider.theme.colors.primaryVariant.withOpacity(0.55),
-        this.defaultBackgroundColor =
-            defaultBackgroundColor ?? ThemeProvider.theme.colors.transparent,
-        this.selectedBackgroundColor =
-            selectedBackgroundColor ?? ThemeProvider.theme.colors.primary,
+        this.selectedBorderWidth = selectedBorderWidth ?? ThemeProvider.theme.dimensions.borderSmall,
+        this.selectedBorderColor = selectedBorderColor ?? ThemeProvider.theme.colors.primaryVariant.withOpacity(0.55),
+        this.defaultBackgroundColor = defaultBackgroundColor ?? ThemeProvider.theme.colors.transparent,
+        this.selectedBackgroundColor = selectedBackgroundColor ?? ThemeProvider.theme.colors.primary,
         this.textStyle = textStyle ??
-            ThemeProvider.theme.typography.overline.apply(
-                color: isSelected
-                    ? ThemeProvider.theme.colors.onPrimary
-                    : ThemeProvider.theme.colors.onBackground);
+            ThemeProvider.theme.typography.overline
+                .apply(color: isSelected ? ThemeProvider.theme.colors.onPrimary : ThemeProvider.theme.colors.onBackground);
 
   @override
   Widget build(BuildContext context) {
+    final containsIcon = ((isSelected && iconSelectedPath != null) || (!isSelected && iconPath != null));
     return SizedBox(
       width: width,
       height: height,
       child: FlatButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
-            side: isSelected
-                ? BorderSide.none
-                : BorderSide(
-                    color: selectedBorderColor, width: selectedBorderWidth)),
+            side: isSelected ? BorderSide.none : BorderSide(color: selectedBorderColor, width: selectedBorderWidth)),
         color: isSelected ? selectedBackgroundColor : defaultBackgroundColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            if ((isSelected && iconSelectedPath != null) ||
-                (!isSelected && iconPath != null))
-              Image.asset(isSelected ? iconSelectedPath : iconPath),
-            Margins.small,
+            if (containsIcon) Image.asset(isSelected ? iconSelectedPath : iconPath),
+            if (containsIcon) Margins.small,
             Text(
               text.toUpperCase(),
               textAlign: TextAlign.center,
@@ -76,7 +66,7 @@ class DSTag extends StatelessWidget {
             ),
           ],
         ),
-        onPressed: () => onSelected(!isSelected),
+        onPressed: onSelected != null ? () => onSelected(!isSelected) : null,
       ),
     );
   }

@@ -5,38 +5,38 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class ThemeProvider {
-  static Theme _theme;
-  static Theme get theme => _theme;
+  static _Theme _theme;
+  static _Theme get theme => _theme;
 
   static void setThemeFromJson(String jsonString, {String selectedPalette}) {
-    _theme = Theme.fromJson(jsonDecode(jsonString),
+    _theme = _Theme.fromJson(jsonDecode(jsonString),
         selectedPalette: selectedPalette);
   }
 }
 
-class Theme {
-  final ColorPalette colors;
-  final Typography typography;
-  final Spacing spacing;
-  final Dimensions dimensions;
+class _Theme {
+  final _ColorPalette colors;
+  final _Typography typography;
+  final _Spacing spacing;
+  final _Dimensions dimensions;
 
-  Theme({this.colors, this.typography, this.spacing, this.dimensions});
+  _Theme({this.colors, this.typography, this.spacing, this.dimensions});
 
-  factory Theme.fromJson(Map<String, dynamic> json, {String selectedPalette}) {
+  factory _Theme.fromJson(Map<String, dynamic> json, {String selectedPalette}) {
     final theme = json["theme"];
     final colorPalettes = (theme["colorPalettes"] as Iterable).toList();
-    return Theme(
-        colors: ColorPalette.fromJson(selectedPalette != null
+    return _Theme(
+        colors: _ColorPalette.fromJson(selectedPalette != null
             ? colorPalettes
                 .firstWhere((e) => e["name"] == selectedPalette)["colors"]
             : colorPalettes.first["colors"]),
-        typography: Typography.fromJson(theme['textStyles']),
-        spacing: Spacing.fromJson(theme['spacing']),
-        dimensions: Dimensions.fromJson(theme["dimensions"]));
+        typography: _Typography.fromJson(theme['textStyles']),
+        spacing: _Spacing.fromJson(theme['spacing']),
+        dimensions: _Dimensions.fromJson(theme["dimensions"]));
   }
 }
 
-class ColorPalette {
+class _ColorPalette {
   final Color primary;
   final Color primaryVariant;
   final Color secondary;
@@ -54,7 +54,7 @@ class ColorPalette {
 
   final Color transparent = Color(0x00000000);
 
-  ColorPalette(
+  _ColorPalette(
       {this.primary,
       this.primaryVariant,
       this.secondary,
@@ -70,18 +70,33 @@ class ColorPalette {
       this.disabled,
       this.interaction});
 
-  factory ColorPalette.fromJson(Map<String, dynamic> json) {
-    return ColorPalette(
+  factory _ColorPalette.fromJson(Map<String, dynamic> json) {
+    return _ColorPalette(
       primary: _hexStringToColor(json['primary']),
+      primaryVariant: _hexStringToColor(json['primaryVariant']),
+      secondary: _hexStringToColor(json['secondary']),
+      secondaryVariant: _hexStringToColor(json['secondaryVariant']),
+      background: _hexStringToColor(json['background']),
+      surface: _hexStringToColor(json['surface']),
+      error: _hexStringToColor(json['error']),
+      onPrimary: _hexStringToColor(json['onPrimary']),
+      onSecondary: _hexStringToColor(json['onSecondary']),
+      onBackground: _hexStringToColor(json['onBackground']),
+      onSurface: _hexStringToColor(json['onSurface']),
+      onError: _hexStringToColor(json['onError']),
+      disabled: _hexStringToColor(json['disabled']),
+      interaction: _hexStringToColor(json['interaction']),
     );
   }
 
   static Color _hexStringToColor(String hexString) {
+    if (hexString == null) return Colors.transparent;
+
     return Color(int.parse("0x$hexString"));
   }
 }
 
-class Typography {
+class _Typography {
   final TextStyle h1;
   final TextStyle h2;
   final TextStyle h3;
@@ -96,7 +111,7 @@ class Typography {
   final TextStyle caption;
   final TextStyle overline;
 
-  Typography(
+  _Typography(
       {this.h1,
       this.h2,
       this.h3,
@@ -111,8 +126,8 @@ class Typography {
       this.caption,
       this.overline});
 
-  factory Typography.fromJson(Map<String, dynamic> json) {
-    return Typography(
+  factory _Typography.fromJson(Map<String, dynamic> json) {
+    return _Typography(
         h1: _jsonToTextStyle(json['h1']),
         h2: _jsonToTextStyle(json['h2']),
         h3: _jsonToTextStyle(json['h3']),
@@ -129,6 +144,7 @@ class Typography {
   }
 
   static TextStyle _jsonToTextStyle(Map<String, dynamic> json) {
+    if (json == null) return null;
     final fontSize = json["fontSize"].toDouble();
     final height = json["height"].toDouble();
     return TextStyle(
@@ -177,7 +193,7 @@ class Typography {
   }
 }
 
-class Spacing {
+class _Spacing {
   final double xxxs;
   final double xxs;
   final double xs;
@@ -188,7 +204,7 @@ class Spacing {
   final double xxl;
   final double xxxl;
 
-  Spacing(
+  _Spacing(
       {this.xxxs = 2,
       this.xxs = 4,
       this.xs = 8,
@@ -199,8 +215,8 @@ class Spacing {
       this.xxl = 48,
       this.xxxl = 64});
 
-  factory Spacing.fromJson(Map<String, dynamic> json) {
-    return Spacing(
+  factory _Spacing.fromJson(Map<String, dynamic> json) {
+    return _Spacing(
       xxxs: json['xxxs'].toDouble(),
       xxs: json['xxs'].toDouble(),
       xs: json['xs'].toDouble(),
@@ -214,7 +230,7 @@ class Spacing {
   }
 }
 
-class Dimensions {
+class _Dimensions {
   final double radiusSmall;
   final double radiusMedium;
   final double radiusLarge;
@@ -234,7 +250,7 @@ class Dimensions {
 
   final double horizontalProgressHeight;
 
-  Dimensions(
+  _Dimensions(
       {this.radiusSmall = 4,
       this.radiusMedium = 8,
       this.radiusLarge = 16,
@@ -248,8 +264,8 @@ class Dimensions {
       this.iconSize = 24,
       this.horizontalProgressHeight = 2});
 
-  factory Dimensions.fromJson(Map<String, dynamic> json) {
-    return Dimensions(
+  factory _Dimensions.fromJson(Map<String, dynamic> json) {
+    return _Dimensions(
       radiusSmall: json['radiusSmall'],
       radiusMedium: json['radiusMedium'],
       radiusLarge: json['radiusLarge'],

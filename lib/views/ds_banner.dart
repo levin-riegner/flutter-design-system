@@ -47,7 +47,7 @@ class DSBanner extends StatelessWidget {
         this.activeProgressColor =
             activeProgressColor ?? ThemeProvider.theme.colors.primary,
         this.defaultProgressColor =
-            defaultProgressColor ?? ThemeProvider.theme.colors.primaryVariant,
+            defaultProgressColor ?? ThemeProvider.theme.colors.disabled,
         this.titleTextStyle =
             titleTextStyle ?? ThemeProvider.theme.typography.h4,
         this.messageTextStyle =

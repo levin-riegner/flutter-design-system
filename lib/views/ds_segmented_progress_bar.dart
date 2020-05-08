@@ -11,9 +11,6 @@ class DSSegmentedProgressBar extends StatefulWidget {
   /// The number of items managed by the PageController
   final int itemCount;
 
-  /// Called when a step is tapped
-  final ValueChanged<int> onPageSelected;
-
   ///The step color
   final Color previousStepColor;
   final Color selectedStepColor;
@@ -25,15 +22,6 @@ class DSSegmentedProgressBar extends StatefulWidget {
   ///The space between steps
   final double stepSpacing;
 
-  ///The step display widget for the previous steps
-  final Widget previousStep;
-
-  ///The step display widget for the next steps
-  final Widget nextStep;
-
-  ///The step display widget for the selected step
-  final Widget selectedStep;
-
   ///Whether to pre-fill part the current step or not
   final bool prefillStep;
 
@@ -41,20 +29,15 @@ class DSSegmentedProgressBar extends StatefulWidget {
     Key key,
     @required this.currentPageNotifier,
     @required this.itemCount,
-    @required this.stepsCompletedNotifier,
-    this.onPageSelected,
+    this.stepsCompletedNotifier,
     double size,
     double stepSpacing,
     double previousStepColor,
     double selectedStepColor,
     double nextStepColor,
-    this.previousStep,
-    this.selectedStep,
-    this.nextStep,
     this.prefillStep = false,
   })  : this.size =
             size ?? ThemeProvider.theme.dimensions.horizontalProgressHeight,
-        assert(size >= 0, "size must be a positive number"),
         this.stepSpacing = stepSpacing ??
             ThemeProvider.theme.dimensions.horizontalProgressHeight,
         this.previousStepColor =
@@ -78,14 +61,14 @@ class _StepPageIndicatorState extends State<DSSegmentedProgressBar> {
   @override
   void initState() {
     widget.currentPageNotifier.addListener(_handlePageIndex);
-    widget.stepsCompletedNotifier.addListener(_handleStepsCompleted);
+    widget.stepsCompletedNotifier?.addListener(_handleStepsCompleted);
     super.initState();
   }
 
   @override
   void dispose() {
     widget.currentPageNotifier.removeListener(_handlePageIndex);
-    widget.stepsCompletedNotifier.removeListener(_handleStepsCompleted);
+    widget.stepsCompletedNotifier?.removeListener(_handleStepsCompleted);
     super.dispose();
   }
 
@@ -123,7 +106,8 @@ class _StepPageIndicatorState extends State<DSSegmentedProgressBar> {
   }
 
   _handleStepsCompleted() {
-    setState(() => _stepsCompleted = widget.stepsCompletedNotifier.value);
+    setState(
+        () => _stepsCompleted = widget.stepsCompletedNotifier?.value ?? false);
   }
 
   Widget _getStep(int index) {
