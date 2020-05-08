@@ -37,21 +37,14 @@ class DSBanner extends StatelessWidget {
     Color defaultProgressColor,
     TextStyle titleTextStyle,
     TextStyle messageTextStyle,
-  })  : this.borderRadius =
-            borderRadius ?? ThemeProvider.theme.dimensions.radiusMedium,
+  })  : this.borderRadius = borderRadius ?? ThemeProvider.theme.dimensions.radiusMedium,
         this.contentPadding = contentPadding ?? ThemeProvider.theme.spacing.m,
-        this.warningBackgroundColor = warningBackgroundColor ??
-            ThemeProvider.theme.colors.secondary.withOpacity(0.25),
-        this.defaultBackgroundColor =
-            defaultBackgroundColor ?? ThemeProvider.theme.colors.surface,
-        this.activeProgressColor =
-            activeProgressColor ?? ThemeProvider.theme.colors.primary,
-        this.defaultProgressColor =
-            defaultProgressColor ?? ThemeProvider.theme.colors.disabled,
-        this.titleTextStyle =
-            titleTextStyle ?? ThemeProvider.theme.typography.h4,
-        this.messageTextStyle =
-            messageTextStyle ?? ThemeProvider.theme.typography.body1;
+        this.warningBackgroundColor = warningBackgroundColor ?? ThemeProvider.theme.colors.secondary.withOpacity(0.25),
+        this.defaultBackgroundColor = defaultBackgroundColor ?? ThemeProvider.theme.colors.surface,
+        this.activeProgressColor = activeProgressColor ?? ThemeProvider.theme.colors.primary,
+        this.defaultProgressColor = defaultProgressColor ?? ThemeProvider.theme.colors.disabled,
+        this.titleTextStyle = titleTextStyle ?? ThemeProvider.theme.typography.h4,
+        this.messageTextStyle = messageTextStyle ?? ThemeProvider.theme.typography.body1;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +53,7 @@ class DSBanner extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: Container(
-          decoration: BoxDecoration(
-              color:
-                  isWarning ? warningBackgroundColor : defaultBackgroundColor),
+          decoration: BoxDecoration(color: isWarning ? warningBackgroundColor : defaultBackgroundColor),
           child: Column(
             children: <Widget>[
               if (progress != null)
@@ -70,8 +61,7 @@ class DSBanner extends StatelessWidget {
                   height: 4.0,
                   child: LinearProgressIndicator(
                     backgroundColor: defaultProgressColor,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(activeProgressColor),
+                    valueColor: AlwaysStoppedAnimation<Color>(activeProgressColor),
                     value: progress,
                   ),
                 ),
@@ -82,8 +72,7 @@ class DSBanner extends StatelessWidget {
                   children: <Widget>[
                     if (leading != null)
                       Padding(
-                        padding: EdgeInsets.only(
-                            right: ThemeProvider.theme.spacing.s),
+                        padding: EdgeInsets.only(right: ThemeProvider.theme.spacing.s),
                         child: leading,
                       ),
                     Expanded(
@@ -108,8 +97,7 @@ class DSBanner extends StatelessWidget {
                     ),
                     if (onDismiss != null)
                       Padding(
-                        padding: EdgeInsets.only(
-                            left: ThemeProvider.theme.spacing.s),
+                        padding: EdgeInsets.only(left: ThemeProvider.theme.spacing.s),
                         child: IconButton(
                           padding: const EdgeInsets.all(0),
                           alignment: Alignment.topRight,

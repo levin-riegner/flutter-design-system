@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:lr_design_system/theme/theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:lr_design_system/views/ds_button.dart';
 
 void main() {
   testWidgets('Parses Theme File correctly', (tester) async {
@@ -22,5 +23,9 @@ void main() {
             fontFamily: "roboto"));
     expect(ThemeProvider.theme.dimensions.listItemHeight, 48.0);
     expect(ThemeProvider.theme.spacing.m, 16);
+  });
+
+  testWidgets('Primary Button', (WidgetTester tester) async {
+    await tester.pumpWidget(DSPrimaryButton(text: "Test",));
   });
 }

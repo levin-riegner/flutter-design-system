@@ -9,8 +9,7 @@ class ThemeProvider {
   static _Theme get theme => _theme;
 
   static void setThemeFromJson(String jsonString, {String selectedPalette}) {
-    _theme = _Theme.fromJson(jsonDecode(jsonString),
-        selectedPalette: selectedPalette);
+    _theme = _Theme.fromJson(jsonDecode(jsonString), selectedPalette: selectedPalette);
   }
 }
 
@@ -27,8 +26,7 @@ class _Theme {
     final colorPalettes = (theme["colorPalettes"] as Iterable).toList();
     return _Theme(
         colors: _ColorPalette.fromJson(selectedPalette != null
-            ? colorPalettes
-                .firstWhere((e) => e["name"] == selectedPalette)["colors"]
+            ? colorPalettes.firstWhere((e) => e["name"] == selectedPalette)["colors"]
             : colorPalettes.first["colors"]),
         typography: _Typography.fromJson(theme['textStyles']),
         spacing: _Spacing.fromJson(theme['spacing']),
@@ -50,6 +48,7 @@ class _ColorPalette {
   final Color onSurface;
   final Color onError;
   final Color disabled;
+  final Color onDisabled;
   final Color interaction;
 
   final Color transparent = Color(0x00000000);
@@ -68,6 +67,7 @@ class _ColorPalette {
       this.onSurface,
       this.onError,
       this.disabled,
+      this.onDisabled,
       this.interaction});
 
   factory _ColorPalette.fromJson(Map<String, dynamic> json) {
@@ -85,6 +85,7 @@ class _ColorPalette {
       onSurface: _hexStringToColor(json['onSurface']),
       onError: _hexStringToColor(json['onError']),
       disabled: _hexStringToColor(json['disabled']),
+      onDisabled: _hexStringToColor(json['onDisabled']),
       interaction: _hexStringToColor(json['interaction']),
     );
   }
@@ -204,16 +205,7 @@ class _Spacing {
   final double xxl;
   final double xxxl;
 
-  _Spacing(
-      {this.xxxs = 2,
-      this.xxs = 4,
-      this.xs = 8,
-      this.s = 12,
-      this.m = 16,
-      this.l = 24,
-      this.xl = 32,
-      this.xxl = 48,
-      this.xxxl = 64});
+  _Spacing({this.xxxs = 2, this.xxs = 4, this.xs = 8, this.s = 12, this.m = 16, this.l = 24, this.xl = 32, this.xxl = 48, this.xxxl = 64});
 
   factory _Spacing.fromJson(Map<String, dynamic> json) {
     return _Spacing(

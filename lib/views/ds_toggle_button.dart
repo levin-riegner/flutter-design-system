@@ -2,49 +2,51 @@ import 'package:lr_design_system/theme/theme.dart';
 import 'package:lr_design_system/views/margins.dart';
 import 'package:flutter/material.dart';
 
-class DSTag extends StatelessWidget {
+class DSToggleButton extends StatelessWidget {
   final String text;
-  final String iconPath;
-  final String iconSelectedPath;
+  final Widget defaultIcon;
+  final Widget selectedIcon;
   final bool isSelected;
   final Function(bool) onSelected;
+  final bool tintIcon;
 
   final double width;
   final double height;
   final double radius;
   final double selectedBorderWidth;
   final Color selectedBorderColor;
-  final Color defaultBackgroundColor;
-  final Color selectedBackgroundColor;
+  final Color defaultColor;
+  final Color selectedColor;
   final TextStyle textStyle;
 
-  DSTag(
+  DSToggleButton(
       {@required this.text,
-      this.iconPath,
-      this.iconSelectedPath,
+      this.defaultIcon,
+      this.selectedIcon,
       this.isSelected = false,
       this.onSelected,
       this.width = double.infinity,
+      this.tintIcon = true,
       double height,
       double radius,
       double selectedBorderWidth,
       Color selectedBorderColor,
-      Color defaultBackgroundColor,
-      Color selectedBackgroundColor,
+      Color defaultColor,
+      Color selectedColor,
       TextStyle textStyle})
       : this.height = height ?? ThemeProvider.theme.dimensions.buttonHeight,
         this.radius = radius ?? ThemeProvider.theme.dimensions.radiusMedium,
         this.selectedBorderWidth = selectedBorderWidth ?? ThemeProvider.theme.dimensions.borderSmall,
         this.selectedBorderColor = selectedBorderColor ?? ThemeProvider.theme.colors.primaryVariant.withOpacity(0.55),
-        this.defaultBackgroundColor = defaultBackgroundColor ?? ThemeProvider.theme.colors.transparent,
-        this.selectedBackgroundColor = selectedBackgroundColor ?? ThemeProvider.theme.colors.primary,
+        this.defaultColor = defaultColor ?? ThemeProvider.theme.colors.transparent,
+        this.selectedColor = selectedColor ?? ThemeProvider.theme.colors.primary,
         this.textStyle = textStyle ??
             ThemeProvider.theme.typography.overline
                 .apply(color: isSelected ? ThemeProvider.theme.colors.onPrimary : ThemeProvider.theme.colors.onBackground);
 
   @override
   Widget build(BuildContext context) {
-    final containsIcon = ((isSelected && iconSelectedPath != null) || (!isSelected && iconPath != null));
+    final icon = isSelected ? selectedIcon : defaultIcon;
     return SizedBox(
       width: width,
       height: height,
@@ -52,13 +54,19 @@ class DSTag extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
             side: isSelected ? BorderSide.none : BorderSide(color: selectedBorderColor, width: selectedBorderWidth)),
-        color: isSelected ? selectedBackgroundColor : defaultBackgroundColor,
+        color: isSelected ? selectedColor : defaultColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            if (containsIcon) Image.asset(isSelected ? iconSelectedPath : iconPath),
-            if (containsIcon) Margins.small,
+            if (icon != null)
+              tintIcon
+                  ? ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                          isSelected ? ThemeProvider.theme.colors.onPrimary : ThemeProvider.theme.colors.onBackground, BlendMode.srcIn),
+                      child: icon)
+                  : icon,
+            if (icon != null) Margins.small,
             Text(
               text.toUpperCase(),
               textAlign: TextAlign.center,
