@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
 
   # External Libraries
+  connectivity: 0.4.8+5
+  webview_flutter: 0.3.21
 
 dev_dependencies:
   flutter_driver:

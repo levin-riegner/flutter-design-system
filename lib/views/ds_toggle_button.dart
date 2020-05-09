@@ -13,8 +13,8 @@ class DSToggleButton extends StatelessWidget {
   final double width;
   final double height;
   final double radius;
-  final double selectedBorderWidth;
-  final Color selectedBorderColor;
+  final double defaultBorderWidth;
+  final Color defaultBorderColor;
   final Color defaultColor;
   final Color selectedColor;
   final TextStyle textStyle;
@@ -29,20 +29,26 @@ class DSToggleButton extends StatelessWidget {
       this.tintIcon = true,
       double height,
       double radius,
-      double selectedBorderWidth,
-      Color selectedBorderColor,
+      double defaultBorderWidth,
+      Color defaultBorderColor,
       Color defaultColor,
       Color selectedColor,
       TextStyle textStyle})
       : this.height = height ?? ThemeProvider.theme.dimensions.buttonHeight,
         this.radius = radius ?? ThemeProvider.theme.dimensions.radiusMedium,
-        this.selectedBorderWidth = selectedBorderWidth ?? ThemeProvider.theme.dimensions.borderSmall,
-        this.selectedBorderColor = selectedBorderColor ?? ThemeProvider.theme.colors.primaryVariant.withOpacity(0.55),
-        this.defaultColor = defaultColor ?? ThemeProvider.theme.colors.transparent,
-        this.selectedColor = selectedColor ?? ThemeProvider.theme.colors.primary,
+        this.defaultBorderWidth =
+            defaultBorderWidth ?? ThemeProvider.theme.dimensions.borderSmall,
+        this.defaultBorderColor = defaultBorderColor ??
+            ThemeProvider.theme.colors.primaryVariant.withOpacity(0.55),
+        this.defaultColor =
+            defaultColor ?? ThemeProvider.theme.colors.transparent,
+        this.selectedColor =
+            selectedColor ?? ThemeProvider.theme.colors.primary,
         this.textStyle = textStyle ??
-            ThemeProvider.theme.typography.overline
-                .apply(color: isSelected ? ThemeProvider.theme.colors.onPrimary : ThemeProvider.theme.colors.onBackground);
+            ThemeProvider.theme.typography.overline.apply(
+                color: isSelected
+                    ? ThemeProvider.theme.colors.onPrimary
+                    : ThemeProvider.theme.colors.onBackground);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +59,10 @@ class DSToggleButton extends StatelessWidget {
       child: FlatButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
-            side: isSelected ? BorderSide.none : BorderSide(color: selectedBorderColor, width: selectedBorderWidth)),
+            side: isSelected
+                ? BorderSide.none
+                : BorderSide(
+                    color: defaultBorderColor, width: defaultBorderWidth)),
         color: isSelected ? selectedColor : defaultColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +72,10 @@ class DSToggleButton extends StatelessWidget {
               tintIcon
                   ? ColorFiltered(
                       colorFilter: ColorFilter.mode(
-                          isSelected ? ThemeProvider.theme.colors.onPrimary : ThemeProvider.theme.colors.onBackground, BlendMode.srcIn),
+                          isSelected
+                              ? ThemeProvider.theme.colors.onPrimary
+                              : ThemeProvider.theme.colors.onBackground,
+                          BlendMode.srcIn),
                       child: icon)
                   : icon,
             if (icon != null) Margins.small,

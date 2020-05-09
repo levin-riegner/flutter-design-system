@@ -6,7 +6,8 @@ class ShowCaseModifier extends StatelessWidget {
   final String title;
   final VoidCallback action;
 
-  const ShowCaseModifier({Key key, @required this.title, @required this.action}) : super(key: key);
+  const ShowCaseModifier({Key key, @required this.title, @required this.action})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,9 @@ class ShowCaseItem extends StatelessWidget {
   final Widget content;
   final List<ShowCaseModifier> modifiers;
 
-  const ShowCaseItem({Key key, @required this.title, @required this.content, this.modifiers}) : super(key: key);
+  const ShowCaseItem(
+      {Key key, @required this.title, @required this.content, this.modifiers})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

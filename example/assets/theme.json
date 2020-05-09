@@ -17,7 +17,8 @@
                 "onError": "FFFFFFFF",
                 "disabled": "FF888888",
                 "onDisabled": "AAFFFFFF",
-                "interaction": "FFCCCCCC"
+                "interaction": "FFCCCCCC",
+                "isLight": true
             }
         }],
         "textStyles": {
@@ -155,7 +156,9 @@
 
             "horizontalProgressHeight": 2.0,
 
-            "borderSmall": 1.5
+            "borderSmall": 1.5,
+
+            "navigationBarElevation": 0.0
         }
     }
 }

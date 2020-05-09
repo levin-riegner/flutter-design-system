@@ -26,6 +26,8 @@ void main() {
   });
 
   testWidgets('Primary Button', (WidgetTester tester) async {
-    await tester.pumpWidget(DSPrimaryButton(text: "Test",));
+    await tester.pumpWidget(DSPrimaryButton(
+      text: "Test",
+    ));
   });
 }

@@ -59,7 +59,11 @@ class DSOutlineButton extends _BaseButton {
       isLoading: isLoading,
       enabled: enabled,
       width: width,
-      borderSide: BorderSide(color: enabled ? ThemeProvider.theme.colors.primary : ThemeProvider.theme.colors.disabled, width: ThemeProvider.theme.dimensions.borderSmall),
+      borderSide: BorderSide(
+          color: enabled
+              ? ThemeProvider.theme.colors.primary
+              : ThemeProvider.theme.colors.disabled,
+          width: ThemeProvider.theme.dimensions.borderSmall),
       defaultColor: ThemeProvider.theme.colors.transparent,
       disabledColor: ThemeProvider.theme.colors.transparent,
       defaultTextColor: ThemeProvider.theme.colors.primary,
@@ -101,14 +105,19 @@ class _BaseButton extends StatelessWidget {
       TextStyle textStyle,
       @required Color defaultTextColor,
       @required Color disabledTextColor})
-      : this.loadingColor = loadingColor ?? ThemeProvider.theme.colors.onPrimary,
+      : this.loadingColor =
+            loadingColor ?? ThemeProvider.theme.colors.onPrimary,
         this.height = height ?? ThemeProvider.theme.dimensions.buttonHeight,
-        this.borderRadius = borderRadius ?? ThemeProvider.theme.dimensions.radiusMedium,
+        this.borderRadius =
+            borderRadius ?? ThemeProvider.theme.dimensions.radiusMedium,
         this.defaultColor = defaultColor ?? ThemeProvider.theme.colors.primary,
-        this.disabledColor = disabledColor ?? ThemeProvider.theme.colors.disabled,
+        this.disabledColor =
+            disabledColor ?? ThemeProvider.theme.colors.disabled,
         this.textStyle = textStyle ?? ThemeProvider.theme.typography.button,
-        this.defaultTextColor = defaultTextColor ?? ThemeProvider.theme.colors.onPrimary,
-        this.disabledTextColor = disabledTextColor ?? ThemeProvider.theme.colors.onDisabled;
+        this.defaultTextColor =
+            defaultTextColor ?? ThemeProvider.theme.colors.onPrimary,
+        this.disabledTextColor =
+            disabledTextColor ?? ThemeProvider.theme.colors.onDisabled;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +125,9 @@ class _BaseButton extends StatelessWidget {
         width: width,
         height: height,
         child: FlatButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius), side: borderSide),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
+              side: borderSide),
           color: enabled ? defaultColor : disabledColor,
           textColor: enabled ? defaultTextColor : disabledTextColor,
           child: isLoading
@@ -126,8 +137,12 @@ class _BaseButton extends StatelessWidget {
                   style: textStyle,
                 ),
           onPressed: (enabled && !isLoading) ? onPressed : () {},
-          highlightColor: (!enabled || isLoading) ? ThemeProvider.theme.colors.transparent : null,
-          splashColor: (!enabled || isLoading) ? ThemeProvider.theme.colors.transparent : null, // null == default
+          highlightColor: (!enabled || isLoading)
+              ? ThemeProvider.theme.colors.transparent
+              : null,
+          splashColor: (!enabled || isLoading)
+              ? ThemeProvider.theme.colors.transparent
+              : null, // null == default
         ));
   }
 }

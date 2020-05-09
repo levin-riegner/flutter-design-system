@@ -21,6 +21,21 @@ class _Theme {
 
   _Theme({this.colors, this.typography, this.spacing, this.dimensions});
 
+  AppBarTheme toAppBarTheme() {
+    final base = (colors.isLight ? ThemeData.light() : ThemeData.dark()).appBarTheme;
+    return base.copyWith(
+      elevation: dimensions.navigationBarElevation,
+      color: colors.surface,
+      iconTheme: toIconThemeData(),
+      actionsIconTheme: toIconThemeData(),
+      textTheme: typography.toTextTheme().apply(bodyColor: colors.onSurface),
+    );
+  }
+
+  IconThemeData toIconThemeData() {
+    return IconThemeData(color: colors.onSurface, opacity: 1, size: dimensions.iconSize);
+  }
+
   factory _Theme.fromJson(Map<String, dynamic> json, {String selectedPalette}) {
     final theme = json["theme"];
     final colorPalettes = (theme["colorPalettes"] as Iterable).toList();
@@ -51,24 +66,28 @@ class _ColorPalette {
   final Color onDisabled;
   final Color interaction;
 
+  final bool isLight;
+
   final Color transparent = Color(0x00000000);
 
-  _ColorPalette(
-      {this.primary,
-      this.primaryVariant,
-      this.secondary,
-      this.secondaryVariant,
-      this.background,
-      this.surface,
-      this.error,
-      this.onPrimary,
-      this.onSecondary,
-      this.onBackground,
-      this.onSurface,
-      this.onError,
-      this.disabled,
-      this.onDisabled,
-      this.interaction});
+  _ColorPalette({
+    this.primary,
+    this.primaryVariant,
+    this.secondary,
+    this.secondaryVariant,
+    this.background,
+    this.surface,
+    this.error,
+    this.onPrimary,
+    this.onSecondary,
+    this.onBackground,
+    this.onSurface,
+    this.onError,
+    this.disabled,
+    this.onDisabled,
+    this.interaction,
+    this.isLight = true,
+  });
 
   factory _ColorPalette.fromJson(Map<String, dynamic> json) {
     return _ColorPalette(
@@ -87,6 +106,7 @@ class _ColorPalette {
       disabled: _hexStringToColor(json['disabled']),
       onDisabled: _hexStringToColor(json['onDisabled']),
       interaction: _hexStringToColor(json['interaction']),
+      isLight: json["isLight"],
     );
   }
 
@@ -126,6 +146,23 @@ class _Typography {
       this.button,
       this.caption,
       this.overline});
+
+  TextTheme toTextTheme() {
+    return TextTheme(
+        headline1: h1,
+        headline2: h2,
+        headline3: h3,
+        headline4: h4,
+        headline5: h5,
+        headline6: h6,
+        subtitle1: subtitle1,
+        subtitle2: subtitle2,
+        bodyText1: body1,
+        bodyText2: body2,
+        button: button,
+        caption: caption,
+        overline: overline);
+  }
 
   factory _Typography.fromJson(Map<String, dynamic> json) {
     return _Typography(
@@ -242,19 +279,23 @@ class _Dimensions {
 
   final double horizontalProgressHeight;
 
-  _Dimensions(
-      {this.radiusSmall = 4,
-      this.radiusMedium = 8,
-      this.radiusLarge = 16,
-      this.borderSmall = 1.5,
-      this.listItemHeight = 48,
-      this.listItemHeightLarge = 72,
-      this.listItemHeightXLarge = 96,
-      this.dividerHeight = 2,
-      this.buttonHeight = 48,
-      this.buttonMinWidth = 88,
-      this.iconSize = 24,
-      this.horizontalProgressHeight = 2});
+  final double navigationBarElevation;
+
+  _Dimensions({
+    this.radiusSmall = 4,
+    this.radiusMedium = 8,
+    this.radiusLarge = 16,
+    this.borderSmall = 1.5,
+    this.listItemHeight = 48,
+    this.listItemHeightLarge = 72,
+    this.listItemHeightXLarge = 96,
+    this.dividerHeight = 2,
+    this.buttonHeight = 48,
+    this.buttonMinWidth = 88,
+    this.iconSize = 24,
+    this.horizontalProgressHeight = 2,
+    this.navigationBarElevation = 4.0,
+  });
 
   factory _Dimensions.fromJson(Map<String, dynamic> json) {
     return _Dimensions(
@@ -270,6 +311,7 @@ class _Dimensions {
       buttonMinWidth: json['buttonMinWidth'],
       iconSize: json['iconSize'],
       horizontalProgressHeight: json['horizontalProgressHeight'],
+      navigationBarElevation: json['navigationBarElevation'],
     );
   }
 }

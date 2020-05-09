@@ -35,8 +35,10 @@ class DSTextButton extends StatelessWidget {
   })  : this.loadingColor = loadingColor ?? ThemeProvider.theme.colors.primary,
         this.height = height ?? ThemeProvider.theme.dimensions.buttonHeight,
         this.textStyle = textStyle ?? ThemeProvider.theme.typography.button,
-        this.defaultTextColor = defaultTextColor ?? ThemeProvider.theme.colors.primary,
-        this.disabledTextColor = disabledTextColor ?? ThemeProvider.theme.colors.disabled;
+        this.defaultTextColor =
+            defaultTextColor ?? ThemeProvider.theme.colors.primary,
+        this.disabledTextColor =
+            disabledTextColor ?? ThemeProvider.theme.colors.disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,8 @@ class DSTextButton extends StatelessWidget {
                 padding: EdgeInsets.all(horizontalMargin),
                 child: Text(
                   text.toUpperCase(),
-                  style: textStyle.copyWith(color: enabled ? defaultTextColor : disabledTextColor),
+                  style: textStyle.copyWith(
+                      color: enabled ? defaultTextColor : disabledTextColor),
                 ),
                 onPressed: (enabled && !isLoading) ? onPressed : () {},
               ),
