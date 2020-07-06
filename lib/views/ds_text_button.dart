@@ -56,7 +56,7 @@ class DSTextButton extends StatelessWidget {
                   style: textStyle.copyWith(
                       color: enabled ? defaultTextColor : disabledTextColor),
                 ),
-                onPressed: (enabled && !isLoading) ? onPressed : () {},
+                onPressed: (enabled && !isLoading) ? onPressed : null,
               ),
       ),
     );

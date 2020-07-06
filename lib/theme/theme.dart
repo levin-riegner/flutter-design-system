@@ -21,6 +21,15 @@ class _Theme {
 
   _Theme({this.colors, this.typography, this.spacing, this.dimensions});
 
+  ThemeData toThemeData() {
+    return ThemeData(
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        appBarTheme: ThemeProvider.theme.toAppBarTheme(),
+        iconTheme: ThemeProvider.theme.toIconThemeData(),
+        textTheme: ThemeProvider.theme.typography.toTextTheme()
+    );
+  }
+
   AppBarTheme toAppBarTheme() {
     final base = (colors.isLight ? ThemeData.light() : ThemeData.dark()).appBarTheme;
     return base.copyWith(

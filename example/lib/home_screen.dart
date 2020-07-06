@@ -3,11 +3,14 @@ import 'package:lr_design_system/theme/theme.dart';
 import 'package:lr_design_system/views/ds_banner.dart';
 import 'package:lr_design_system/views/ds_button.dart';
 import 'package:lr_design_system/views/ds_inapp_webview.dart';
+import 'package:lr_design_system/views/ds_inner_list.dart';
+import 'package:lr_design_system/views/ds_list_header.dart';
 import 'package:lr_design_system/views/ds_segmented_progress_bar.dart';
 import 'package:lr_design_system/views/ds_toggle_button.dart';
 import 'package:lr_design_system/views/ds_text_button.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:lr_design_system/views/ds_modal_bottom_sheet.dart';
+import 'package:showcase/views/sample_card.dart';
 import 'package:showcase/views/showcase_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,10 +19,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // Variables
   bool toggleOn = false;
   final stepsNotifier = ValueNotifier<int>(0);
   bool loading = false;
   bool enabled = true;
+
+  // Values
+  final listItemsCount = 10;
 
   @override
   void initState() {
@@ -169,13 +176,34 @@ class _HomeScreenState extends State<HomeScreen> {
             content: ShowCaseModifier(
               title: "Open",
               action: () => showDSModalBottomSheet(
-                  context: context,
-                  builder: (context) => Container(
-                        color: Colors.red,
-                      ),
-                  title: "Bottom Sheet"),
+                context: context,
+                builder: (context) => Container(
+                  color: Colors.red,
+                ),
+                title: "Bottom Sheet",
+              ),
             ),
           ),
+          ShowCaseItem(
+            title: "Nested Horizontal List",
+            content: DSInnerList(
+              height: 136,
+              items: List.generate(listItemsCount, (index) => "Item $index"),
+              listPadding: EdgeInsets.only(
+                left: ThemeProvider.theme.spacing.l,
+                right: ThemeProvider.theme.spacing.l,
+                bottom: ThemeProvider.theme.spacing.m,
+              ),
+              itemBuilder: (context, index) {
+                return SampleCard(
+                  width: MediaQuery.of(context).size.width - 12 - 24 - 24,
+                  title: "Title $index",
+                  description: "Description $index",
+                  onTap: () {},
+                );
+              },
+            ),
+          )
         ],
       ),
     );
