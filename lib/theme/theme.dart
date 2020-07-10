@@ -15,18 +15,18 @@ class ThemeProvider {
 
 class _Theme {
   final _ColorPalette colors;
-  final _Typography typography;
+  final _TextStyles textStyles;
   final _Spacing spacing;
   final _Dimensions dimensions;
 
-  _Theme({this.colors, this.typography, this.spacing, this.dimensions});
+  _Theme({this.colors, this.textStyles, this.spacing, this.dimensions});
 
   ThemeData toThemeData() {
     return ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: ThemeProvider.theme.toAppBarTheme(),
         iconTheme: ThemeProvider.theme.toIconThemeData(),
-        textTheme: ThemeProvider.theme.typography.toTextTheme()
+        textTheme: ThemeProvider.theme.textStyles.toTextTheme()
     );
   }
 
@@ -37,7 +37,7 @@ class _Theme {
       color: colors.surface,
       iconTheme: toIconThemeData(),
       actionsIconTheme: toIconThemeData(),
-      textTheme: typography.toTextTheme().apply(bodyColor: colors.onSurface),
+      textTheme: textStyles.toTextTheme().apply(bodyColor: colors.onSurface),
     );
   }
 
@@ -52,7 +52,7 @@ class _Theme {
         colors: _ColorPalette.fromJson(selectedPalette != null
             ? colorPalettes.firstWhere((e) => e["name"] == selectedPalette)["colors"]
             : colorPalettes.first["colors"]),
-        typography: _Typography.fromJson(theme['textStyles']),
+        textStyles: _TextStyles.fromJson(theme['textStyles']),
         spacing: _Spacing.fromJson(theme['spacing']),
         dimensions: _Dimensions.fromJson(theme["dimensions"]));
   }
@@ -126,7 +126,7 @@ class _ColorPalette {
   }
 }
 
-class _Typography {
+class _TextStyles {
   final TextStyle h1;
   final TextStyle h2;
   final TextStyle h3;
@@ -141,7 +141,7 @@ class _Typography {
   final TextStyle caption;
   final TextStyle overline;
 
-  _Typography(
+  _TextStyles(
       {this.h1,
       this.h2,
       this.h3,
@@ -173,8 +173,8 @@ class _Typography {
         overline: overline);
   }
 
-  factory _Typography.fromJson(Map<String, dynamic> json) {
-    return _Typography(
+  factory _TextStyles.fromJson(Map<String, dynamic> json) {
+    return _TextStyles(
         h1: _jsonToTextStyle(json['h1']),
         h2: _jsonToTextStyle(json['h2']),
         h3: _jsonToTextStyle(json['h3']),

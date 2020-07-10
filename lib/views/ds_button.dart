@@ -109,7 +109,7 @@ class _BaseButton extends StatelessWidget {
         this.borderRadius = borderRadius ?? ThemeProvider.theme.dimensions.radiusMedium,
         this.defaultColor = defaultColor ?? ThemeProvider.theme.colors.primary,
         this.disabledColor = disabledColor ?? ThemeProvider.theme.colors.disabled,
-        this.textStyle = textStyle ?? ThemeProvider.theme.typography.button,
+        this.textStyle = textStyle ?? ThemeProvider.theme.textStyles.button,
         this.defaultTextColor = defaultTextColor ?? ThemeProvider.theme.colors.onPrimary,
         this.disabledTextColor = disabledTextColor ?? ThemeProvider.theme.colors.onDisabled;
 

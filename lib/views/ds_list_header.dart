@@ -30,7 +30,7 @@ class DSListHeader extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(text, style: ThemeProvider.theme.typography.h4),
+              Text(text, style: ThemeProvider.theme.textStyles.h4),
               if (hasActionButton)
                 InkWell(
                   borderRadius: BorderRadius.all(Radius.circular(ThemeProvider.theme.dimensions.radiusSmall)),
@@ -39,7 +39,7 @@ class DSListHeader extends StatelessWidget {
                     padding: EdgeInsets.all(ThemeProvider.theme.spacing.s),
                     child: Text(
                       actionButtonText,
-                      style: ThemeProvider.theme.typography.body2.copyWith(color: ThemeProvider.theme.colors.onBackground),
+                      style: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.onBackground),
                     ),
                   ),
                 ),

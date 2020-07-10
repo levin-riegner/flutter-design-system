@@ -27,8 +27,8 @@ class DSDialog extends StatelessWidget {
     TextStyle titleTextStyle,
     TextStyle descriptionTextStyle,
   })  : this.backgroundColor = backgroundColor ?? ThemeProvider.theme.colors.surface,
-        this.titleTextStyle = titleTextStyle ?? ThemeProvider.theme.typography.h6,
-        this.descriptionTextStyle = descriptionTextStyle ?? ThemeProvider.theme.typography.body1;
+        this.titleTextStyle = titleTextStyle ?? ThemeProvider.theme.textStyles.h6,
+        this.descriptionTextStyle = descriptionTextStyle ?? ThemeProvider.theme.textStyles.body1;
 
   @override
   Widget build(BuildContext context) {

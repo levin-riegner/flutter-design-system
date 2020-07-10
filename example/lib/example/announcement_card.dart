@@ -45,14 +45,14 @@ class AnnouncementCard extends StatelessWidget {
                         ),
                         child: Text(
                           announcement.title.toUpperCase(),
-                          style: ThemeProvider.theme.typography.button.apply(color: ThemeProvider.theme.colors.onSecondary),
+                          style: ThemeProvider.theme.textStyles.button.apply(color: ThemeProvider.theme.colors.onSecondary),
                         ),
                       ),
                     ),
                     announcement.points != 0
                         ? Text(
                             announcement.points == 1 ? "+${announcement.points} Point" : "+${announcement.points} Points",
-                            style: ThemeProvider.theme.typography.button.apply(color: ThemeProvider.theme.colors.secondary),
+                            style: ThemeProvider.theme.textStyles.button.apply(color: ThemeProvider.theme.colors.secondary),
                           )
                         : Container(),
                   ],
@@ -64,7 +64,7 @@ class AnnouncementCard extends StatelessWidget {
                   announcement.description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: ThemeProvider.theme.typography.h6.apply(color: ThemeProvider.theme.colors.onSurface),
+                  style: ThemeProvider.theme.textStyles.h6.apply(color: ThemeProvider.theme.colors.onSurface),
                 ),
               ],
             ),
