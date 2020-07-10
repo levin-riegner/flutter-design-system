@@ -1,0 +1,164 @@
+{
+    "theme": {
+        "colorPalettes": [{
+            "name": "light",
+            "colors": {
+                "primary": "FF6200EE",
+                "primaryVariant": "FF3700B3",
+                "secondary": "FFFF00B8",
+                "secondaryVariant": "FF018786",
+                "background": "FFFFFFFF",
+                "surface": "FFFFFFFF",
+                "error": "FFB00020",
+                "onPrimary": "FFFFFFFF",
+                "onSecondary": "FFFFFFFF",
+                "onBackground": "FF000000",
+                "onSurface": "FF000000",
+                "onError": "FFFFFFFF",
+                "disabled": "FF888888",
+                "onDisabled": "AAFFFFFF",
+                "interaction": "FFCCCCCC",
+                "isLight": true
+            }
+        }],
+        "textStyles": {
+            "h1": {
+                "fontWeight": 300,
+                "fontSize": 96,
+                "letterSpacing": -1.5,
+                "height": 96,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h2": {
+                "fontWeight": 300,
+                "fontSize": 60,
+                "letterSpacing": -0.5,
+                "height": 60,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h3": {
+                "fontWeight": 400,
+                "fontSize": 48,
+                "letterSpacing": 0,
+                "height": 48,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h4": {
+                "fontWeight": 400,
+                "fontSize": 34,
+                "letterSpacing": 0.24,
+                "height": 34,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h5": {
+                "fontWeight": 400,
+                "fontSize": 24,
+                "letterSpacing": 0,
+                "height": 24,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "h6": {
+                "fontWeight": 500,
+                "fontSize": 20,
+                "letterSpacing": 0.15,
+                "height": 20,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "subtitle1": {
+                "fontWeight": 400,
+                "fontSize": 16,
+                "letterSpacing": 0.15,
+                "height": 16,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "subtitle2": {
+                "fontWeight": 500,
+                "fontSize": 14,
+                "letterSpacing": 0.1,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "body1": {
+                "fontWeight": 400,
+                "fontSize": 16,
+                "letterSpacing": 0.5,
+                "height": 16,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "body2": {
+                "fontWeight": 400,
+                "fontSize": 14,
+                "letterSpacing": 0.25,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "button": {
+                "fontWeight": 500,
+                "fontSize": 14,
+                "letterSpacing": 1.25,
+                "height": 14,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "caption": {
+                "fontWeight": 400,
+                "fontSize": 12,
+                "letterSpacing": 0.4,
+                "height": 12,
+                "style": "normal",
+                "fontFamily": "roboto"
+            },
+            "overline": {
+                "fontWeight": 400,
+                "fontSize": 10,
+                "letterSpacing": 1.5,
+                "height": 10,
+                "style": "normal",
+                "fontFamily": "roboto"
+            }
+        },
+        "spacing": {
+            "xxxs": 2,
+            "xxs": 4,
+            "xs": 8,
+            "s": 12,
+            "m": 16,
+            "l": 24,
+            "xl": 32,
+            "xxl": 48,
+            "xxxl": 64
+        },
+        "dimensions": {
+            "radiusSmall": 4.0,
+            "radiusMedium": 8.0,
+            "radiusLarge": 16.0,
+
+            "listItemHeight": 48.0,
+            "listItemHeightLarge": 72.0,
+            "listItemHeightXLarge": 96.0,
+
+            "dividerHeight": 2.0,
+
+            "buttonHeight": 48.0,
+            "buttonMinWidth": 88.0,
+
+            "iconSize": 24.0,
+
+            "horizontalProgressHeight": 2.0,
+
+            "borderSmall": 1.5,
+
+            "navigationBarElevation": 0.0
+        }
+    }
+}
