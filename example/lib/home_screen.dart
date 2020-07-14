@@ -5,7 +5,9 @@ import 'package:lr_design_system/views/ds_button.dart';
 import 'package:lr_design_system/views/ds_inapp_webview.dart';
 import 'package:lr_design_system/views/ds_inner_list.dart';
 import 'package:lr_design_system/views/ds_list_header.dart';
+import 'package:lr_design_system/views/ds_list_item_action.dart';
 import 'package:lr_design_system/views/ds_segmented_progress_bar.dart';
+import 'package:lr_design_system/views/ds_text_field.dart';
 import 'package:lr_design_system/views/ds_toggle_button.dart';
 import 'package:lr_design_system/views/ds_text_button.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
@@ -203,7 +205,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
-          )
+          ),
+          ShowCaseItem(
+            title: "List Header - with Action",
+            content: DSListHeader(
+              text: "Header",
+              actionButtonText: "Action",
+              onActionButtonPressed: () {},
+            ),
+          ),
+          ShowCaseItem(
+            title: "List Item - with Navigation Action",
+            content: DSListItemAction(
+              text: "List Item",
+              type: DSListItemActionType.navigation,
+              onPressed: () {},
+            ),
+          ),
+          ShowCaseItem(
+            title: "Text Field",
+            content: DSTextField(
+              text: "",
+              hint: "Verification Code",
+            ),
+          ),
         ],
       ),
     );

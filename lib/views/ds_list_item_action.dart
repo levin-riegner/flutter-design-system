@@ -13,7 +13,7 @@ class DSListItemAction extends StatelessWidget {
     @required this.type,
     @required this.onPressed,
     this.leading,
-    this.useBottomDivider,
+    this.useBottomDivider = false,
   });
 
   @override
