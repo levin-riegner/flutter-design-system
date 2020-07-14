@@ -4,7 +4,7 @@ import 'package:lr_design_system/theme/theme.dart';
 class DSListItemAction extends StatelessWidget {
   final String text;
   final DSListItemActionType type;
-  final bool bottomDivider;
+  final bool useBottomDivider;
   final Widget leading;
   final Function() onPressed;
 
@@ -13,7 +13,7 @@ class DSListItemAction extends StatelessWidget {
     @required this.type,
     @required this.onPressed,
     this.leading,
-    this.bottomDivider,
+    this.useBottomDivider,
   });
 
   @override
@@ -55,10 +55,11 @@ class DSListItemAction extends StatelessWidget {
             ),
           ),
         ),
-        Divider(
-          height: ThemeProvider.theme.dimensions.dividerHeight,
-          color: ThemeProvider.theme.colors.interaction,
-        ),
+        if (useBottomDivider)
+          Divider(
+            height: ThemeProvider.theme.dimensions.dividerHeight,
+            color: ThemeProvider.theme.colors.interaction,
+          ),
       ],
     );
   }
