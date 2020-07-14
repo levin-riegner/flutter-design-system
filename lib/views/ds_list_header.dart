@@ -19,7 +19,7 @@ class DSListHeader extends StatelessWidget {
     final hasActionButton = actionButtonText != null && onActionButtonPressed != null;
     return SizedBox(
       width: double.infinity,
-      height: ThemeProvider.theme.dimensions.listItemHeight,
+      height: ThemeProvider.theme.dimensions.listItemHeightLarge,
       child: Padding(
         padding: EdgeInsets.only(
           left: margin ?? ThemeProvider.theme.spacing.l,
