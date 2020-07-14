@@ -26,7 +26,8 @@ class _Theme {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: ThemeProvider.theme.toAppBarTheme(),
         iconTheme: ThemeProvider.theme.toIconThemeData(),
-        textTheme: ThemeProvider.theme.textStyles.toTextTheme()
+        textTheme: ThemeProvider.theme.textStyles.toTextTheme(),
+        splashColor: ThemeProvider.theme.colors.interaction
     );
   }
 
