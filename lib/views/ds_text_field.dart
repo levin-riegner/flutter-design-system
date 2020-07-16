@@ -27,7 +27,7 @@ class DSTextField extends StatefulWidget {
     this.onChanged,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.unspecified,
-    this.focusNode,
+    FocusNode focusNode,
     this.nextFocusNode,
     this.onSubmitted,
     this.autofocus = false,
@@ -36,7 +36,7 @@ class DSTextField extends StatefulWidget {
     this.maxLines = 1,
     this.textColor,
     this.enabled = true,
-  });
+  }) : focusNode = focusNode ?? FocusNode();
 
   @override
   State<StatefulWidget> createState() {
@@ -93,6 +93,7 @@ class _DSTextFieldState extends State<DSTextField> {
         focusNode: widget.focusNode,
         autofocus: widget.autofocus,
         obscureText: widget.isSensible ? isTextObscured : false,
+        cursorColor: ThemeProvider.theme.colors.primary,
         decoration: widget.type == DSTextFieldType.form
             ? InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -125,8 +126,7 @@ class _DSTextFieldState extends State<DSTextField> {
                       )
                     : null,
                 border: const OutlineInputBorder(),
-                labelStyle: ThemeProvider.theme.textStyles.body1.copyWith(color: ThemeProvider.theme.colors.onBackground.withOpacity(0.30)),
-                hintStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.onBackground.withOpacity(0.30)),
+                labelStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.onBackground.withOpacity(0.30)),
                 labelText: widget.hint,
                 errorText: error,
                 errorStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.error.withOpacity(0.30)),
