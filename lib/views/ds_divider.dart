@@ -11,7 +11,7 @@ class DSDivider extends StatelessWidget {
     double height,
     Color color,
   }): this.height = height ?? ThemeProvider.theme.dimensions.dividerHeight,
-  this.color = color ?? ThemeProvider.theme.colors.interaction;
+  this.color = color ?? ThemeProvider.theme.colors.onBackground.withOpacity(0.05);
 
   @override
   Widget build(BuildContext context) {

@@ -15,7 +15,7 @@
                 "onBackground": "FF000000",
                 "onSurface": "FF000000",
                 "onError": "FFFFFFFF",
-                "disabled": "FF888888",
+                "disabled": "4D202020",
                 "onDisabled": "AAFFFFFF",
                 "interaction": "FFCCCCCC",
                 "isLight": true
@@ -147,7 +147,7 @@
             "listItemHeightLarge": 72.0,
             "listItemHeightXLarge": 96.0,
 
-            "dividerHeight": 2.0,
+            "dividerHeight": 1.0,
 
             "buttonHeight": 48.0,
             "buttonMinWidth": 88.0,

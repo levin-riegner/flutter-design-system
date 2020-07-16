@@ -216,10 +216,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ShowCaseItem(
             title: "List Item - with Navigation Action",
-            content: DSListItemAction(
-              text: "List Item",
-              type: DSListItemActionType.navigation,
-              onPressed: () {},
+            content: Padding(
+              padding: const EdgeInsets.only(bottom: 48.0),
+              child: DSListItemAction(
+                text: "List Item",
+                type: DSListItemActionType.navigation,
+                onPressed: () {},
+                useBottomDivider: true,
+              ),
             ),
           ),
           ShowCaseItem(

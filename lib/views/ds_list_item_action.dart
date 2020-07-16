@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/views/ds_divider.dart';
 
 class DSListItemAction extends StatelessWidget {
   final String text;
@@ -59,10 +60,7 @@ class DSListItemAction extends StatelessWidget {
           ),
         ),
         if (useBottomDivider)
-          Divider(
-            height: ThemeProvider.theme.dimensions.dividerHeight,
-            color: ThemeProvider.theme.colors.interaction,
-          ),
+          DSDivider(),
       ],
     );
   }
