@@ -129,7 +129,7 @@ class _DSTextFieldState extends State<DSTextField> {
                 labelStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.onBackground.withOpacity(0.30)),
                 labelText: widget.hint,
                 errorText: error,
-                errorStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.error.withOpacity(0.30)),
+                errorStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.error),
               )
             : InputDecoration(
                 border: InputBorder.none,
