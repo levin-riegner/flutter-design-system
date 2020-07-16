@@ -23,11 +23,15 @@ class _Theme {
 
   ThemeData toThemeData() {
     return ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: ThemeProvider.theme.toAppBarTheme(),
-        iconTheme: ThemeProvider.theme.toIconThemeData(),
-        textTheme: ThemeProvider.theme.textStyles.toTextTheme(),
-        splashColor: ThemeProvider.theme.colors.interaction
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      appBarTheme: ThemeProvider.theme.toAppBarTheme(),
+      iconTheme: ThemeProvider.theme.toIconThemeData(),
+      textTheme: ThemeProvider.theme.textStyles.toTextTheme(),
+      splashColor: ThemeProvider.theme.colors.interaction.withOpacity(0.4),
+      cursorColor: ThemeProvider.theme.colors.primary,
+      errorColor: ThemeProvider.theme.colors.error,
+      backgroundColor: ThemeProvider.theme.colors.background,
+      scaffoldBackgroundColor: ThemeProvider.theme.colors.background,
     );
   }
 

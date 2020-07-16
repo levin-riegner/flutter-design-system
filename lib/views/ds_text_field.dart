@@ -104,7 +104,7 @@ class _DSTextFieldState extends State<DSTextField> {
                   borderRadius: BorderRadius.circular(ThemeProvider.theme.dimensions.radiusMedium),
                 ),
                 errorMaxLines: 3,
-                contentPadding: EdgeInsets.all(ThemeProvider.theme.dimensions.radiusMedium),
+                contentPadding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
                 errorBorder: errorBorder,
                 focusedErrorBorder: errorBorder,
                 suffixIcon: widget.isSensible
@@ -126,6 +126,7 @@ class _DSTextFieldState extends State<DSTextField> {
                     : null,
                 border: const OutlineInputBorder(),
                 labelStyle: ThemeProvider.theme.textStyles.body1.copyWith(color: ThemeProvider.theme.colors.onBackground.withOpacity(0.30)),
+                hintStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.onBackground.withOpacity(0.30)),
                 labelText: widget.hint,
                 errorText: error,
                 errorStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.error.withOpacity(0.30)),
