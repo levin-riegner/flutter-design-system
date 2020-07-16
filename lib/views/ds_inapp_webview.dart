@@ -77,7 +77,7 @@ class _InAppWebViewState extends State<InAppWebView> {
   void dispose() {
     internetSubscription?.cancel();
     // Unsubscribe to Url changes
-    widget.urlNotifier.addListener(_reloadUrl);
+    widget.urlNotifier.removeListener(_reloadUrl);
     super.dispose();
   }
 
