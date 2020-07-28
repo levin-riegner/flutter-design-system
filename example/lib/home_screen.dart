@@ -12,6 +12,7 @@ import 'package:lr_design_system/views/ds_toggle_button.dart';
 import 'package:lr_design_system/views/ds_text_button.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:lr_design_system/views/ds_modal_bottom_sheet.dart';
+import 'package:lr_design_system/views/ds_app_bar.dart';
 import 'package:showcase/views/sample_card.dart';
 import 'package:showcase/views/showcase_item.dart';
 
@@ -231,6 +232,13 @@ class _HomeScreenState extends State<HomeScreen> {
             content: DSTextField(
               text: "",
               hint: "Verification Code",
+            ),
+          ),
+          ShowCaseItem(
+            title: "App Bar",
+            content: DSAppBar(
+              title: "Screen Title",
+              backEnabled: true,
             ),
           ),
         ],
