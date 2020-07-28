@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/theme/theme.dart';
 
-class DSAppBar extends StatelessWidget {
+class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool backEnabled;
 
@@ -24,4 +24,7 @@ class DSAppBar extends StatelessWidget {
       backgroundColor: ThemeProvider.theme.colors.primary,
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(ThemeProvider.theme.dimensions.navigationBarHeight);
 }

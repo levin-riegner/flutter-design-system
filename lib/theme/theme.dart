@@ -294,6 +294,7 @@ class _Dimensions {
   final double horizontalProgressHeight;
 
   final double navigationBarElevation;
+  final double navigationBarHeight;
 
   _Dimensions({
     this.radiusSmall = 4.0,
@@ -309,6 +310,7 @@ class _Dimensions {
     this.iconSize = 24.0,
     this.horizontalProgressHeight = 2.0,
     this.navigationBarElevation = 4.0,
+    this.navigationBarHeight = kToolbarHeight,
   });
 
   factory _Dimensions.fromJson(Map<String, dynamic> json) {
@@ -326,6 +328,7 @@ class _Dimensions {
       iconSize: json['iconSize'].toDouble(),
       horizontalProgressHeight: json['horizontalProgressHeight'].toDouble(),
       navigationBarElevation: json['navigationBarElevation'].toDouble(),
+      navigationBarHeight: json['navigationBarHeight'].toDouble(),
     );
   }
 }
