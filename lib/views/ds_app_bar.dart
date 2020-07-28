@@ -14,13 +14,15 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: ThemeProvider.theme.textStyles.h4.copyWith(color: ThemeProvider.theme.colors.onPrimary),
       ),
-      leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back,
-          color: ThemeProvider.theme.colors.onPrimary,
-        ),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
+      leading: backEnabled
+          ? IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: ThemeProvider.theme.colors.onPrimary,
+              ),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          : null,
       backgroundColor: ThemeProvider.theme.colors.primary,
     );
   }
