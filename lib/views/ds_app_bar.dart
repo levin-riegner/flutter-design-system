@@ -5,7 +5,7 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool backEnabled;
 
-  const DSAppBar({this.title, this.backEnabled});
+  const DSAppBar({@required this.title, @required this.backEnabled});
 
   @override
   Widget build(BuildContext context) {
