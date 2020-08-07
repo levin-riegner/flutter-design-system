@@ -27,6 +27,8 @@ class _Theme {
       appBarTheme: ThemeProvider.theme.toAppBarTheme(),
       iconTheme: ThemeProvider.theme.toIconThemeData(),
       textTheme: ThemeProvider.theme.textStyles.toTextTheme(),
+      primaryColor: ThemeProvider.theme.colors.primary,
+      accentColor: ThemeProvider.theme.colors.secondary,
       splashColor: ThemeProvider.theme.colors.interaction.withOpacity(0.4),
       cursorColor: ThemeProvider.theme.colors.primary,
       errorColor: ThemeProvider.theme.colors.error,
