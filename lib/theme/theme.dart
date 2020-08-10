@@ -34,6 +34,8 @@ class _Theme {
       errorColor: ThemeProvider.theme.colors.error,
       backgroundColor: ThemeProvider.theme.colors.background,
       scaffoldBackgroundColor: ThemeProvider.theme.colors.background,
+      textSelectionColor: ThemeProvider.theme.colors.secondary,
+      textSelectionHandleColor: ThemeProvider.theme.colors.secondary,
     );
   }
 
