@@ -12,10 +12,6 @@ class DSLoadingIndicator extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1000),
     this.controller,
   })  : this.color = color ?? ThemeProvider.theme.colors.primary,
-        assert(
-            !(itemBuilder is IndexedWidgetBuilder && color is Color) &&
-                !(itemBuilder == null && color == null),
-            'You should specify either a itemBuilder or a color'),
         assert(size != null),
         super(key: key);
 
