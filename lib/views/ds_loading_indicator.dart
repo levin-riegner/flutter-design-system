@@ -1,16 +1,18 @@
 import 'dart:math' as math show sin, pi;
 import 'package:flutter/widgets.dart';
 import 'package:flutter/animation.dart';
+import 'package:lr_design_system/theme/theme.dart';
 
 class DSLoadingIndicator extends StatefulWidget {
-  const DSLoadingIndicator({
+  DSLoadingIndicator({
     Key key,
-    this.color,
+    Color color,
     this.size = 15.0,
     this.itemBuilder,
     this.duration = const Duration(milliseconds: 1000),
     this.controller,
-  })  : assert(
+  })  : this.color = color ?? ThemeProvider.theme.colors.primary,
+        assert(
             !(itemBuilder is IndexedWidgetBuilder && color is Color) &&
                 !(itemBuilder == null && color == null),
             'You should specify either a itemBuilder or a color'),
