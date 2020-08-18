@@ -4,8 +4,13 @@ import 'package:lr_design_system/theme/theme.dart';
 class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool backEnabled;
+  final VoidCallback onBack;
 
-  const DSAppBar({@required this.title, @required this.backEnabled});
+  const DSAppBar({
+    @required this.title,
+    @required this.backEnabled,
+    this.onBack,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Icons.arrow_back,
                 color: ThemeProvider.theme.colors.onPrimary,
               ),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed:  onBack != null ? onBack : () => Navigator.of(context).pop(),
             )
           : null,
       backgroundColor: ThemeProvider.theme.colors.primary,

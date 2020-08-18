@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lr_design_system/theme/theme.dart';
 import 'package:lr_design_system/views/ds_banner.dart';
 import 'package:lr_design_system/views/ds_button.dart';
+import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:lr_design_system/views/ds_inapp_webview.dart';
 import 'package:lr_design_system/views/ds_inner_list.dart';
 import 'package:lr_design_system/views/ds_list_header.dart';
@@ -241,8 +242,38 @@ class _HomeScreenState extends State<HomeScreen> {
               backEnabled: true,
             ),
           ),
+          ShowCaseItem(
+            title: "Placeholder Screens",
+            content: Container(),
+            modifiers: [
+              ShowCaseModifier(
+                title: "Error",
+                action: navigateTo(DSErrorView(
+                  useScaffold: true,
+                  onBack: () => Navigator.of(context).pop(),
+                  onRefresh: () => {},
+                )),
+              ),
+              ShowCaseModifier(
+                title: "Empty",
+                action: navigateTo(DSEmptyView(
+                  useScaffold: true,
+                  onBack: () => Navigator.of(context).pop(),
+                  onRefresh: () => {},
+                )),
+              ),
+            ],
+          ),
         ],
       ),
     );
+  }
+
+  VoidCallback navigateTo(Widget view) {
+    return () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => view,
+          ),
+        );
   }
 }
