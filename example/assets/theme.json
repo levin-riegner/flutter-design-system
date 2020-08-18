@@ -3,20 +3,20 @@
         "colorPalettes": [{
             "name": "light",
             "colors": {
-                "primary": "FF6200EE",
-                "primaryVariant": "FF3700B3",
-                "secondary": "FFFF00B8",
-                "secondaryVariant": "FF018786",
+                "primary": "FFE21934",
+                "primaryVariant": "FFE21934",
+                "secondary": "FFFCE8EB",
+                "secondaryVariant": "FFFCE8EB",
                 "background": "FFFFFFFF",
                 "surface": "FFFFFFFF",
-                "error": "FFB00020",
+                "error": "FFFF5F55",
                 "onPrimary": "FFFFFFFF",
                 "onSecondary": "FFFFFFFF",
-                "onBackground": "FF000000",
-                "onSurface": "FF000000",
+                "onBackground": "FF202020",
+                "onSurface": "FF202020",
                 "onError": "FFFFFFFF",
                 "disabled": "4D202020",
-                "onDisabled": "AAFFFFFF",
+                "onDisabled": "FFFFFFFF",
                 "interaction": "FFCCCCCC",
                 "isLight": true
             }
@@ -128,13 +128,13 @@
             }
         },
         "spacing": {
-            "xxxs": 2,
-            "xxs": 4,
-            "xs": 8,
-            "s": 12,
-            "m": 16,
+            "xxxs": 1.5,
+            "xxs": 1.5,
+            "xs": 3,
+            "s": 6,
+            "m": 12,
             "l": 24,
-            "xl": 32,
+            "xl": 36,
             "xxl": 48,
             "xxxl": 64
         },
@@ -158,7 +158,9 @@
 
             "borderSmall": 1.5,
 
-            "navigationBarElevation": 0.0
+            "navigationBarElevation": 0.0,
+
+            "navigationBarHeight": 56.0
         }
     }
 }
