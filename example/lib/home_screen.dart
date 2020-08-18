@@ -5,11 +5,14 @@ import 'package:lr_design_system/views/ds_button.dart';
 import 'package:lr_design_system/views/ds_inapp_webview.dart';
 import 'package:lr_design_system/views/ds_inner_list.dart';
 import 'package:lr_design_system/views/ds_list_header.dart';
+import 'package:lr_design_system/views/ds_list_item_action.dart';
 import 'package:lr_design_system/views/ds_segmented_progress_bar.dart';
+import 'package:lr_design_system/views/ds_text_field.dart';
 import 'package:lr_design_system/views/ds_toggle_button.dart';
 import 'package:lr_design_system/views/ds_text_button.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:lr_design_system/views/ds_modal_bottom_sheet.dart';
+import 'package:lr_design_system/views/ds_app_bar.dart';
 import 'package:showcase/views/sample_card.dart';
 import 'package:showcase/views/showcase_item.dart';
 
@@ -203,7 +206,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
-          )
+          ),
+          ShowCaseItem(
+            title: "List Header - with Action",
+            content: DSListHeader(
+              text: "Header",
+              actionButtonText: "Action",
+              onActionButtonPressed: () {},
+            ),
+          ),
+          ShowCaseItem(
+            title: "List Item - with Navigation Action",
+            content: Padding(
+              padding: const EdgeInsets.only(bottom: 48.0),
+              child: DSListItemAction(
+                text: "List Item",
+                type: DSListItemActionType.navigation,
+                onPressed: () {},
+                useBottomDivider: true,
+              ),
+            ),
+          ),
+          ShowCaseItem(
+            title: "Text Field",
+            content: DSTextField(
+              text: "",
+              hint: "Verification Code",
+            ),
+          ),
+          ShowCaseItem(
+            title: "App Bar",
+            content: DSAppBar(
+              title: "Screen Title",
+              backEnabled: true,
+            ),
+          ),
         ],
       ),
     );

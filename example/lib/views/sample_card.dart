@@ -46,7 +46,7 @@ class SampleCard extends StatelessWidget {
                         ),
                         child: Text(
                           title.toUpperCase(),
-                          style: ThemeProvider.theme.typography.button.apply(color: ThemeProvider.theme.colors.onSecondary),
+                          style: ThemeProvider.theme.textStyles.button.apply(color: ThemeProvider.theme.colors.onSecondary),
                         ),
                       ),
                     ),
@@ -59,7 +59,7 @@ class SampleCard extends StatelessWidget {
                   description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: ThemeProvider.theme.typography.h6.apply(color: ThemeProvider.theme.colors.onSurface),
+                  style: ThemeProvider.theme.textStyles.h6.apply(color: ThemeProvider.theme.colors.onSurface),
                 ) : Container(),
               ],
             ),

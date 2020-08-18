@@ -13,7 +13,7 @@ void main() {
     expect(ThemeProvider.theme != null, true);
     expect(ThemeProvider.theme.colors.primary, Color(0xFF6200EE));
     expect(
-        ThemeProvider.theme.typography.h1,
+        ThemeProvider.theme.textStyles.h1,
         TextStyle(
             fontWeight: FontWeight.w300,
             fontSize: 96,

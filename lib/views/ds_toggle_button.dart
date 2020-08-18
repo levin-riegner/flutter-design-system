@@ -45,7 +45,7 @@ class DSToggleButton extends StatelessWidget {
         this.selectedColor =
             selectedColor ?? ThemeProvider.theme.colors.primary,
         this.textStyle = textStyle ??
-            ThemeProvider.theme.typography.overline.apply(
+            ThemeProvider.theme.textStyles.overline.apply(
                 color: isSelected
                     ? ThemeProvider.theme.colors.onPrimary
                     : ThemeProvider.theme.colors.onBackground);

@@ -37,7 +37,7 @@ class ShowCaseItem extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: ThemeProvider.theme.typography.h5,
+              style: ThemeProvider.theme.textStyles.h5,
             ),
             Margins.small,
             content,

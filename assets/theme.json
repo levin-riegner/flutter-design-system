@@ -158,7 +158,8 @@
 
             "borderSmall": 1.5,
 
-            "navigationBarElevation": 0.0
+            "navigationBarElevation": 0.0,
+            "navigationBarHeight": 56.0
         }
     }
 }

@@ -34,7 +34,7 @@ class DSTextButton extends StatelessWidget {
     Color disabledTextColor,
   })  : this.loadingColor = loadingColor ?? ThemeProvider.theme.colors.primary,
         this.height = height ?? ThemeProvider.theme.dimensions.buttonHeight,
-        this.textStyle = textStyle ?? ThemeProvider.theme.typography.button,
+        this.textStyle = textStyle ?? ThemeProvider.theme.textStyles.button,
         this.defaultTextColor =
             defaultTextColor ?? ThemeProvider.theme.colors.primary,
         this.disabledTextColor =

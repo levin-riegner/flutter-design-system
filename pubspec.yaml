@@ -11,8 +11,9 @@ dependencies:
     sdk: flutter
 
   # External Libraries
-  connectivity: 0.4.8+5
+  connectivity: 0.4.9
   webview_flutter: 0.3.21
+  flushbar: 1.10.4
 
 dev_dependencies:
   flutter_driver:

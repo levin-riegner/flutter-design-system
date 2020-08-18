@@ -15,18 +15,27 @@ class ThemeProvider {
 
 class _Theme {
   final _ColorPalette colors;
-  final _Typography typography;
+  final _TextStyles textStyles;
   final _Spacing spacing;
   final _Dimensions dimensions;
 
-  _Theme({this.colors, this.typography, this.spacing, this.dimensions});
+  _Theme({this.colors, this.textStyles, this.spacing, this.dimensions});
 
   ThemeData toThemeData() {
     return ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        appBarTheme: ThemeProvider.theme.toAppBarTheme(),
-        iconTheme: ThemeProvider.theme.toIconThemeData(),
-        textTheme: ThemeProvider.theme.typography.toTextTheme()
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      appBarTheme: ThemeProvider.theme.toAppBarTheme(),
+      iconTheme: ThemeProvider.theme.toIconThemeData(),
+      textTheme: ThemeProvider.theme.textStyles.toTextTheme(),
+      primaryColor: ThemeProvider.theme.colors.primary,
+      accentColor: ThemeProvider.theme.colors.secondary,
+      splashColor: ThemeProvider.theme.colors.interaction.withOpacity(0.4),
+      cursorColor: ThemeProvider.theme.colors.primary,
+      errorColor: ThemeProvider.theme.colors.error,
+      backgroundColor: ThemeProvider.theme.colors.background,
+      scaffoldBackgroundColor: ThemeProvider.theme.colors.background,
+      textSelectionColor: ThemeProvider.theme.colors.secondary,
+      textSelectionHandleColor: ThemeProvider.theme.colors.secondary,
     );
   }
 
@@ -37,7 +46,7 @@ class _Theme {
       color: colors.surface,
       iconTheme: toIconThemeData(),
       actionsIconTheme: toIconThemeData(),
-      textTheme: typography.toTextTheme().apply(bodyColor: colors.onSurface),
+      textTheme: textStyles.toTextTheme().apply(bodyColor: colors.onSurface),
     );
   }
 
@@ -52,7 +61,7 @@ class _Theme {
         colors: _ColorPalette.fromJson(selectedPalette != null
             ? colorPalettes.firstWhere((e) => e["name"] == selectedPalette)["colors"]
             : colorPalettes.first["colors"]),
-        typography: _Typography.fromJson(theme['textStyles']),
+        textStyles: _TextStyles.fromJson(theme['textStyles']),
         spacing: _Spacing.fromJson(theme['spacing']),
         dimensions: _Dimensions.fromJson(theme["dimensions"]));
   }
@@ -126,7 +135,7 @@ class _ColorPalette {
   }
 }
 
-class _Typography {
+class _TextStyles {
   final TextStyle h1;
   final TextStyle h2;
   final TextStyle h3;
@@ -141,7 +150,7 @@ class _Typography {
   final TextStyle caption;
   final TextStyle overline;
 
-  _Typography(
+  _TextStyles(
       {this.h1,
       this.h2,
       this.h3,
@@ -173,8 +182,8 @@ class _Typography {
         overline: overline);
   }
 
-  factory _Typography.fromJson(Map<String, dynamic> json) {
-    return _Typography(
+  factory _TextStyles.fromJson(Map<String, dynamic> json) {
+    return _TextStyles(
         h1: _jsonToTextStyle(json['h1']),
         h2: _jsonToTextStyle(json['h2']),
         h3: _jsonToTextStyle(json['h3']),
@@ -289,38 +298,41 @@ class _Dimensions {
   final double horizontalProgressHeight;
 
   final double navigationBarElevation;
+  final double navigationBarHeight;
 
   _Dimensions({
-    this.radiusSmall = 4,
-    this.radiusMedium = 8,
-    this.radiusLarge = 16,
+    this.radiusSmall = 4.0,
+    this.radiusMedium = 8.0,
+    this.radiusLarge = 16.0,
     this.borderSmall = 1.5,
-    this.listItemHeight = 48,
-    this.listItemHeightLarge = 72,
-    this.listItemHeightXLarge = 96,
-    this.dividerHeight = 2,
-    this.buttonHeight = 48,
-    this.buttonMinWidth = 88,
-    this.iconSize = 24,
-    this.horizontalProgressHeight = 2,
+    this.listItemHeight = 48.0,
+    this.listItemHeightLarge = 72.0,
+    this.listItemHeightXLarge = 96.0,
+    this.dividerHeight = 2.0,
+    this.buttonHeight = 48.0,
+    this.buttonMinWidth = 88.0,
+    this.iconSize = 24.0,
+    this.horizontalProgressHeight = 2.0,
     this.navigationBarElevation = 4.0,
+    this.navigationBarHeight = kToolbarHeight,
   });
 
   factory _Dimensions.fromJson(Map<String, dynamic> json) {
     return _Dimensions(
-      radiusSmall: json['radiusSmall'],
-      radiusMedium: json['radiusMedium'],
-      radiusLarge: json['radiusLarge'],
-      borderSmall: json['borderSmall'],
+      radiusSmall: json['radiusSmall'].toDouble(),
+      radiusMedium: json['radiusMedium'].toDouble(),
+      radiusLarge: json['radiusLarge'].toDouble(),
+      borderSmall: json['borderSmall'].toDouble(),
       listItemHeight: json['listItemHeight'],
-      listItemHeightLarge: json['listItemHeightLarge'],
-      listItemHeightXLarge: json['listItemHeightXLarge'],
-      dividerHeight: json['dividerHeight'],
-      buttonHeight: json['buttonHeight'],
-      buttonMinWidth: json['buttonMinWidth'],
-      iconSize: json['iconSize'],
-      horizontalProgressHeight: json['horizontalProgressHeight'],
-      navigationBarElevation: json['navigationBarElevation'],
+      listItemHeightLarge: json['listItemHeightLarge'].toDouble(),
+      listItemHeightXLarge: json['listItemHeightXLarge'].toDouble(),
+      dividerHeight: json['dividerHeight'].toDouble(),
+      buttonHeight: json['buttonHeight'].toDouble(),
+      buttonMinWidth: json['buttonMinWidth'].toDouble(),
+      iconSize: json['iconSize'].toDouble(),
+      horizontalProgressHeight: json['horizontalProgressHeight'].toDouble(),
+      navigationBarElevation: json['navigationBarElevation'].toDouble(),
+      navigationBarHeight: json['navigationBarHeight'].toDouble(),
     );
   }
 }

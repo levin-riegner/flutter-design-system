@@ -49,9 +49,9 @@ class DSBanner extends StatelessWidget {
         this.defaultProgressColor =
             defaultProgressColor ?? ThemeProvider.theme.colors.disabled,
         this.titleTextStyle =
-            titleTextStyle ?? ThemeProvider.theme.typography.h4,
+            titleTextStyle ?? ThemeProvider.theme.textStyles.h4,
         this.messageTextStyle =
-            messageTextStyle ?? ThemeProvider.theme.typography.body1;
+            messageTextStyle ?? ThemeProvider.theme.textStyles.body1;
 
   @override
   Widget build(BuildContext context) {

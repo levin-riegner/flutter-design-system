@@ -28,7 +28,7 @@ class DSPrimaryButton extends _BaseButton {
       width: width,
       borderSide: BorderSide.none,
       defaultColor: ThemeProvider.theme.colors.primary,
-      disabledColor: ThemeProvider.theme.colors.disabled,
+      disabledColor: ThemeProvider.theme.colors.primary.withOpacity(0.25),
       defaultTextColor: ThemeProvider.theme.colors.onPrimary,
       disabledTextColor: ThemeProvider.theme.colors.onDisabled,
       loadingColor: ThemeProvider.theme.colors.onPrimary,
@@ -109,7 +109,7 @@ class _BaseButton extends StatelessWidget {
         this.borderRadius = borderRadius ?? ThemeProvider.theme.dimensions.radiusMedium,
         this.defaultColor = defaultColor ?? ThemeProvider.theme.colors.primary,
         this.disabledColor = disabledColor ?? ThemeProvider.theme.colors.disabled,
-        this.textStyle = textStyle ?? ThemeProvider.theme.typography.button,
+        this.textStyle = textStyle ?? ThemeProvider.theme.textStyles.button,
         this.defaultTextColor = defaultTextColor ?? ThemeProvider.theme.colors.onPrimary,
         this.disabledTextColor = disabledTextColor ?? ThemeProvider.theme.colors.onDisabled;
 
