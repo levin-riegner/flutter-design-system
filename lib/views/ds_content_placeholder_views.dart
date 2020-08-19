@@ -136,52 +136,53 @@ class _ContentPlaceholderBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Localise
-    return Padding(
-      padding: EdgeInsets.all(ThemeProvider.theme.spacing.l),
-      child: Column(
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                iconView ??
-                    Icon(
-                      icon,
-                      size: kIconHeight,
-                      color: ThemeProvider.theme.colors.primary,
-                    ),
-                ThemeSpacing.XLarge,
-                Text(
-                  title,
-                  style: ThemeProvider.theme.textStyles.h3,
-                  textAlign: TextAlign.center,
-                ),
-                ThemeSpacing.Medium,
-                Text(
-                  description,
-                  style: ThemeProvider.theme.textStyles.body1,
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-          ),
-          if (onRefresh != null)
-            DSPrimaryButton(
-              text: 'Refresh',
-              onPressed: onRefresh,
-            ),
-          if (onBack != null)
-            Padding(
-              padding: EdgeInsets.only(top: ThemeProvider.theme.spacing.m),
-              child: DSTextButton(
-                text: 'Go back',
-                onPressed: onBack,
-                alignment: Alignment.center,
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(ThemeProvider.theme.spacing.l),
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  iconView ??
+                      Icon(
+                        icon,
+                        size: kIconHeight,
+                        color: ThemeProvider.theme.colors.primary,
+                      ),
+                  ThemeSpacing.XLarge,
+                  Text(
+                    title,
+                    style: ThemeProvider.theme.textStyles.h4,
+                    textAlign: TextAlign.center,
+                  ),
+                  ThemeSpacing.Medium,
+                  Text(
+                    description,
+                    style: ThemeProvider.theme.textStyles.body1,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-            )
-        ],
+            ),
+            if (onRefresh != null)
+              DSPrimaryButton(
+                text: 'Refresh',
+                onPressed: onRefresh,
+              ),
+            if (onBack != null)
+              Padding(
+                padding: EdgeInsets.only(top: ThemeProvider.theme.spacing.m),
+                child: DSTextButton(
+                  text: 'Go back',
+                  onPressed: onBack,
+                  alignment: Alignment.center,
+                ),
+              )
+          ],
+        ),
       ),
     );
   }
