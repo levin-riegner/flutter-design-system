@@ -39,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final nameFocusNode = FocusNode();
+    final genderFocusNode = FocusNode();
     return Scaffold(
       appBar: AppBar(
         title: Text("Design System"),
@@ -66,8 +68,16 @@ class _HomeScreenState extends State<HomeScreen> {
               currentPageNotifier: stepsNotifier,
             ),
             modifiers: [
-              ShowCaseModifier(title: "Previous", action: () => (stepsNotifier.value > 0) ? stepsNotifier.value -= 1 : null),
-              ShowCaseModifier(title: "Next", action: () => (stepsNotifier.value < 5) ? stepsNotifier.value += 1 : null),
+              ShowCaseModifier(
+                  title: "Previous",
+                  action: () => (stepsNotifier.value > 0)
+                      ? stepsNotifier.value -= 1
+                      : null),
+              ShowCaseModifier(
+                  title: "Next",
+                  action: () => (stepsNotifier.value < 5)
+                      ? stepsNotifier.value += 1
+                      : null),
             ],
           ),
           ShowCaseItem(
@@ -76,9 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.warning),
               isWarning: true,
               title: "This is a banner",
-              message: "With some useful description to catch the user's attention.\n- Some progress can be added.\n- Also an icon",
+              message:
+                  "With some useful description to catch the user's attention.\n- Some progress can be added.\n- Also an icon",
               progress: 0.2,
-              defaultProgressColor: ThemeProvider.theme.colors.disabled, // Remove
+              defaultProgressColor:
+                  ThemeProvider.theme.colors.disabled, // Remove
             ),
           ),
           ShowCaseItem(
@@ -94,8 +106,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             modifiers: [
-              ShowCaseModifier(title: "Loading", action: () => setState(() => loading = !loading)),
-              ShowCaseModifier(title: "Enabled", action: () => setState(() => enabled = !enabled)),
+              ShowCaseModifier(
+                  title: "Loading",
+                  action: () => setState(() => loading = !loading)),
+              ShowCaseModifier(
+                  title: "Enabled",
+                  action: () => setState(() => enabled = !enabled)),
             ],
           ),
           ShowCaseItem(
@@ -111,8 +127,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             modifiers: [
-              ShowCaseModifier(title: "Loading", action: () => setState(() => loading = !loading)),
-              ShowCaseModifier(title: "Enabled", action: () => setState(() => enabled = !enabled)),
+              ShowCaseModifier(
+                  title: "Loading",
+                  action: () => setState(() => loading = !loading)),
+              ShowCaseModifier(
+                  title: "Enabled",
+                  action: () => setState(() => enabled = !enabled)),
             ],
           ),
           ShowCaseItem(
@@ -128,8 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             modifiers: [
-              ShowCaseModifier(title: "Loading", action: () => setState(() => loading = !loading)),
-              ShowCaseModifier(title: "Enabled", action: () => setState(() => enabled = !enabled)),
+              ShowCaseModifier(
+                  title: "Loading",
+                  action: () => setState(() => loading = !loading)),
+              ShowCaseModifier(
+                  title: "Enabled",
+                  action: () => setState(() => enabled = !enabled)),
             ],
           ),
           ShowCaseItem(
@@ -141,7 +165,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   context: context,
                   builder: (context) => DSDialog(
                     title: "Are you sure?",
-                    description: "Some text around here information about the consequences of the action that triggered the dialog.",
+                    description:
+                        "Some text around here information about the consequences of the action that triggered the dialog.",
                     positiveButtonText: "Confirm",
                     negativeButtonText: "Cancel",
                     negativeCallback: () {
@@ -231,9 +256,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ShowCaseItem(
             title: "Text Field",
             content: DSTextField(
-              text: "",
-              hint: "Verification Code",
-            ),
+                placeholderText: "email",
+                focusNode: nameFocusNode,
+                nextFocusNode: genderFocusNode,
+                keyboardType: TextInputType.number,
+                borderWidth: 0.0,
+                onChanged: (text) => print(text)),
+          ),
+          ShowCaseItem(
+            title: "Text Field",
+            content: DSTextField(
+                placeholderText: "email",
+                focusNode: genderFocusNode,
+                nextFocusNode: nameFocusNode,
+                onChanged: (text) => print(text)),
           ),
           ShowCaseItem(
             title: "App Bar",

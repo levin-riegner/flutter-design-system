@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/ui/utils/validated_value.dart';
 
 class DSTextField extends StatefulWidget {
   final String text;
   final bool isSensible;
   final String hint;
   final String error;
-  final ValueChanged<String> onChanged;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final FocusNode focusNode;
@@ -14,17 +14,22 @@ class DSTextField extends StatefulWidget {
   final VoidCallback onSubmitted;
   final bool autofocus;
   final TextCapitalization textCapitalization;
-  final DSTextFieldType type;
   final int maxLines;
   final Color textColor;
   final bool enabled;
+  final ValidatedValue validatedValue;
+  final String initialText;
+  final String placeholderText;
+  final bool obscureText;
+  final bool isValid;
+  final double borderWidth;
+  final void Function(String) onChanged;
 
   DSTextField({
     this.text,
     this.isSensible = false,
     this.hint,
     this.error,
-    this.onChanged,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.unspecified,
     FocusNode focusNode,
@@ -32,10 +37,16 @@ class DSTextField extends StatefulWidget {
     this.onSubmitted,
     this.autofocus = false,
     this.textCapitalization = TextCapitalization.none,
-    this.type = DSTextFieldType.form,
     this.maxLines = 1,
     this.textColor,
     this.enabled = true,
+    this.validatedValue,
+    this.initialText,
+    this.placeholderText,
+    this.onChanged,
+    this.obscureText = false,
+    this.isValid,
+    this.borderWidth,
   }) : focusNode = focusNode ?? FocusNode();
 
   @override
@@ -54,8 +65,22 @@ class _DSTextFieldState extends State<DSTextField> {
 
   var isTextObscured = true;
 
+  static const _padding = EdgeInsets.only(left: 10.0, right: 3.0);
+  static const _contentPadding = EdgeInsets.symmetric(vertical: 7.0);
+  final _controller = TextEditingController();
+  bool _isObscure = true;
+
   _DSTextFieldState({@required String text, this.error}) {
     textEditingController.text = text;
+
+    @override
+    void initState() {
+      super.initState();
+      _controller.text = widget.initialText ?? widget.validatedValue?.value;
+    }
+
+    @override
+    _DSTextFieldState createState() => _DSTextFieldState();
   }
 
   @override
@@ -67,88 +92,94 @@ class _DSTextFieldState extends State<DSTextField> {
       });
     }
     // Update Text
-    if (widget.text != oldWidget.text && widget.text != textEditingController.text) {
+    if (widget.text != oldWidget.text &&
+        widget.text != textEditingController.text) {
       textEditingController.text = widget.text;
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
+  void initState() {
+    super.initState();
+    _controller.text = widget.initialText ?? widget.validatedValue?.value;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final errorBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: ThemeProvider.theme.colors.error, width: ThemeProvider.theme.dimensions.borderSmall),
-      borderRadius: BorderRadius.circular(ThemeProvider.theme.dimensions.radiusMedium),
-    );
-    return SizedBox(
-      child: TextFormField(
-        keyboardAppearance: Brightness.light,
-        enabled: widget.enabled,
-        keyboardType: widget.keyboardType,
-        controller: textEditingController,
-        style: ThemeProvider.theme.textStyles.body1.copyWith(color: widget.textColor ?? ThemeProvider.theme.colors.onBackground),
-        textInputAction: widget.textInputAction,
-        textCapitalization: widget.textCapitalization,
-        maxLines: widget.maxLines,
-        autocorrect: false,
-        focusNode: widget.focusNode,
-        autofocus: widget.autofocus,
-        obscureText: widget.isSensible ? isTextObscured : false,
-        cursorColor: ThemeProvider.theme.colors.primary,
-        decoration: widget.type == DSTextFieldType.form
-            ? InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: ThemeProvider.theme.colors.interaction, width: ThemeProvider.theme.dimensions.borderSmall),
-                  borderRadius: BorderRadius.circular(ThemeProvider.theme.dimensions.radiusMedium),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: ThemeProvider.theme.colors.primary, width: ThemeProvider.theme.dimensions.borderSmall),
-                  borderRadius: BorderRadius.circular(ThemeProvider.theme.dimensions.radiusMedium),
-                ),
-                errorMaxLines: 3,
-                contentPadding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
-                errorBorder: errorBorder,
-                focusedErrorBorder: errorBorder,
-                suffixIcon: widget.isSensible
-                    ? Padding(
-                        padding: EdgeInsets.symmetric(horizontal: ThemeProvider.theme.spacing.xs),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(ThemeProvider.theme.dimensions.radiusMedium),
-                          // TODO: Review
-                          child: Image.asset(
-                            isTextObscured ? "assets/images/icons/icVisibilityOff.png" : "assets/images/icons/icVisibility.png",
-                          ),
-                          onTap: () {
-                            setState(() {
-                              this.isTextObscured = !this.isTextObscured;
-                            });
-                          },
-                        ),
-                      )
-                    : null,
-                border: const OutlineInputBorder(),
-                labelStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.onBackground.withOpacity(0.30)),
-                labelText: widget.hint,
-                errorText: error,
-                errorStyle: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.error),
-              )
-            : InputDecoration(
+    final style = ThemeProvider.theme;
+    return Container(
+      padding: _padding,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: TextField(
+              keyboardAppearance: Brightness.light,
+              enabled: widget.enabled,
+              keyboardType: widget.keyboardType,
+              controller: textEditingController,
+              style: ThemeProvider.theme.textStyles.body1.copyWith(
+                  color: widget.textColor ??
+                      ThemeProvider.theme.colors.onBackground),
+              textInputAction: widget.textInputAction,
+              textCapitalization: widget.textCapitalization,
+              maxLines: widget.maxLines,
+              autocorrect: false,
+              focusNode: widget.focusNode,
+              autofocus: widget.autofocus,
+              obscureText: widget.isSensible ? isTextObscured : false,
+              cursorColor: ThemeProvider.theme.colors.primary,
+
+              //controller: _controller,
+              //obscureText: widget.obscureText && _isObscure,
+              onChanged: widget.onChanged,
+              onSubmitted: (text) {
+                if (widget.nextFocusNode != null) {
+                  FocusScope.of(context).requestFocus(widget.nextFocusNode);
+                }
+                if (widget.onSubmitted != null) {
+                  FocusScope.of(context).unfocus();
+                  widget.onSubmitted();
+                }
+              },
+              //cursorColor: style.colors.primary,
+              //style: style.textStyles.body1,
+              decoration: InputDecoration(
+                isDense: true,
+                labelText: widget.placeholderText,
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.all(0.0),
-                hintText: widget.hint,
+                contentPadding: _contentPadding,
+                labelStyle: style.textStyles.body1,
               ),
-        onChanged: widget.onChanged,
-        onFieldSubmitted: (text) {
-          if (widget.nextFocusNode != null) {
-            FocusScope.of(context).requestFocus(widget.nextFocusNode);
-          }
-          if (widget.onSubmitted != null) {
-            FocusScope.of(context).unfocus();
-            widget.onSubmitted();
-          }
-        },
+
+              //TextStyle(color: style.labelTextColor)),
+            ),
+          ),
+          if (widget.obscureText)
+            IconButton(
+              color: style.colors.primary,
+              icon: _isObscure
+                  ? style.invisiblePasswordIcon
+                  : style.visiblePasswordIcon,
+              onPressed: () {
+                setState(() {
+                  _isObscure = !_isObscure;
+                });
+              },
+            )
+        ],
+      ),
+      decoration: BoxDecoration(
+        border: widget.borderWidth == 0 ? null : Border.all(
+          color: (widget.isValid ?? widget.validatedValue?.isValid) == false
+              ? style.colors.error
+              : style.colors.error,
+          width: (widget.borderWidth != null ) ? widget.borderWidth : style.dimensions.borderSmall,
+        ),
+        borderRadius: BorderRadius.circular(
+          style.dimensions.radiusMedium,
+        ),
       ),
     );
   }
 }
-
-enum DSTextFieldType { form, plain }
