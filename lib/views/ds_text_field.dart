@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/theme/theme.dart';
 import 'package:lr_design_system/ui/utils/validated_value.dart';
+import 'package:lr_design_system/utils/CapString.dart';
 
 class DSTextField extends StatefulWidget {
   final String initialText;
@@ -54,10 +55,11 @@ class DSTextField extends StatefulWidget {
 
 class _DSTextFieldState extends State<DSTextField> {
   static var _padding = EdgeInsets.only(
-      left: ThemeProvider.theme.spacing.m,
-      right: ThemeProvider.theme.spacing.m);
-  static var _contentPadding =
-      EdgeInsets.symmetric(vertical: ThemeProvider.theme.spacing.xs);
+      left: ThemeProvider.theme.spacing.s,
+      right: ThemeProvider.theme.spacing.s);
+  static var _contentPadding = EdgeInsets.symmetric(
+      vertical: ThemeProvider.theme.spacing.m,
+      horizontal: ThemeProvider.theme.spacing.s);
 
   final _controller = TextEditingController();
   bool _isObscure = true;
@@ -125,11 +127,10 @@ class _DSTextFieldState extends State<DSTextField> {
               //style: style.textStyles.body1,
               decoration: InputDecoration(
                 isDense: true,
-                labelText: widget.hint,
+                labelText: widget.hint.titleCase,
                 border: InputBorder.none,
                 contentPadding: _contentPadding,
-                labelStyle: theme.textStyles.caption.copyWith(
-                    color: theme.colors.onBackground.withOpacity(0.3)),
+                labelStyle: getHintStyle(),
               ),
               //TextStyle(color: style.labelTextColor)),
             ),
@@ -162,7 +163,26 @@ class _DSTextFieldState extends State<DSTextField> {
     );
   }
 
+  TextStyle getHintStyle() {
+    if (_controller.text.isEmpty && !_hasFocus) {
+      return ThemeProvider.theme.textStyles.body1.copyWith(
+          color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3));
+    } else {
+      if (_hasFocus) {
+        return ThemeProvider.theme.textStyles.caption
+            .copyWith(color: ThemeProvider.theme.colors.primary);
+      } else {
+        return ThemeProvider.theme.textStyles.caption.copyWith(
+            color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3));
+      }
+    }
+  }
+
   Color getBorderColor() {
+    if (_hasFocus) {
+      print(_hasFocus);
+      return ThemeProvider.theme.colors.primary;
+    }
     // No Border
     if (widget.borderWidth == 0) return null;
     // Has Error
@@ -170,9 +190,9 @@ class _DSTextFieldState extends State<DSTextField> {
       return ThemeProvider.theme.colors.error;
     }
     // Focused or has text
-    if (_controller.text.isNotEmpty || _hasFocus) {
+    if (_controller.text.isNotEmpty) {
       print(_hasFocus);
-      return ThemeProvider.theme.colors.onBackground;
+      return ThemeProvider.theme.colors.onBackground.withOpacity(0.2);
     }
     // Default: Not focused & empty
     return ThemeProvider.theme.colors.onBackground.withOpacity(0.2);
