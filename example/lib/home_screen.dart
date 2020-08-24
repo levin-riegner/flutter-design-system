@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ShowCaseItem(
             title: "Text Field",
             content: DSTextField(
-                placeholderText: "email",
+                hint: "email",
                 focusNode: nameFocusNode,
                 nextFocusNode: genderFocusNode,
                 keyboardType: TextInputType.number,
@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ShowCaseItem(
             title: "Text Field",
             content: DSTextField(
-                placeholderText: "email",
+                hint: "email",
                 focusNode: genderFocusNode,
                 nextFocusNode: nameFocusNode,
                 onChanged: (text) => print(text)),
