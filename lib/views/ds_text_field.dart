@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/theme/theme.dart';
 import 'package:lr_design_system/ui/utils/validated_value.dart';
-import 'package:lr_design_system/utils/CapString.dart';
+import 'package:lr_design_system/utils/cap_string.dart';
 
 class DSTextField extends StatefulWidget {
   final String initialText;
@@ -23,6 +23,12 @@ class DSTextField extends StatefulWidget {
   final double borderWidth;
   final bool autoCorrect;
   final Function(String) onChanged;
+
+  Widget get visiblePasswordIcon => Icon(Icons.visibility);
+
+  Widget get invisiblePasswordIcon => Icon(Icons.visibility_off);
+
+  Widget get errorIcon => Icon(Icons.warning);
 
   DSTextField({
     this.initialText = "",
@@ -89,7 +95,7 @@ class _DSTextFieldState extends State<DSTextField> {
   @override
   Widget build(BuildContext context) {
     final theme = ThemeProvider.theme;
-    return Wrap(spacing: 0, runSpacing: 0, children: [
+    return Column(children: [
       Container(
         padding: _padding,
         child: Row(
@@ -121,7 +127,7 @@ class _DSTextFieldState extends State<DSTextField> {
                 },
                 decoration: InputDecoration(
                   isDense: true,
-                  labelText: widget.hint.titleCase,
+                  labelText: widget.hint?.titleCase,
                   border: InputBorder.none,
                   contentPadding: _contentPadding,
                   labelStyle: getHintStyle(),
@@ -133,8 +139,8 @@ class _DSTextFieldState extends State<DSTextField> {
               IconButton(
                 color: theme.colors.onBackground.withOpacity(0.3),
                 icon: _isObscure
-                    ? theme.invisiblePasswordIcon
-                    : theme.visiblePasswordIcon,
+                    ? widget.invisiblePasswordIcon
+                    : widget.visiblePasswordIcon,
                 onPressed: () {
                   setState(() {
                     _isObscure = !_isObscure;
@@ -155,8 +161,7 @@ class _DSTextFieldState extends State<DSTextField> {
           ),
         ),
       ),
-      Container(
-          child: Row(children: <Widget>[
+      Row(children: <Widget>[
         if (widget.error != null)
           IconButton(
             color: theme.colors.onBackground.withOpacity(0.3),
@@ -164,7 +169,7 @@ class _DSTextFieldState extends State<DSTextField> {
               data: new IconThemeData(
                   size: ThemeProvider.theme.dimensions.iconSize,
                   color: ThemeProvider.theme.colors.error),
-              child: new Icon(Icons.warning),
+              child: widget.errorIcon,
             ),
             onPressed: () {
               setState(() {
@@ -181,7 +186,7 @@ class _DSTextFieldState extends State<DSTextField> {
             ),
             //TextStyle(color: style.labelTextColor)),
           ),
-      ]))
+      ])
     ]);
   }
 

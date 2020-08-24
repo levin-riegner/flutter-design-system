@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final stepsNotifier = ValueNotifier<int>(0);
   bool loading = false;
   bool enabled = true;
+  String errorFieldString;
 
   // Values
   final listItemsCount = 10;
@@ -37,11 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  final nameFocusNode = FocusNode();
+  final emailFocusNode = FocusNode();
+  final errorFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
-    final nameFocusNode = FocusNode();
-    final genderFocusNode = FocusNode();
-    final errorFocusNode = FocusNode();
     return Scaffold(
       appBar: AppBar(
         title: Text("Design System"),
@@ -257,9 +259,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ShowCaseItem(
             title: "Text Field",
             content: DSTextField(
-                hint: "email",
+                hint: "name",
                 focusNode: nameFocusNode,
-                nextFocusNode: genderFocusNode,
+                nextFocusNode: emailFocusNode,
                 keyboardType: TextInputType.number,
                 borderWidth: 0.0,
                 onChanged: (text) => print(text)),
@@ -267,19 +269,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ShowCaseItem(
             title: "Text Field",
             content: DSTextField(
-                hint: "email",
-                focusNode: genderFocusNode,
+                hint: "email ",
+                focusNode: emailFocusNode,
                 nextFocusNode: errorFocusNode,
                 onChanged: (text) => print(text)),
           ),
           ShowCaseItem(
             title: "Text Field Error",
             content: DSTextField(
-                hint: "email",
+                hint: "error focus node",
                 focusNode: errorFocusNode,
                 nextFocusNode: nameFocusNode,
-                error: "Error Test Error Test Error Test Error Test Error Test Error Test Error Test",
+                error: errorFieldString,
                 onChanged: (text) => print(text)),
+            modifiers: [
+              ShowCaseModifier(
+                  title: "Error",
+                  action: () => setState(() => errorFieldString = "Your email is already registered. Please check you inbox")),
+              ShowCaseModifier(
+                  title: "No Error",
+                  action: () => setState(() => errorFieldString = null)),
+            ],
           ),
           ShowCaseItem(
             title: "App Bar",

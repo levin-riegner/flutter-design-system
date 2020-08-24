@@ -65,11 +65,6 @@ class _Theme {
         spacing: _Spacing.fromJson(theme['spacing']),
         dimensions: _Dimensions.fromJson(theme["dimensions"]));
   }
-
-  Widget get visiblePasswordIcon => Icon(Icons.visibility);
-  Widget get invisiblePasswordIcon => Icon(Icons.visibility_off);
-  Widget get errorIcon => Image.asset('assets/images/alertTriangle.png');
-
 }
 
 class _ColorPalette {
