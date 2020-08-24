@@ -68,6 +68,8 @@ class _Theme {
 
   Widget get visiblePasswordIcon => Icon(Icons.visibility);
   Widget get invisiblePasswordIcon => Icon(Icons.visibility_off);
+  Widget get errorIcon => Image.asset('assets/images/alertTriangle.png');
+
 }
 
 class _ColorPalette {
@@ -302,6 +304,7 @@ class _Dimensions {
 
   final double navigationBarElevation;
   final double navigationBarHeight;
+
 
   _Dimensions({
     this.radiusSmall = 4.0,

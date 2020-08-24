@@ -81,8 +81,6 @@ class _DSTextFieldState extends State<DSTextField> {
   }
 
   void _onFocusChange() {
-    print("qwe: ${widget.focusNode.hasFocus}");
-
     setState(() {
       _hasFocus = widget.focusNode.hasFocus;
     });
@@ -91,88 +89,113 @@ class _DSTextFieldState extends State<DSTextField> {
   @override
   Widget build(BuildContext context) {
     final theme = ThemeProvider.theme;
-    return Container(
-      padding: _padding,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-              enabled: widget.enabled,
-              keyboardType: widget.keyboardType,
-              controller: _controller,
-              style: ThemeProvider.theme.textStyles.body1
-                  .copyWith(color: widget.textColor),
-              textInputAction: widget.textInputAction,
-              textCapitalization: widget.textCapitalization,
-              maxLines: widget.maxLines,
-              autocorrect: widget.autoCorrect,
-              focusNode: widget.focusNode,
-              autofocus: widget.autofocus,
-              obscureText: widget.isSensible ? _isObscure : false,
-              cursorColor: ThemeProvider.theme.colors.primary,
-
-              //controller: _controller,
-              //obscureText: widget.obscureText && _isObscure,
-              onChanged: widget.onChanged,
-              onSubmitted: (text) {
-                if (widget.nextFocusNode != null) {
-                  FocusScope.of(context).requestFocus(widget.nextFocusNode);
-                }
-                if (widget.onSubmitted != null) {
-                  FocusScope.of(context).unfocus();
-                  widget.onSubmitted();
-                }
-              },
-              //cursorColor: style.colors.primary,
-              //style: style.textStyles.body1,
-              decoration: InputDecoration(
-                isDense: true,
-                labelText: widget.hint.titleCase,
-                border: InputBorder.none,
-                contentPadding: _contentPadding,
-                labelStyle: getHintStyle(),
+    return Wrap(spacing: 0, runSpacing: 0, children: [
+      Container(
+        padding: _padding,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: TextField(
+                enabled: widget.enabled,
+                keyboardType: widget.keyboardType,
+                controller: _controller,
+                style: ThemeProvider.theme.textStyles.body1
+                    .copyWith(color: widget.textColor),
+                textInputAction: widget.textInputAction,
+                textCapitalization: widget.textCapitalization,
+                maxLines: widget.maxLines,
+                autocorrect: widget.autoCorrect,
+                focusNode: widget.focusNode,
+                autofocus: widget.autofocus,
+                obscureText: widget.isSensible ? _isObscure : false,
+                cursorColor: ThemeProvider.theme.colors.primary,
+                onChanged: widget.onChanged,
+                onSubmitted: (text) {
+                  if (widget.nextFocusNode != null) {
+                    FocusScope.of(context).requestFocus(widget.nextFocusNode);
+                  }
+                  if (widget.onSubmitted != null) {
+                    FocusScope.of(context).unfocus();
+                    widget.onSubmitted();
+                  }
+                },
+                decoration: InputDecoration(
+                  isDense: true,
+                  labelText: widget.hint.titleCase,
+                  border: InputBorder.none,
+                  contentPadding: _contentPadding,
+                  labelStyle: getHintStyle(),
+                ),
+                //TextStyle(color: style.labelTextColor)),
               ),
-              //TextStyle(color: style.labelTextColor)),
             ),
-          ),
-          if (widget.obscureText)
-            IconButton(
-              color: theme.colors.onBackground.withOpacity(0.3),
-              icon: _isObscure
-                  ? theme.invisiblePasswordIcon
-                  : theme.visiblePasswordIcon,
-              onPressed: () {
-                setState(() {
-                  _isObscure = !_isObscure;
-                });
-              },
-            )
-        ],
-      ),
-      decoration: BoxDecoration(
-        border: widget.borderWidth == 0
-            ? null
-            : Border.all(
-                color: getBorderColor(),
-                width: widget.borderWidth ?? theme.dimensions.borderSmall,
+            if (widget.obscureText)
+              IconButton(
+                color: theme.colors.onBackground.withOpacity(0.3),
+                icon: _isObscure
+                    ? theme.invisiblePasswordIcon
+                    : theme.visiblePasswordIcon,
+                onPressed: () {
+                  setState(() {
+                    _isObscure = !_isObscure;
+                  });
+                },
               ),
-        borderRadius: BorderRadius.circular(
-          theme.dimensions.radiusMedium,
+          ],
+        ),
+        decoration: BoxDecoration(
+          border: widget.borderWidth == 0
+              ? null
+              : Border.all(
+                  color: getBorderColor(),
+                  width: widget.borderWidth ?? theme.dimensions.borderSmall,
+                ),
+          borderRadius: BorderRadius.circular(
+            theme.dimensions.radiusMedium,
+          ),
         ),
       ),
-    );
+      Container(
+          child: Row(children: <Widget>[
+        if (widget.error != null)
+          IconButton(
+            color: theme.colors.onBackground.withOpacity(0.3),
+            icon: new IconTheme(
+              data: new IconThemeData(
+                  size: ThemeProvider.theme.dimensions.iconSize,
+                  color: ThemeProvider.theme.colors.error),
+              child: new Icon(Icons.warning),
+            ),
+            onPressed: () {
+              setState(() {
+                _isObscure = !_isObscure;
+              });
+            },
+          ),
+        if (widget.error != null)
+          Expanded(
+            child: Text(
+              widget.error,
+              style: ThemeProvider.theme.textStyles.caption
+                  .copyWith(color: ThemeProvider.theme.colors.error),
+            ),
+            //TextStyle(color: style.labelTextColor)),
+          ),
+      ]))
+    ]);
   }
 
   TextStyle getHintStyle() {
     if (_controller.text.isEmpty && !_hasFocus) {
+      // If we change the font the box get resized.
       return ThemeProvider.theme.textStyles.body1.copyWith(
           color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3));
     } else {
       if (_hasFocus) {
-        return ThemeProvider.theme.textStyles.caption
+        return ThemeProvider.theme.textStyles.body1
             .copyWith(color: ThemeProvider.theme.colors.primary);
       } else {
-        return ThemeProvider.theme.textStyles.caption.copyWith(
+        return ThemeProvider.theme.textStyles.body1.copyWith(
             color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3));
       }
     }
@@ -180,7 +203,6 @@ class _DSTextFieldState extends State<DSTextField> {
 
   Color getBorderColor() {
     if (_hasFocus) {
-      print(_hasFocus);
       return ThemeProvider.theme.colors.primary;
     }
     // No Border
@@ -191,7 +213,6 @@ class _DSTextFieldState extends State<DSTextField> {
     }
     // Focused or has text
     if (_controller.text.isNotEmpty) {
-      print(_hasFocus);
       return ThemeProvider.theme.colors.onBackground.withOpacity(0.2);
     }
     // Default: Not focused & empty

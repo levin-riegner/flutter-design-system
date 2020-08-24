@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final nameFocusNode = FocusNode();
     final genderFocusNode = FocusNode();
+    final errorFocusNode = FocusNode();
     return Scaffold(
       appBar: AppBar(
         title: Text("Design System"),
@@ -268,7 +269,16 @@ class _HomeScreenState extends State<HomeScreen> {
             content: DSTextField(
                 hint: "email",
                 focusNode: genderFocusNode,
+                nextFocusNode: errorFocusNode,
+                onChanged: (text) => print(text)),
+          ),
+          ShowCaseItem(
+            title: "Text Field Error",
+            content: DSTextField(
+                hint: "email",
+                focusNode: errorFocusNode,
                 nextFocusNode: nameFocusNode,
+                error: "Error Test Error Test Error Test Error Test Error Test Error Test Error Test",
                 onChanged: (text) => print(text)),
           ),
           ShowCaseItem(
