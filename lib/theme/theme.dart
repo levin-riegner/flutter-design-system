@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 
 class ThemeProvider {
   static _Theme _theme;
+
   static _Theme get theme => _theme;
 
   static void setThemeFromJson(String jsonString, {String selectedPalette}) {
-    _theme = _Theme.fromJson(jsonDecode(jsonString), selectedPalette: selectedPalette);
+    _theme = _Theme.fromJson(jsonDecode(jsonString),
+        selectedPalette: selectedPalette);
   }
 }
 
@@ -40,7 +42,8 @@ class _Theme {
   }
 
   AppBarTheme toAppBarTheme() {
-    final base = (colors.isLight ? ThemeData.light() : ThemeData.dark()).appBarTheme;
+    final base =
+        (colors.isLight ? ThemeData.light() : ThemeData.dark()).appBarTheme;
     return base.copyWith(
       elevation: dimensions.navigationBarElevation,
       color: colors.surface,
@@ -51,7 +54,8 @@ class _Theme {
   }
 
   IconThemeData toIconThemeData() {
-    return IconThemeData(color: colors.onSurface, opacity: 1, size: dimensions.iconSize);
+    return IconThemeData(
+        color: colors.onSurface, opacity: 1, size: dimensions.iconSize);
   }
 
   factory _Theme.fromJson(Map<String, dynamic> json, {String selectedPalette}) {
@@ -59,7 +63,8 @@ class _Theme {
     final colorPalettes = (theme["colorPalettes"] as Iterable).toList();
     return _Theme(
         colors: _ColorPalette.fromJson(selectedPalette != null
-            ? colorPalettes.firstWhere((e) => e["name"] == selectedPalette)["colors"]
+            ? colorPalettes
+                .firstWhere((e) => e["name"] == selectedPalette)["colors"]
             : colorPalettes.first["colors"]),
         textStyles: _TextStyles.fromJson(theme['textStyles']),
         spacing: _Spacing.fromJson(theme['spacing']),
@@ -260,7 +265,16 @@ class _Spacing {
   final double xxl;
   final double xxxl;
 
-  _Spacing({this.xxxs = 2, this.xxs = 4, this.xs = 8, this.s = 12, this.m = 16, this.l = 24, this.xl = 32, this.xxl = 48, this.xxxl = 64});
+  _Spacing(
+      {this.xxxs = 2,
+      this.xxs = 4,
+      this.xs = 8,
+      this.s = 12,
+      this.m = 16,
+      this.l = 24,
+      this.xl = 32,
+      this.xxl = 48,
+      this.xxxl = 64});
 
   factory _Spacing.fromJson(Map<String, dynamic> json) {
     return _Spacing(
@@ -299,7 +313,6 @@ class _Dimensions {
 
   final double navigationBarElevation;
   final double navigationBarHeight;
-
 
   _Dimensions({
     this.radiusSmall = 4.0,

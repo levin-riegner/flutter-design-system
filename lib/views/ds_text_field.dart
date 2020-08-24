@@ -132,7 +132,6 @@ class _DSTextFieldState extends State<DSTextField> {
                   contentPadding: _contentPadding,
                   labelStyle: getHintStyle(),
                 ),
-                //TextStyle(color: style.labelTextColor)),
               ),
             ),
             if (widget.obscureText)
@@ -171,11 +170,6 @@ class _DSTextFieldState extends State<DSTextField> {
                   color: ThemeProvider.theme.colors.error),
               child: widget.errorIcon,
             ),
-            onPressed: () {
-              setState(() {
-                _isObscure = !_isObscure;
-              });
-            },
           ),
         if (widget.error != null)
           Expanded(
@@ -184,7 +178,6 @@ class _DSTextFieldState extends State<DSTextField> {
               style: ThemeProvider.theme.textStyles.caption
                   .copyWith(color: ThemeProvider.theme.colors.error),
             ),
-            //TextStyle(color: style.labelTextColor)),
           ),
       ])
     ]);
@@ -194,14 +187,16 @@ class _DSTextFieldState extends State<DSTextField> {
     if (_controller.text.isEmpty && !_hasFocus) {
       // If we change the font the box get resized.
       return ThemeProvider.theme.textStyles.body1.copyWith(
-          color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3));
+        color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3),
+      );
     } else {
       if (_hasFocus) {
         return ThemeProvider.theme.textStyles.body1
             .copyWith(color: ThemeProvider.theme.colors.primary);
       } else {
         return ThemeProvider.theme.textStyles.body1.copyWith(
-            color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3));
+          color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3),
+        );
       }
     }
   }
