@@ -28,7 +28,8 @@ class DSTextField extends StatefulWidget {
 
   Widget get invisiblePasswordIcon => Icon(Icons.visibility_off);
 
-  Widget get errorIcon => Icon(Icons.warning);
+  Widget get errorIcon =>
+      Icon(Icons.warning, color: ThemeProvider.theme.colors.error);
 
   DSTextField({
     this.initialText = "",
@@ -163,13 +164,7 @@ class _DSTextFieldState extends State<DSTextField> {
       Row(children: <Widget>[
         if (widget.error != null)
           IconButton(
-            color: theme.colors.onBackground.withOpacity(0.3),
-            icon: new IconTheme(
-              data: new IconThemeData(
-                  size: ThemeProvider.theme.dimensions.iconSize,
-                  color: ThemeProvider.theme.colors.error),
-              child: widget.errorIcon,
-            ),
+            icon: widget.errorIcon,
           ),
         if (widget.error != null)
           Expanded(
