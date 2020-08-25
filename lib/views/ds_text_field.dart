@@ -61,12 +61,18 @@ class DSTextField extends StatefulWidget {
 }
 
 class _DSTextFieldState extends State<DSTextField> {
+
   static var _padding = EdgeInsets.only(
       left: ThemeProvider.theme.spacing.s,
       right: ThemeProvider.theme.spacing.s);
   static var _contentPadding = EdgeInsets.symmetric(
       vertical: ThemeProvider.theme.spacing.m,
       horizontal: ThemeProvider.theme.spacing.s);
+  static var _errorPadding = EdgeInsets.fromLTRB(
+      ThemeProvider.theme.spacing.s,
+      ThemeProvider.theme.spacing.s,
+      ThemeProvider.theme.spacing.s,
+      ThemeProvider.theme.spacing.m);
 
   final _controller = TextEditingController();
   bool _isObscure = true;
@@ -161,20 +167,21 @@ class _DSTextFieldState extends State<DSTextField> {
           ),
         ),
       ),
-      Row(children: <Widget>[
-        if (widget.error != null)
-          IconButton(
-            icon: widget.errorIcon,
-          ),
-        if (widget.error != null)
-          Expanded(
-            child: Text(
-              widget.error,
-              style: ThemeProvider.theme.textStyles.caption
-                  .copyWith(color: ThemeProvider.theme.colors.error),
+      if (widget.error != null)
+        Padding(
+          padding: _errorPadding,
+          child: Row(children: <Widget>[
+            widget.errorIcon,
+            SizedBox(width: ThemeProvider.theme.spacing.s),
+            Expanded(
+              child: Text(
+                widget.error,
+                style: ThemeProvider.theme.textStyles.caption
+                    .copyWith(color: ThemeProvider.theme.colors.error),
+              ),
             ),
-          ),
-      ])
+          ]),
+        )
     ]);
   }
 
