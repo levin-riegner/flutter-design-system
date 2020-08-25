@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final stepsNotifier = ValueNotifier<int>(0);
   bool loading = false;
   bool enabled = true;
+  String errorFieldString;
 
   // Values
   final listItemsCount = 10;
@@ -36,6 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
   }
+
+  final nameFocusNode = FocusNode();
+  final emailFocusNode = FocusNode();
+  final errorFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +71,16 @@ class _HomeScreenState extends State<HomeScreen> {
               currentPageNotifier: stepsNotifier,
             ),
             modifiers: [
-              ShowCaseModifier(title: "Previous", action: () => (stepsNotifier.value > 0) ? stepsNotifier.value -= 1 : null),
-              ShowCaseModifier(title: "Next", action: () => (stepsNotifier.value < 5) ? stepsNotifier.value += 1 : null),
+              ShowCaseModifier(
+                  title: "Previous",
+                  action: () => (stepsNotifier.value > 0)
+                      ? stepsNotifier.value -= 1
+                      : null),
+              ShowCaseModifier(
+                  title: "Next",
+                  action: () => (stepsNotifier.value < 5)
+                      ? stepsNotifier.value += 1
+                      : null),
             ],
           ),
           ShowCaseItem(
@@ -76,9 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.warning),
               isWarning: true,
               title: "This is a banner",
-              message: "With some useful description to catch the user's attention.\n- Some progress can be added.\n- Also an icon",
+              message:
+                  "With some useful description to catch the user's attention.\n- Some progress can be added.\n- Also an icon",
               progress: 0.2,
-              defaultProgressColor: ThemeProvider.theme.colors.disabled, // Remove
+              defaultProgressColor:
+                  ThemeProvider.theme.colors.disabled, // Remove
             ),
           ),
           ShowCaseItem(
@@ -94,8 +109,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             modifiers: [
-              ShowCaseModifier(title: "Loading", action: () => setState(() => loading = !loading)),
-              ShowCaseModifier(title: "Enabled", action: () => setState(() => enabled = !enabled)),
+              ShowCaseModifier(
+                  title: "Loading",
+                  action: () => setState(() => loading = !loading)),
+              ShowCaseModifier(
+                  title: "Enabled",
+                  action: () => setState(() => enabled = !enabled)),
             ],
           ),
           ShowCaseItem(
@@ -111,8 +130,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             modifiers: [
-              ShowCaseModifier(title: "Loading", action: () => setState(() => loading = !loading)),
-              ShowCaseModifier(title: "Enabled", action: () => setState(() => enabled = !enabled)),
+              ShowCaseModifier(
+                  title: "Loading",
+                  action: () => setState(() => loading = !loading)),
+              ShowCaseModifier(
+                  title: "Enabled",
+                  action: () => setState(() => enabled = !enabled)),
             ],
           ),
           ShowCaseItem(
@@ -128,8 +151,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             modifiers: [
-              ShowCaseModifier(title: "Loading", action: () => setState(() => loading = !loading)),
-              ShowCaseModifier(title: "Enabled", action: () => setState(() => enabled = !enabled)),
+              ShowCaseModifier(
+                  title: "Loading",
+                  action: () => setState(() => loading = !loading)),
+              ShowCaseModifier(
+                  title: "Enabled",
+                  action: () => setState(() => enabled = !enabled)),
             ],
           ),
           ShowCaseItem(
@@ -141,7 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   context: context,
                   builder: (context) => DSDialog(
                     title: "Are you sure?",
-                    description: "Some text around here information about the consequences of the action that triggered the dialog.",
+                    description:
+                        "Some text around here information about the consequences of the action that triggered the dialog.",
                     positiveButtonText: "Confirm",
                     negativeButtonText: "Cancel",
                     negativeCallback: () {
@@ -231,9 +259,37 @@ class _HomeScreenState extends State<HomeScreen> {
           ShowCaseItem(
             title: "Text Field",
             content: DSTextField(
-              text: "",
-              hint: "Verification Code",
-            ),
+                hint: "name",
+                focusNode: nameFocusNode,
+                nextFocusNode: emailFocusNode,
+                keyboardType: TextInputType.number,
+                borderWidth: 0.0,
+                onChanged: (text) => print(text)),
+          ),
+          ShowCaseItem(
+            title: "Text Field",
+            content: DSTextField(
+                hint: "email ",
+                focusNode: emailFocusNode,
+                nextFocusNode: errorFocusNode,
+                onChanged: (text) => print(text)),
+          ),
+          ShowCaseItem(
+            title: "Text Field Error",
+            content: DSTextField(
+                hint: "error focus node",
+                focusNode: errorFocusNode,
+                nextFocusNode: nameFocusNode,
+                error: errorFieldString,
+                onChanged: (text) => print(text)),
+            modifiers: [
+              ShowCaseModifier(
+                  title: "Error",
+                  action: () => setState(() => errorFieldString = "Your email is already registered. Please check you inbox")),
+              ShowCaseModifier(
+                  title: "No Error",
+                  action: () => setState(() => errorFieldString = null)),
+            ],
           ),
           ShowCaseItem(
             title: "App Bar",
