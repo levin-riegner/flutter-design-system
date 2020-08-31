@@ -10,8 +10,17 @@ class ThemeProvider {
   static _Theme get theme => _theme;
 
   static void setThemeFromJson(String jsonString, {String selectedPalette}) {
-    _theme = _Theme.fromJson(jsonDecode(jsonString),
-        selectedPalette: selectedPalette);
+    _theme = _Theme.fromJson(jsonDecode(jsonString), selectedPalette: selectedPalette);
+  }
+
+  static void updateColors({String primary, String primaryVariant, String secondary, String secondaryVariant}) {
+    final colors = ThemeProvider.theme.colors._copyWith(
+      primary: primary,
+      primaryVariant: primaryVariant,
+      secondary: secondary,
+      secondaryVariant: secondaryVariant,
+    );
+    _theme = ThemeProvider.theme._copyWith(colors: colors);
   }
 }
 
@@ -21,7 +30,12 @@ class _Theme {
   final _Spacing spacing;
   final _Dimensions dimensions;
 
-  _Theme({this.colors, this.textStyles, this.spacing, this.dimensions});
+  _Theme({
+    this.colors,
+    this.textStyles,
+    this.spacing,
+    this.dimensions,
+  });
 
   ThemeData toThemeData() {
     return ThemeData(
@@ -42,8 +56,7 @@ class _Theme {
   }
 
   AppBarTheme toAppBarTheme() {
-    final base =
-        (colors.isLight ? ThemeData.light() : ThemeData.dark()).appBarTheme;
+    final base = (colors.isLight ? ThemeData.light() : ThemeData.dark()).appBarTheme;
     return base.copyWith(
       elevation: dimensions.navigationBarElevation,
       color: colors.surface,
@@ -54,8 +67,7 @@ class _Theme {
   }
 
   IconThemeData toIconThemeData() {
-    return IconThemeData(
-        color: colors.onSurface, opacity: 1, size: dimensions.iconSize);
+    return IconThemeData(color: colors.onSurface, opacity: 1, size: dimensions.iconSize);
   }
 
   factory _Theme.fromJson(Map<String, dynamic> json, {String selectedPalette}) {
@@ -63,12 +75,20 @@ class _Theme {
     final colorPalettes = (theme["colorPalettes"] as Iterable).toList();
     return _Theme(
         colors: _ColorPalette.fromJson(selectedPalette != null
-            ? colorPalettes
-                .firstWhere((e) => e["name"] == selectedPalette)["colors"]
+            ? colorPalettes.firstWhere((e) => e["name"] == selectedPalette)["colors"]
             : colorPalettes.first["colors"]),
         textStyles: _TextStyles.fromJson(theme['textStyles']),
         spacing: _Spacing.fromJson(theme['spacing']),
         dimensions: _Dimensions.fromJson(theme["dimensions"]));
+  }
+
+  _Theme _copyWith({_ColorPalette colors, _TextStyles textStyles, _Spacing spacing, _Dimensions dimensions}) {
+    return _Theme(
+      colors: colors ?? this.colors,
+      textStyles: textStyles ?? this.textStyles,
+      spacing: spacing ?? this.spacing,
+      dimensions: dimensions ?? this.dimensions,
+    );
   }
 }
 
@@ -133,10 +153,38 @@ class _ColorPalette {
     );
   }
 
-  static Color _hexStringToColor(String hexString) {
-    if (hexString == null) return Colors.transparent;
+  static Color _hexStringToColor(String hexString, {bool allowNull = false}) {
+    if (hexString == null) {
+      return allowNull ? null : Colors.transparent;
+    }
+    // Remove '#' character
+    var parsedHexString = hexString.replaceAll("#", "");
+    // Maybe add alpha in front
+    if (parsedHexString.length == 6) {
+      parsedHexString = "FF$parsedHexString";
+    }
+    return Color(int.parse("0x$parsedHexString"));
+  }
 
-    return Color(int.parse("0x$hexString"));
+  _ColorPalette _copyWith({String primary, String primaryVariant, String secondary, String secondaryVariant}) {
+    return _ColorPalette(
+      primary: _hexStringToColor(primary, allowNull: true) ?? this.primary,
+      primaryVariant: _hexStringToColor(primaryVariant, allowNull: true) ?? this.primaryVariant,
+      secondary: _hexStringToColor(secondary, allowNull: true) ?? this.secondary,
+      secondaryVariant: _hexStringToColor(secondaryVariant, allowNull: true) ?? this.secondaryVariant,
+      background: this.background,
+      surface: this.surface,
+      error: this.error,
+      onPrimary: this.onPrimary,
+      onSecondary: this.onSecondary,
+      onBackground: this.onBackground,
+      onSurface: this.onSurface,
+      onError: this.onError,
+      disabled: this.disabled,
+      onDisabled: this.onDisabled,
+      interaction: this.interaction,
+      isLight: this.isLight,
+    );
   }
 }
 
@@ -155,53 +203,56 @@ class _TextStyles {
   final TextStyle caption;
   final TextStyle overline;
 
-  _TextStyles(
-      {this.h1,
-      this.h2,
-      this.h3,
-      this.h4,
-      this.h5,
-      this.h6,
-      this.subtitle1,
-      this.subtitle2,
-      this.body1,
-      this.body2,
-      this.button,
-      this.caption,
-      this.overline});
+  _TextStyles({
+    this.h1,
+    this.h2,
+    this.h3,
+    this.h4,
+    this.h5,
+    this.h6,
+    this.subtitle1,
+    this.subtitle2,
+    this.body1,
+    this.body2,
+    this.button,
+    this.caption,
+    this.overline,
+  });
 
   TextTheme toTextTheme() {
     return TextTheme(
-        headline1: h1,
-        headline2: h2,
-        headline3: h3,
-        headline4: h4,
-        headline5: h5,
-        headline6: h6,
-        subtitle1: subtitle1,
-        subtitle2: subtitle2,
-        bodyText1: body1,
-        bodyText2: body2,
-        button: button,
-        caption: caption,
-        overline: overline);
+      headline1: h1,
+      headline2: h2,
+      headline3: h3,
+      headline4: h4,
+      headline5: h5,
+      headline6: h6,
+      subtitle1: subtitle1,
+      subtitle2: subtitle2,
+      bodyText1: body1,
+      bodyText2: body2,
+      button: button,
+      caption: caption,
+      overline: overline,
+    );
   }
 
   factory _TextStyles.fromJson(Map<String, dynamic> json) {
     return _TextStyles(
-        h1: _jsonToTextStyle(json['h1']),
-        h2: _jsonToTextStyle(json['h2']),
-        h3: _jsonToTextStyle(json['h3']),
-        h4: _jsonToTextStyle(json['h4']),
-        h5: _jsonToTextStyle(json['h5']),
-        h6: _jsonToTextStyle(json['h6']),
-        subtitle1: _jsonToTextStyle(json['subtitle1']),
-        subtitle2: _jsonToTextStyle(json['subtitle2']),
-        body1: _jsonToTextStyle(json['body1']),
-        body2: _jsonToTextStyle(json['body2']),
-        button: _jsonToTextStyle(json['button']),
-        caption: _jsonToTextStyle(json['caption']),
-        overline: _jsonToTextStyle(json['overline']));
+      h1: _jsonToTextStyle(json['h1']),
+      h2: _jsonToTextStyle(json['h2']),
+      h3: _jsonToTextStyle(json['h3']),
+      h4: _jsonToTextStyle(json['h4']),
+      h5: _jsonToTextStyle(json['h5']),
+      h6: _jsonToTextStyle(json['h6']),
+      subtitle1: _jsonToTextStyle(json['subtitle1']),
+      subtitle2: _jsonToTextStyle(json['subtitle2']),
+      body1: _jsonToTextStyle(json['body1']),
+      body2: _jsonToTextStyle(json['body2']),
+      button: _jsonToTextStyle(json['button']),
+      caption: _jsonToTextStyle(json['caption']),
+      overline: _jsonToTextStyle(json['overline']),
+    );
   }
 
   static TextStyle _jsonToTextStyle(Map<String, dynamic> json) {
@@ -209,12 +260,13 @@ class _TextStyles {
     final fontSize = json["fontSize"].toDouble();
     final height = json["height"].toDouble();
     return TextStyle(
-        fontWeight: _intToFontWeight(json["fontWeight"]),
-        fontSize: fontSize,
-        letterSpacing: json["letterSpacing"].toDouble(),
-        height: height != null ? height / fontSize : 1,
-        fontStyle: _stringToFontStyle(json["fontStyle"]),
-        fontFamily: json["fontFamily"]);
+      fontWeight: _intToFontWeight(json["fontWeight"]),
+      fontSize: fontSize,
+      letterSpacing: json["letterSpacing"].toDouble(),
+      height: height != null ? height / fontSize : 1,
+      fontStyle: _stringToFontStyle(json["fontStyle"]),
+      fontFamily: json["fontFamily"],
+    );
   }
 
   static FontStyle _stringToFontStyle(String fontStyle) {
@@ -265,16 +317,17 @@ class _Spacing {
   final double xxl;
   final double xxxl;
 
-  _Spacing(
-      {this.xxxs = 2,
-      this.xxs = 4,
-      this.xs = 8,
-      this.s = 12,
-      this.m = 16,
-      this.l = 24,
-      this.xl = 32,
-      this.xxl = 48,
-      this.xxxl = 64});
+  _Spacing({
+    this.xxxs = 2,
+    this.xxs = 4,
+    this.xs = 8,
+    this.s = 12,
+    this.m = 16,
+    this.l = 24,
+    this.xl = 32,
+    this.xxl = 48,
+    this.xxxl = 64,
+  });
 
   factory _Spacing.fromJson(Map<String, dynamic> json) {
     return _Spacing(
