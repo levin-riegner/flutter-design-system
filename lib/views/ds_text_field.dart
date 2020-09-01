@@ -53,9 +53,12 @@ class DSTextField extends StatefulWidget {
   })  : focusNode = focusNode ?? FocusNode(),
         textColor = textColor ?? ThemeProvider.theme.colors.onBackground,
         keyboardType = keyboardType ?? (maxLines > 1 ? TextInputType.multiline : TextInputType.text),
-        textInputAction = textInputAction ?? maxLines > 1
-            ? TextInputAction.newline
-            : ((nextFocusNode != null ? TextInputAction.next : (onSubmitted != null ? TextInputAction.done : TextInputAction.unspecified)));
+        textInputAction = textInputAction ??
+            (maxLines > 1
+                ? TextInputAction.newline
+                : ((nextFocusNode != null
+                    ? TextInputAction.next
+                    : (onSubmitted != null ? TextInputAction.done : TextInputAction.unspecified))));
 
   @override
   State<StatefulWidget> createState() {
