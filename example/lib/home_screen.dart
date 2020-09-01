@@ -275,12 +275,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 onChanged: (text) => print(text)),
           ),
           ShowCaseItem(
-            title: "Text Field Error",
+            title: "Text Field Multiline Error",
             content: DSTextField(
                 hint: "error focus node",
                 focusNode: errorFocusNode,
                 nextFocusNode: nameFocusNode,
                 error: errorFieldString,
+                maxLines: 5,
                 onChanged: (text) => print(text)),
             modifiers: [
               ShowCaseModifier(

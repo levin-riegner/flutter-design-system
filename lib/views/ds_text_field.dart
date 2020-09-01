@@ -28,8 +28,7 @@ class DSTextField extends StatefulWidget {
 
   Widget get invisiblePasswordIcon => Icon(Icons.visibility_off);
 
-  Widget get errorIcon =>
-      Icon(Icons.warning, color: ThemeProvider.theme.colors.error);
+  Widget get errorIcon => Icon(Icons.warning, color: ThemeProvider.theme.colors.error);
 
   DSTextField({
     this.initialText = "",
@@ -37,8 +36,8 @@ class DSTextField extends StatefulWidget {
     this.isSensible = false,
     this.hint,
     this.error,
-    this.keyboardType = TextInputType.text,
-    this.textInputAction = TextInputAction.unspecified,
+    TextInputType keyboardType,
+    TextInputAction textInputAction,
     FocusNode focusNode,
     this.nextFocusNode,
     this.onSubmitted,
@@ -52,7 +51,11 @@ class DSTextField extends StatefulWidget {
     this.autoCorrect = false,
     this.onChanged,
   })  : focusNode = focusNode ?? FocusNode(),
-        textColor = textColor ?? ThemeProvider.theme.colors.onBackground;
+        textColor = textColor ?? ThemeProvider.theme.colors.onBackground,
+        keyboardType = keyboardType ?? (maxLines > 1 ? TextInputType.multiline : TextInputType.text),
+        textInputAction = textInputAction ?? maxLines > 1
+            ? TextInputAction.newline
+            : ((nextFocusNode != null ? TextInputAction.next : (onSubmitted != null ? TextInputAction.done : TextInputAction.unspecified)));
 
   @override
   State<StatefulWidget> createState() {
@@ -61,18 +64,17 @@ class DSTextField extends StatefulWidget {
 }
 
 class _DSTextFieldState extends State<DSTextField> {
-
-  static var _padding = EdgeInsets.only(
-      left: ThemeProvider.theme.spacing.s,
-      right: ThemeProvider.theme.spacing.s);
-  static var _contentPadding = EdgeInsets.symmetric(
-      vertical: ThemeProvider.theme.spacing.m,
-      horizontal: ThemeProvider.theme.spacing.s);
-  static var _errorPadding = EdgeInsets.fromLTRB(
-      ThemeProvider.theme.spacing.s,
-      ThemeProvider.theme.spacing.s,
-      ThemeProvider.theme.spacing.s,
-      ThemeProvider.theme.spacing.m);
+  final _contentPadding = EdgeInsets.symmetric(
+    vertical: ThemeProvider.theme.spacing.m,
+    horizontal: ThemeProvider.theme.spacing.m,
+  );
+  final _errorPadding = EdgeInsets.only(
+    left: ThemeProvider.theme.spacing.s,
+    top: ThemeProvider.theme.spacing.s,
+    right: ThemeProvider.theme.spacing.s,
+    bottom: ThemeProvider.theme.spacing.m,
+  );
+  final _minFieldHeight = ThemeProvider.theme.dimensions.listItemHeight;
 
   final _controller = TextEditingController();
   bool _isObscure = true;
@@ -82,7 +84,7 @@ class _DSTextFieldState extends State<DSTextField> {
   void initState() {
     super.initState();
     // Initial Text
-    _controller.text = widget.initialText ?? widget.validatedValue?.value;
+    _controller.text = widget.initialText ?? widget.validatedValue?.value ?? "";
     // Listen to Field Selected
     widget.focusNode.addListener(_onFocusChange);
   }
@@ -103,67 +105,72 @@ class _DSTextFieldState extends State<DSTextField> {
   Widget build(BuildContext context) {
     final theme = ThemeProvider.theme;
     return Column(children: [
-      Container(
-        padding: _padding,
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: TextField(
-                enabled: widget.enabled,
-                keyboardType: widget.keyboardType,
-                controller: _controller,
-                style: ThemeProvider.theme.textStyles.body1
-                    .copyWith(color: widget.textColor),
-                textInputAction: widget.textInputAction,
-                textCapitalization: widget.textCapitalization,
-                maxLines: widget.maxLines,
-                autocorrect: widget.autoCorrect,
-                focusNode: widget.focusNode,
-                autofocus: widget.autofocus,
-                obscureText: widget.isSensible ? _isObscure : false,
-                cursorColor: ThemeProvider.theme.colors.primary,
-                onChanged: widget.onChanged,
-                onSubmitted: (text) {
-                  if (widget.nextFocusNode != null) {
-                    FocusScope.of(context).requestFocus(widget.nextFocusNode);
-                  }
-                  if (widget.onSubmitted != null) {
-                    FocusScope.of(context).unfocus();
-                    widget.onSubmitted();
-                  }
-                },
-                decoration: InputDecoration(
-                  isDense: true,
-                  labelText: widget.hint?.titleCase,
-                  border: InputBorder.none,
-                  contentPadding: _contentPadding,
-                  labelStyle: getHintStyle(),
-                ),
-              ),
-            ),
-            if (widget.obscureText)
-              IconButton(
-                color: theme.colors.onBackground.withOpacity(0.3),
-                icon: _isObscure
-                    ? widget.invisiblePasswordIcon
-                    : widget.visiblePasswordIcon,
-                onPressed: () {
-                  setState(() {
-                    _isObscure = !_isObscure;
-                  });
-                },
-              ),
-          ],
+      ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: _minFieldHeight,
         ),
-        decoration: BoxDecoration(
-          border: widget.borderWidth == 0
-              ? null
-              : Border.all(
-                  color: getBorderColor(),
-                  width: widget.borderWidth ?? theme.dimensions.borderSmall,
+        child: Container(
+          alignment: Alignment.topLeft,
+          padding: _contentPadding,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: TextField(
+                  textAlignVertical: TextAlignVertical.top,
+                  textAlign: TextAlign.start,
+                  enabled: widget.enabled,
+                  keyboardType: widget.keyboardType,
+                  controller: _controller,
+                  style: ThemeProvider.theme.textStyles.body1.copyWith(color: widget.textColor),
+                  textInputAction: widget.textInputAction,
+                  textCapitalization: widget.textCapitalization,
+                  maxLines: widget.maxLines,
+                  autocorrect: widget.autoCorrect,
+                  focusNode: widget.focusNode,
+                  autofocus: widget.autofocus,
+                  obscureText: widget.isSensible ? _isObscure : false,
+                  cursorColor: ThemeProvider.theme.colors.primary,
+                  onChanged: widget.onChanged,
+                  onSubmitted: (text) {
+                    if (widget.nextFocusNode != null) {
+                      FocusScope.of(context).requestFocus(widget.nextFocusNode);
+                    }
+                    if (widget.onSubmitted != null) {
+                      FocusScope.of(context).unfocus();
+                      widget.onSubmitted();
+                    }
+                  },
+                  decoration: InputDecoration(
+                    isDense: true,
+                    labelText: widget.hint?.titleCase,
+                    contentPadding: EdgeInsets.zero,
+                    border: InputBorder.none,
+                    labelStyle: getHintStyle(),
+                  ),
                 ),
-          borderRadius: BorderRadius.circular(
-            theme.dimensions.radiusMedium,
+              ),
+              if (widget.obscureText)
+                IconButton(
+                  color: theme.colors.onBackground.withOpacity(0.3),
+                  icon: _isObscure ? widget.invisiblePasswordIcon : widget.visiblePasswordIcon,
+                  onPressed: () {
+                    setState(() {
+                      _isObscure = !_isObscure;
+                    });
+                  },
+                ),
+            ],
+          ),
+          decoration: BoxDecoration(
+            border: widget.borderWidth == 0
+                ? null
+                : Border.all(
+                    color: getBorderColor(),
+                    width: widget.borderWidth ?? theme.dimensions.borderSmall,
+                  ),
+            borderRadius: BorderRadius.circular(
+              theme.dimensions.radiusMedium,
+            ),
           ),
         ),
       ),
@@ -176,8 +183,7 @@ class _DSTextFieldState extends State<DSTextField> {
             Expanded(
               child: Text(
                 widget.error,
-                style: ThemeProvider.theme.textStyles.caption
-                    .copyWith(color: ThemeProvider.theme.colors.error),
+                style: ThemeProvider.theme.textStyles.caption.copyWith(color: ThemeProvider.theme.colors.error),
               ),
             ),
           ]),
@@ -193,8 +199,7 @@ class _DSTextFieldState extends State<DSTextField> {
       );
     } else {
       if (_hasFocus) {
-        return ThemeProvider.theme.textStyles.body1
-            .copyWith(color: ThemeProvider.theme.colors.primary);
+        return ThemeProvider.theme.textStyles.body1.copyWith(color: ThemeProvider.theme.colors.primary);
       } else {
         return ThemeProvider.theme.textStyles.body1.copyWith(
           color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3),
