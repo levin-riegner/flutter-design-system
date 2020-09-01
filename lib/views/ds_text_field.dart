@@ -68,7 +68,7 @@ class DSTextField extends StatefulWidget {
 
 class _DSTextFieldState extends State<DSTextField> {
   final _contentPadding = EdgeInsets.symmetric(
-    vertical: ThemeProvider.theme.spacing.m,
+    vertical: ThemeProvider.theme.spacing.s,
     horizontal: ThemeProvider.theme.spacing.m,
   );
   final _errorPadding = EdgeInsets.only(
