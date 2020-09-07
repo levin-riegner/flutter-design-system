@@ -26,7 +26,9 @@ class DSDialog extends StatelessWidget {
     Color backgroundColor,
     TextStyle titleTextStyle,
     TextStyle descriptionTextStyle,
-  })  : this.backgroundColor = backgroundColor ?? ThemeProvider.theme.colors.surface,
+  })  : assert(title != null || description != null),
+        assert((positiveButtonText != null && positiveCallback != null) || (negativeButtonText != null && negativeCallback != null)),
+        this.backgroundColor = backgroundColor ?? ThemeProvider.theme.colors.surface,
         this.titleTextStyle = titleTextStyle ?? ThemeProvider.theme.textStyles.h3,
         this.descriptionTextStyle = descriptionTextStyle ?? ThemeProvider.theme.textStyles.body1;
 
@@ -49,26 +51,33 @@ class DSDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
-                title,
-                style: titleTextStyle.copyWith(color: ThemeProvider.theme.colors.onSurface.withOpacity(0.87)),
-              ),
-              Margins.medium,
-              Text(
-                description,
-                style: descriptionTextStyle.copyWith(color: ThemeProvider.theme.colors.onSurface.withOpacity(0.6)),
-              ),
+              if (title != null) ...[
+                Text(
+                  title,
+                  style: titleTextStyle.copyWith(color: ThemeProvider.theme.colors.onSurface.withOpacity(0.87)),
+                ),
+                Margins.medium,
+              ],
+              if (description != null)
+                Text(
+                  description,
+                  style: descriptionTextStyle.copyWith(color: ThemeProvider.theme.colors.onSurface.withOpacity(0.6)),
+                ),
               Margins.xLarge,
-              DSPrimaryButton(
-                text: positiveButtonText,
-                onPressed: positiveCallback,
-              ),
-              Margins.small,
-              DSTextButton(
-                text: negativeButtonText,
-                onPressed: negativeCallback,
-                alignment: Alignment.center,
-              ),
+              if (positiveButtonText != null && positiveCallback != null) ...[
+                DSPrimaryButton(
+                  text: positiveButtonText,
+                  onPressed: positiveCallback,
+                ),
+              ],
+              if (negativeButtonText != null && negativeCallback != null) ...[
+                Margins.small,
+                DSTextButton(
+                  text: negativeButtonText,
+                  onPressed: negativeCallback,
+                  alignment: Alignment.center,
+                ),
+              ],
             ],
           ),
         ),
