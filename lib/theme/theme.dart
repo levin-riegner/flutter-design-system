@@ -285,7 +285,9 @@ class _TextStyles {
       height: height != null ? height / fontSize : 1,
       fontStyle: _stringToFontStyle(json["fontStyle"]),
       fontFamily: json["fontFamily"],
-      fontFamilyFallback: json["fontFamilyFallback"] ?? ["Roboto"],
+      fontFamilyFallback: json["fontFamilyFallback"] != null
+          ? List<String>.from(json["fontFamilyFallback"])
+          : ["Roboto"],
       package: json["package"] ?? "flutter",
     );
   }
