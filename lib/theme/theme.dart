@@ -10,10 +10,15 @@ class ThemeProvider {
   static _Theme get theme => _theme;
 
   static void setThemeFromJson(String jsonString, {String selectedPalette}) {
-    _theme = _Theme.fromJson(jsonDecode(jsonString), selectedPalette: selectedPalette);
+    _theme = _Theme.fromJson(jsonDecode(jsonString),
+        selectedPalette: selectedPalette);
   }
 
-  static void updateColors({String primary, String primaryVariant, String secondary, String secondaryVariant}) {
+  static void updateColors(
+      {String primary,
+      String primaryVariant,
+      String secondary,
+      String secondaryVariant}) {
     final colors = ThemeProvider.theme.colors._copyWith(
       primary: primary,
       primaryVariant: primaryVariant,
@@ -56,7 +61,8 @@ class _Theme {
   }
 
   AppBarTheme toAppBarTheme() {
-    final base = (colors.isLight ? ThemeData.light() : ThemeData.dark()).appBarTheme;
+    final base =
+        (colors.isLight ? ThemeData.light() : ThemeData.dark()).appBarTheme;
     return base.copyWith(
       elevation: dimensions.navigationBarElevation,
       color: colors.surface,
@@ -67,7 +73,8 @@ class _Theme {
   }
 
   IconThemeData toIconThemeData() {
-    return IconThemeData(color: colors.onSurface, opacity: 1, size: dimensions.iconSize);
+    return IconThemeData(
+        color: colors.onSurface, opacity: 1, size: dimensions.iconSize);
   }
 
   factory _Theme.fromJson(Map<String, dynamic> json, {String selectedPalette}) {
@@ -75,14 +82,19 @@ class _Theme {
     final colorPalettes = (theme["colorPalettes"] as Iterable).toList();
     return _Theme(
         colors: _ColorPalette.fromJson(selectedPalette != null
-            ? colorPalettes.firstWhere((e) => e["name"] == selectedPalette)["colors"]
+            ? colorPalettes
+                .firstWhere((e) => e["name"] == selectedPalette)["colors"]
             : colorPalettes.first["colors"]),
         textStyles: _TextStyles.fromJson(theme['textStyles']),
         spacing: _Spacing.fromJson(theme['spacing']),
         dimensions: _Dimensions.fromJson(theme["dimensions"]));
   }
 
-  _Theme _copyWith({_ColorPalette colors, _TextStyles textStyles, _Spacing spacing, _Dimensions dimensions}) {
+  _Theme _copyWith(
+      {_ColorPalette colors,
+      _TextStyles textStyles,
+      _Spacing spacing,
+      _Dimensions dimensions}) {
     return _Theme(
       colors: colors ?? this.colors,
       textStyles: textStyles ?? this.textStyles,
@@ -166,12 +178,19 @@ class _ColorPalette {
     return Color(int.parse("0x$parsedHexString"));
   }
 
-  _ColorPalette _copyWith({String primary, String primaryVariant, String secondary, String secondaryVariant}) {
+  _ColorPalette _copyWith(
+      {String primary,
+      String primaryVariant,
+      String secondary,
+      String secondaryVariant}) {
     return _ColorPalette(
       primary: _hexStringToColor(primary, allowNull: true) ?? this.primary,
-      primaryVariant: _hexStringToColor(primaryVariant, allowNull: true) ?? this.primaryVariant,
-      secondary: _hexStringToColor(secondary, allowNull: true) ?? this.secondary,
-      secondaryVariant: _hexStringToColor(secondaryVariant, allowNull: true) ?? this.secondaryVariant,
+      primaryVariant: _hexStringToColor(primaryVariant, allowNull: true) ??
+          this.primaryVariant,
+      secondary:
+          _hexStringToColor(secondary, allowNull: true) ?? this.secondary,
+      secondaryVariant: _hexStringToColor(secondaryVariant, allowNull: true) ??
+          this.secondaryVariant,
       background: this.background,
       surface: this.surface,
       error: this.error,
@@ -266,6 +285,8 @@ class _TextStyles {
       height: height != null ? height / fontSize : 1,
       fontStyle: _stringToFontStyle(json["fontStyle"]),
       fontFamily: json["fontFamily"],
+      fontFamilyFallback: json["fontFamilyFallback"] ?? ["Roboto"],
+      package: json["package"] ?? "flutter",
     );
   }
 
