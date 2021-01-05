@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:lr_design_system/utils/connectivity_helper.dart';
 import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-/// Remember to set `io.flutter.embedded_views_preview` to `YES` in iOS `Info.plist`
 class InAppWebView extends StatefulWidget {
   final ValueNotifier<String> urlNotifier;
   final String javascriptChannelName;
@@ -17,6 +17,7 @@ class InAppWebView extends StatefulWidget {
   final String userAgent;
   final String userToken;
   final Widget noInternetView;
+  final bool enableHybridComposition;
 
   InAppWebView({
     @required this.urlNotifier,
@@ -28,6 +29,7 @@ class InAppWebView extends StatefulWidget {
     this.userToken,
     bool useScaffold = false,
     Widget noInternetView,
+    this.enableHybridComposition = true,
   })  : useScaffold = title != null || useScaffold,
         this.noInternetView = noInternetView ?? DSNoInternetView();
 
@@ -57,6 +59,8 @@ class _InAppWebViewState extends State<InAppWebView> {
   @override
   void initState() {
     super.initState();
+    if (widget.enableHybridComposition && Platform.isAndroid)
+      WebView.platform = SurfaceAndroidWebView();
     // Subscribe to Url changes
     widget.urlNotifier.addListener(_reloadUrl);
     // Check initial connectivity
