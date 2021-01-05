@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/utils/connectivity_helper.dart';
+import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 /// Remember to set `io.flutter.embedded_views_preview` to `YES` in iOS `Info.plist`
 class InAppWebView extends StatefulWidget {
-
   final ValueNotifier<String> urlNotifier;
   final String javascriptChannelName;
   final List<WebViewAction> actions;
@@ -29,7 +29,7 @@ class InAppWebView extends StatefulWidget {
     bool useScaffold = false,
     Widget noInternetView,
   })  : useScaffold = title != null || useScaffold,
-        this.noInternetView = noInternetView ?? Container();
+        this.noInternetView = noInternetView ?? DSNoInternetView();
 
   @override
   State<StatefulWidget> createState() {
@@ -47,7 +47,9 @@ class _InAppWebViewState extends State<InAppWebView> {
     setState(() {
       webViewController?.loadUrl(
         widget.urlNotifier.value,
-        headers: (widget.userToken != null) ? {"Authorization": "Bearer ${widget.userToken}"} : null,
+        headers: (widget.userToken != null)
+            ? {"Authorization": "Bearer ${widget.userToken}"}
+            : null,
       );
     });
   }
@@ -62,7 +64,8 @@ class _InAppWebViewState extends State<InAppWebView> {
       setState(() => this.hasInternet = isConnected);
       // Listen to connectivity if offline
       if (!isConnected) {
-        internetSubscription = ConnectivityHelper.onIsConnectedChanged().listen((isConnected) {
+        internetSubscription =
+            ConnectivityHelper.onIsConnectedChanged().listen((isConnected) {
           if (isConnected) {
             // Internet recovered, stop listening
             internetSubscription?.cancel();
@@ -90,7 +93,9 @@ class _InAppWebViewState extends State<InAppWebView> {
         onMessageReceived: (JavascriptMessage result) {
           debugPrint("Got JavascriptMessage: ${result.message}");
           // Find action
-          final action = widget.actions.firstWhere((action) => action.message == result.message, orElse: null);
+          final action = widget.actions.firstWhere(
+              (action) => action.message == result.message,
+              orElse: null);
           if (action != null) {
             // Custom Action
             action?.onReceived();
@@ -119,7 +124,8 @@ class _InAppWebViewState extends State<InAppWebView> {
             },
             onPageFinished: (url) {
               // Disable iOS allowLinksPreview
-              webViewController.evaluateJavascript("document.body.style.webkitTouchCallout='none';");
+              webViewController.evaluateJavascript(
+                  "document.body.style.webkitTouchCallout='none';");
             },
           )
         : widget.noInternetView;
@@ -129,7 +135,9 @@ class _InAppWebViewState extends State<InAppWebView> {
             backgroundColor: widget.backgroundColor,
             appBar: AppBar(
               title: widget.title != null ? Text(widget.title) : null,
-              leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () => Navigator.of(context).pop()),
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop()),
               backgroundColor: widget.backgroundColor,
             ),
             body: SafeArea(

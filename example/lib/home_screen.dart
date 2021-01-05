@@ -14,6 +14,7 @@ import 'package:lr_design_system/views/ds_text_button.dart';
 import 'package:lr_design_system/views/ds_dialog.dart';
 import 'package:lr_design_system/views/ds_modal_bottom_sheet.dart';
 import 'package:lr_design_system/views/ds_app_bar.dart';
+import 'package:lr_design_system/views/ds_internet_required.dart';
 import 'package:showcase/views/sample_card.dart';
 import 'package:showcase/views/showcase_item.dart';
 
@@ -286,7 +287,8 @@ class _HomeScreenState extends State<HomeScreen> {
             modifiers: [
               ShowCaseModifier(
                   title: "Error",
-                  action: () => setState(() => errorFieldString = "Your email is already registered. Please check you inbox")),
+                  action: () => setState(() => errorFieldString =
+                      "Your email is already registered. Please check you inbox")),
               ShowCaseModifier(
                   title: "No Error",
                   action: () => setState(() => errorFieldString = null)),
@@ -319,7 +321,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   onRefresh: () => {},
                 )),
               ),
+              ShowCaseModifier(
+                title: "No Internet",
+                action: navigateTo(DSNoInternetView(
+                  useScaffold: true,
+                  onBack: () => Navigator.of(context).pop(),
+                  onRefresh: () => {},
+                )),
+              ),
             ],
+          ),
+          ShowCaseItem(
+            title: "Internet Listener",
+            content: DSInternetRequired(
+              expanded: false,
+              onInternetAvailable: () {},
+              child: Text(
+                "I have internet now!\n (Re-launch the app without internet and then enable Internet again to see it change)",
+                textAlign: TextAlign.center,
+              ),
+            ),
           ),
         ],
       ),
