@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_banner.dart';
 import 'package:lr_design_system/views/ds_button.dart';
 import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
@@ -340,6 +341,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 "I have internet now!\n (Re-launch the app without internet and then enable Internet again to see it change)",
                 textAlign: TextAlign.center,
               ),
+            ),
+          ),
+          ShowCaseItem(
+            title: "App Version",
+            content: Padding(
+              padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+              child: DSAppVersion(),
             ),
           ),
         ],
