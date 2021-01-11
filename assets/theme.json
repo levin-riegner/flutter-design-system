@@ -196,6 +196,7 @@
             "radiusSmall": 4.0,
             "radiusMedium": 8.0,
             "radiusLarge": 16.0,
+            "radiusExtraLarge": 24.0,
             "listItemHeight": 48.0,
             "listItemHeightLarge": 72.0,
             "listItemHeightXLarge": 96.0,
