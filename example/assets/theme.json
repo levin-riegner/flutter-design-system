@@ -1,26 +1,28 @@
 {
     "theme": {
-        "colorPalettes": [{
-            "name": "light",
-            "colors": {
-                "primary": "FFE21934",
-                "primaryVariant": "FFE21934",
-                "secondary": "FFFCE8EB",
-                "secondaryVariant": "FFFCE8EB",
-                "background": "FFFFFFFF",
-                "surface": "FFFFFFFF",
-                "error": "FFFF5F55",
-                "onPrimary": "FFFFFFFF",
-                "onSecondary": "FFFFFFFF",
-                "onBackground": "FF202020",
-                "onSurface": "FF202020",
-                "onError": "FFFFFFFF",
-                "disabled": "4D202020",
-                "onDisabled": "FFFFFFFF",
-                "interaction": "FFCCCCCC",
-                "isLight": true
+        "colorPalettes": [
+            {
+                "name": "light",
+                "colors": {
+                    "primary": "FFE21934",
+                    "primaryVariant": "FFE21934",
+                    "secondary": "FFFCE8EB",
+                    "secondaryVariant": "FFFCE8EB",
+                    "background": "FFFFFFFF",
+                    "surface": "FFFFFFFF",
+                    "error": "FFFF5F55",
+                    "onPrimary": "FFFFFFFF",
+                    "onSecondary": "FFFFFFFF",
+                    "onBackground": "FF202020",
+                    "onSurface": "FF202020",
+                    "onError": "FFFFFFFF",
+                    "disabled": "4D202020",
+                    "onDisabled": "FFFFFFFF",
+                    "interaction": "FFCCCCCC",
+                    "isLight": true
+                }
             }
-        }],
+        ],
         "textStyles": {
             "h1": {
                 "fontWeight": 300,
@@ -142,24 +144,17 @@
             "radiusSmall": 4.0,
             "radiusMedium": 8.0,
             "radiusLarge": 16.0,
-
+            "radiusExtraLarge": 24.0,
             "listItemHeight": 48.0,
             "listItemHeightLarge": 72.0,
             "listItemHeightXLarge": 96.0,
-
             "dividerHeight": 1.0,
-
             "buttonHeight": 48.0,
             "buttonMinWidth": 88.0,
-
             "iconSize": 24.0,
-
             "horizontalProgressHeight": 2.0,
-
             "borderSmall": 1.5,
-
             "navigationBarElevation": 0.0,
-
             "navigationBarHeight": 56.0
         }
     }

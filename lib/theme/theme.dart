@@ -371,6 +371,7 @@ class _Dimensions {
   final double radiusSmall;
   final double radiusMedium;
   final double radiusLarge;
+  final double radiusExtraLarge;
 
   final double borderSmall;
 
@@ -394,6 +395,7 @@ class _Dimensions {
     this.radiusSmall = 4.0,
     this.radiusMedium = 8.0,
     this.radiusLarge = 16.0,
+    this.radiusExtraLarge = 24.0,
     this.borderSmall = 1.5,
     this.listItemHeight = 48.0,
     this.listItemHeightLarge = 72.0,
@@ -412,6 +414,7 @@ class _Dimensions {
       radiusSmall: json['radiusSmall'].toDouble(),
       radiusMedium: json['radiusMedium'].toDouble(),
       radiusLarge: json['radiusLarge'].toDouble(),
+      radiusExtraLarge: json['radiusExtraLarge'].toDouble(),
       borderSmall: json['borderSmall'].toDouble(),
       listItemHeight: json['listItemHeight'],
       listItemHeightLarge: json['listItemHeightLarge'].toDouble(),
