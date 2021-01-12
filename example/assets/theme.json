@@ -19,7 +19,8 @@
                     "disabled": "4D202020",
                     "onDisabled": "FFFFFFFF",
                     "interaction": "FFCCCCCC",
-                    "isLight": true
+                    "isLight": true,
+                    "boxShadow": "FF000000"
                 }
             }
         ],
