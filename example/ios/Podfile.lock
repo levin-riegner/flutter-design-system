@@ -7,6 +7,8 @@ PODS:
   - connectivity_macos (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - package_info (0.0.1):
+    - Flutter
   - Reachability (3.2)
   - webview_flutter (0.0.1):
     - Flutter
@@ -16,6 +18,7 @@ DEPENDENCIES:
   - connectivity_for_web (from `.symlinks/plugins/connectivity_for_web/ios`)
   - connectivity_macos (from `.symlinks/plugins/connectivity_macos/ios`)
   - Flutter (from `Flutter`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
@@ -31,6 +34,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/connectivity_macos/ios"
   Flutter:
     :path: Flutter
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
   webview_flutter:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
@@ -39,9 +44,10 @@ SPEC CHECKSUMS:
   connectivity_for_web: 2b8584556930d4bd490d82b836bcf45067ce345b
   connectivity_macos: e2e9731b6b22dda39eb1b128f6969d574460e191
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
 PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

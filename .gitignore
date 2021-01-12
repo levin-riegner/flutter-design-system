@@ -9,11 +9,14 @@
 .history
 .svn/
 
-# IntelliJ related
+# IntelliJ (Android Studio) related
 *.iml
 *.ipr
 *.iws
 .idea/
+# Exception for IntelliJ run configurations
+!.idea/runConfigurations/
+!.run/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -28,7 +31,25 @@
 .packages
 .pub-cache/
 .pub/
-build/
+/build/
+
+# Exceptions to above rules.
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# Web related
+lib/generated_plugin_registrant.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Private Keys
+android/private/*
+
+# Fastlane
+**/fastlane/report.xml
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -58,15 +79,14 @@ build/
 **/ios/.generated/
 **/ios/Flutter/App.framework
 **/ios/Flutter/Flutter.framework
-**/ios/Flutter/Flutter.podspec
 **/ios/Flutter/Generated.xcconfig
 **/ios/Flutter/app.flx
 **/ios/Flutter/app.zip
 **/ios/Flutter/flutter_assets/
-**/ios/Flutter/flutter_export_environment.sh
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
-**/ios/**/.last_build_id
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/.last_build_id
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
@@ -74,3 +94,20 @@ build/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+# Build Files
+.flutter-plugins-dependencies
+**/ios/*.app.dSYM.zip
+**/ios/*.ipa
+
+# GraphQL helpers
+.graphqlconfig
+graphql/
+
+# Auto-generated model files
+**/*.g.dart
+**/*.freezed.dart
+**/*.chopper.dart
+
+# Example build folder
+example/build/
