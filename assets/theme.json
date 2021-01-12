@@ -19,7 +19,8 @@
                     "disabled": "FF888888",
                     "onDisabled": "AAFFFFFF",
                     "interaction": "FFCCCCCC",
-                    "isLight": true
+                    "isLight": true,
+                    "boxShadow": "FF000000"
                 }
             }
         ],

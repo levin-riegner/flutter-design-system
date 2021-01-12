@@ -120,6 +120,7 @@ class _ColorPalette {
   final Color disabled;
   final Color onDisabled;
   final Color interaction;
+  final Color boxShadow;
 
   final bool isLight;
 
@@ -142,6 +143,7 @@ class _ColorPalette {
     this.onDisabled,
     this.interaction,
     this.isLight = true,
+    this.boxShadow,
   });
 
   factory _ColorPalette.fromJson(Map<String, dynamic> json) {
@@ -162,6 +164,7 @@ class _ColorPalette {
       onDisabled: _hexStringToColor(json['onDisabled']),
       interaction: _hexStringToColor(json['interaction']),
       isLight: json["isLight"],
+      boxShadow: _hexStringToColor(json['boxShadow']),
     );
   }
 
@@ -178,11 +181,12 @@ class _ColorPalette {
     return Color(int.parse("0x$parsedHexString"));
   }
 
-  _ColorPalette _copyWith(
-      {String primary,
-      String primaryVariant,
-      String secondary,
-      String secondaryVariant}) {
+  _ColorPalette _copyWith({
+    String primary,
+    String primaryVariant,
+    String secondary,
+    String secondaryVariant,
+  }) {
     return _ColorPalette(
       primary: _hexStringToColor(primary, allowNull: true) ?? this.primary,
       primaryVariant: _hexStringToColor(primaryVariant, allowNull: true) ??
@@ -203,6 +207,7 @@ class _ColorPalette {
       onDisabled: this.onDisabled,
       interaction: this.interaction,
       isLight: this.isLight,
+      boxShadow: this.boxShadow,
     );
   }
 }
