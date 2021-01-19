@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lr_design_system/theme/dimens.dart';
 import 'package:lr_design_system/theme/theme.dart';
 import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_banner.dart';
@@ -95,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   "With some useful description to catch the user's attention.\n- Some progress can be added.\n- Also an icon",
               progress: 0.2,
               defaultProgressColor:
-                  ThemeProvider.theme.colors.disabled, // Remove
+                  Theme.of(context).disabledColor, // Remove
             ),
           ),
           ShowCaseItem(
@@ -224,9 +225,9 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 136,
               items: List.generate(listItemsCount, (index) => "Item $index"),
               listPadding: EdgeInsets.only(
-                left: ThemeProvider.theme.spacing.l,
-                right: ThemeProvider.theme.spacing.l,
-                bottom: ThemeProvider.theme.spacing.m,
+                left: Dimens.of(context).marginLarge,
+                right: Dimens.of(context).marginLarge,
+                bottom: Dimens.of(context).marginMedium,
               ),
               itemBuilder: (context, index) {
                 return SampleCard(
@@ -346,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ShowCaseItem(
             title: "App Version",
             content: Padding(
-              padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+              padding: EdgeInsets.all(Dimens.of(context).marginMedium),
               child: DSAppVersion(),
             ),
           ),

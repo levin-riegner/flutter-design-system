@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_button.dart';
 import 'package:lr_design_system/views/ds_text_button.dart';
-import 'package:lr_design_system/views/margins.dart';
 
 class DSDialog extends StatelessWidget {
   final String title;
@@ -16,36 +15,34 @@ class DSDialog extends StatelessWidget {
   final TextStyle titleTextStyle;
   final TextStyle descriptionTextStyle;
 
-  DSDialog({
+  const DSDialog({
     this.title,
     this.description,
     this.positiveButtonText,
     this.negativeButtonText,
     this.positiveCallback,
     this.negativeCallback,
-    Color backgroundColor,
-    TextStyle titleTextStyle,
-    TextStyle descriptionTextStyle,
+    this.backgroundColor,
+    this.titleTextStyle,
+    this.descriptionTextStyle,
   })  : assert(title != null || description != null),
-        assert((positiveButtonText != null && positiveCallback != null) || (negativeButtonText != null && negativeCallback != null)),
-        this.backgroundColor = backgroundColor ?? ThemeProvider.theme.colors.surface,
-        this.titleTextStyle = titleTextStyle ?? ThemeProvider.theme.textStyles.h3,
-        this.descriptionTextStyle = descriptionTextStyle ?? ThemeProvider.theme.textStyles.body1;
+        assert((positiveButtonText != null && positiveCallback != null) ||
+            (negativeButtonText != null && negativeCallback != null));
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(ThemeProvider.theme.dimensions.radiusMedium),
-          color: backgroundColor,
+          borderRadius: BorderRadius.circular(Dimens.of(context).radiusMedium),
+          color: backgroundColor ?? Theme.of(context).colorScheme.surface,
         ),
         child: Padding(
           padding: EdgeInsets.only(
-            left: ThemeProvider.theme.spacing.l,
-            right: ThemeProvider.theme.spacing.l,
-            top: ThemeProvider.theme.spacing.xl,
-            bottom: ThemeProvider.theme.spacing.xl,
+            left: Dimens.of(context).marginLarge,
+            right: Dimens.of(context).marginLarge,
+            top: Dimens.of(context).marginXLarge,
+            bottom: Dimens.of(context).marginXLarge,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,16 +51,28 @@ class DSDialog extends StatelessWidget {
               if (title != null) ...[
                 Text(
                   title,
-                  style: titleTextStyle.copyWith(color: ThemeProvider.theme.colors.onSurface.withOpacity(0.87)),
+                  style:
+                      (titleTextStyle ?? Theme.of(context).textTheme.headline4)
+                          .copyWith(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withOpacity(0.87)),
                 ),
-                Margins.medium,
+                SizedBox(height: Dimens.of(context).marginMedium),
               ],
               if (description != null)
                 Text(
                   description,
-                  style: descriptionTextStyle.copyWith(color: ThemeProvider.theme.colors.onSurface.withOpacity(0.6)),
+                  style: (descriptionTextStyle ??
+                          Theme.of(context).textTheme.bodyText2)
+                      .copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.6)),
                 ),
-              Margins.xLarge,
+              SizedBox(height: Dimens.of(context).marginXLarge),
               if (positiveButtonText != null && positiveCallback != null) ...[
                 DSPrimaryButton(
                   text: positiveButtonText,
@@ -71,7 +80,7 @@ class DSDialog extends StatelessWidget {
                 ),
               ],
               if (negativeButtonText != null && negativeCallback != null) ...[
-                Margins.small,
+                SizedBox(height: Dimens.of(context).marginSmall),
                 DSTextButton(
                   text: negativeButtonText,
                   onPressed: negativeCallback,

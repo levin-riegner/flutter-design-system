@@ -1,7 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
 
 class AlertService {
   AlertService._();
@@ -17,6 +16,7 @@ class AlertService {
 
   static const int _durationSeconds = 3;
   static const int _durationWithActionsSeconds = 6;
+
   showAlert({
     @required BuildContext context,
     @required String message,
@@ -25,7 +25,8 @@ class AlertService {
     String actionText,
     VoidCallback onAction,
   }) {
-    seconds = seconds ?? (onAction == null ? _durationSeconds : _durationWithActionsSeconds);
+    seconds = seconds ??
+        (onAction == null ? _durationSeconds : _durationWithActionsSeconds);
     Flushbar(
       flushbarPosition: FlushbarPosition.TOP,
       flushbarStyle: FlushbarStyle.GROUNDED,
@@ -35,21 +36,31 @@ class AlertService {
           : Text(
               title,
               textAlign: TextAlign.center,
-              style: ThemeProvider.theme.textStyles.h4.copyWith(color: ThemeProvider.theme.colors.onPrimary),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
             ),
       messageText: Text(
         message,
         textAlign: TextAlign.center,
-        style: ThemeProvider.theme.textStyles.body1.copyWith(color: ThemeProvider.theme.colors.onPrimary),
+        style: Theme.of(context)
+            .textTheme
+            .bodyText2
+            .copyWith(color: Theme.of(context).colorScheme.onPrimary),
       ),
-      backgroundColor: ThemeProvider.theme.colors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       duration: Duration(seconds: seconds),
       onTap: (_) => onAction(),
       mainButton: (onAction != null && actionText != null)
           ? FlatButton(
               child: Text(
                 actionText,
-                style: ThemeProvider.theme.textStyles.button.apply(color: ThemeProvider.theme.colors.onPrimary.withOpacity(0.5)),
+                style: Theme.of(context).textTheme.button.apply(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onPrimary
+                        .withOpacity(0.5)),
               ),
               onPressed: onAction,
             )
@@ -57,4 +68,3 @@ class AlertService {
     )..show(context);
   }
 }
-

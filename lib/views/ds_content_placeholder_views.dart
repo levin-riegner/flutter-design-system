@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
-import 'package:lr_design_system/theme/theme_spacing.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/utils/strings.dart';
 import 'package:lr_design_system/views/ds_app_bar.dart';
 import 'package:lr_design_system/views/ds_button.dart';
@@ -188,27 +187,27 @@ class _ContentPlaceholderBody extends StatelessWidget {
             Icon(
               icon,
               size: kIconHeight,
-              color: ThemeProvider.theme.colors.primary,
+              color: Theme.of(context).colorScheme.primary,
             ),
-        ThemeSpacing.XLarge,
+        SizedBox(height: Dimens.of(context).marginXLarge),
         Text(
           title,
-          style: ThemeProvider.theme.textStyles.h4,
+          style: Theme.of(context).textTheme.headline4,
           textAlign: TextAlign.center,
         ),
-        ThemeSpacing.Medium,
+        SizedBox(height: Dimens.of(context).marginMedium),
         Text(
           description,
-          style: ThemeProvider.theme.textStyles.body1,
+          style: Theme.of(context).textTheme.bodyText2,
           textAlign: TextAlign.center,
         ),
-        ThemeSpacing.Medium,
+        SizedBox(height: Dimens.of(context).marginMedium),
       ],
     );
 
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(ThemeProvider.theme.spacing.l),
+        padding: EdgeInsets.all(Dimens.of(context).marginLarge),
         child: Column(
           children: [
             expanded ? Expanded(child: content) : content,
@@ -219,7 +218,7 @@ class _ContentPlaceholderBody extends StatelessWidget {
               ),
             if (onBack != null)
               Padding(
-                padding: EdgeInsets.only(top: ThemeProvider.theme.spacing.m),
+                padding: EdgeInsets.only(top: Dimens.of(context).marginMedium),
                 child: DSTextButton(
                   text: 'Go back',
                   onPressed: onBack,

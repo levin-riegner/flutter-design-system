@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 
 import 'ds_loading_indicator.dart';
 
@@ -27,34 +27,34 @@ class DSTextButton extends StatelessWidget {
     this.width,
     this.alignment = Alignment.centerLeft,
     this.horizontalMargin = 0.0,
-    Color loadingColor,
-    double height,
-    TextStyle textStyle,
-    Color defaultTextColor,
-    Color disabledTextColor,
-  })  : this.loadingColor = loadingColor ?? ThemeProvider.theme.colors.primary,
-        this.height = height ?? ThemeProvider.theme.dimensions.buttonHeight,
-        this.textStyle = textStyle ?? ThemeProvider.theme.textStyles.button,
-        this.defaultTextColor =
-            defaultTextColor ?? ThemeProvider.theme.colors.primary,
-        this.disabledTextColor =
-            disabledTextColor ?? ThemeProvider.theme.colors.disabled;
+    this.loadingColor,
+    this.height,
+    this.textStyle,
+    this.defaultTextColor,
+    this.disabledTextColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      height: height,
+      height: height ?? Dimens.of(context).buttonHeight,
       child: Align(
         alignment: alignment,
         child: isLoading
-            ? DSLoadingIndicator(color: loadingColor)
+            ? DSLoadingIndicator(
+                color: loadingColor ?? Theme.of(context).colorScheme.primary)
             : CupertinoButton(
                 padding: EdgeInsets.all(horizontalMargin),
                 child: Text(
                   text.toUpperCase(),
-                  style: textStyle.copyWith(
-                      color: enabled ? defaultTextColor : disabledTextColor),
+                  style: (textStyle ?? Theme.of(context).textTheme.button)
+                      .copyWith(
+                          color: enabled
+                              ? (defaultTextColor ??
+                                  Theme.of(context).colorScheme.primary)
+                              : (disabledTextColor ??
+                                  Theme.of(context).disabledColor)),
                 ),
                 onPressed: (enabled && !isLoading) ? onPressed : null,
               ),

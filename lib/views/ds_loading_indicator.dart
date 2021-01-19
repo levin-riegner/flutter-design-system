@@ -1,25 +1,24 @@
 import 'dart:math' as math show sin, pi;
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/animation.dart';
-import 'package:lr_design_system/theme/theme.dart';
 
 class DSLoadingIndicator extends StatefulWidget {
-  DSLoadingIndicator({
-    Key key,
-    Color color,
-    this.size = 15.0,
-    this.itemBuilder,
-    this.duration = const Duration(milliseconds: 1000),
-    this.controller,
-  })  : this.color = color ?? ThemeProvider.theme.colors.primary,
-        assert(size != null),
-        super(key: key);
-
   final Color color;
   final double size;
   final IndexedWidgetBuilder itemBuilder;
   final Duration duration;
   final AnimationController controller;
+
+  const DSLoadingIndicator({
+    Key key,
+    this.color,
+    this.size = 15.0,
+    this.itemBuilder,
+    this.duration = const Duration(milliseconds: 1000),
+    this.controller,
+  })  : assert(size != null),
+        super(key: key);
 
   @override
   _DSLoadingIndicatorState createState() => _DSLoadingIndicatorState();
@@ -65,8 +64,9 @@ class _DSLoadingIndicatorState extends State<DSLoadingIndicator>
   Widget _itemBuilder(int index) => widget.itemBuilder != null
       ? widget.itemBuilder(context, index)
       : DecoratedBox(
-          decoration:
-              BoxDecoration(color: widget.color, shape: BoxShape.circle));
+          decoration: BoxDecoration(
+              color: (widget.color ?? Theme.of(context).colorScheme.primary),
+              shape: BoxShape.circle));
 }
 
 class DelayTween extends Tween<double> {

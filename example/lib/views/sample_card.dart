@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/theme/dimens.dart';
 
 class SampleCard extends StatelessWidget {
   final double width;
@@ -19,13 +19,13 @@ class SampleCard extends StatelessWidget {
     return SizedBox(
       width: width,
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(ThemeProvider.theme.dimensions.borderSmall))),
-        color: ThemeProvider.theme.colors.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(Dimens.of(context).borderSmall))),
+        color: Theme.of(context).colorScheme.surface,
         child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(ThemeProvider.theme.dimensions.borderSmall)),
+          borderRadius: BorderRadius.all(Radius.circular(Dimens.of(context).borderSmall)),
           onTap: onTap,
           child: Padding(
-            padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+            padding: EdgeInsets.all(Dimens.of(context).marginMedium),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,31 +35,31 @@ class SampleCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(ThemeProvider.theme.dimensions.radiusMedium)),
+                      borderRadius: BorderRadius.all(Radius.circular(Dimens.of(context).radiusMedium)),
                       child: Container(
-                        color: ThemeProvider.theme.colors.secondary,
+                        color: Theme.of(context).colorScheme.secondary,
                         padding: EdgeInsets.only(
-                          left: ThemeProvider.theme.spacing.s,
-                          top: ThemeProvider.theme.spacing.xxs,
-                          right: ThemeProvider.theme.spacing.s,
-                          bottom: ThemeProvider.theme.spacing.xxs,
+                          left: Dimens.of(context).marginSmall,
+                          top: Dimens.of(context).marginXxSmall,
+                          right: Dimens.of(context).marginSmall,
+                          bottom: Dimens.of(context).marginXxSmall,
                         ),
                         child: Text(
                           title.toUpperCase(),
-                          style: ThemeProvider.theme.textStyles.button.apply(color: ThemeProvider.theme.colors.onSecondary),
+                          style: Theme.of(context).textTheme.button.apply(color: Theme.of(context).colorScheme.onSecondary),
                         ),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: ThemeProvider.theme.spacing.l,
+                  height: Dimens.of(context).marginLarge,
                 ),
                 description != null ? Text(
                   description,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: ThemeProvider.theme.textStyles.h6.apply(color: ThemeProvider.theme.colors.onSurface),
+                  style: Theme.of(context).textTheme.headline6.apply(color: Theme.of(context).colorScheme.onSurface),
                 ) : Container(),
               ],
             ),

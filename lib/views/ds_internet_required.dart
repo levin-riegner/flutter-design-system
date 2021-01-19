@@ -9,7 +9,7 @@ class DSInternetRequired extends StatefulWidget {
   final bool expanded;
   final VoidCallback onInternetAvailable;
 
-  DSInternetRequired({
+  const DSInternetRequired({
     this.expanded = true,
     @required this.child,
     @required this.onInternetAvailable,

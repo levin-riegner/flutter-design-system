@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
 import 'package:package_info/package_info.dart';
 
 class DSAppVersion extends StatelessWidget {
-  final TextStyle _textStyle;
+  final TextStyle textStyle;
 
-  DSAppVersion({
-    TextStyle textStyle,
-  }) : _textStyle = textStyle ??
-            ThemeProvider.theme.textStyles.overline
-                .copyWith(color: ThemeProvider.theme.colors.disabled);
+  const DSAppVersion({
+    this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +17,11 @@ class DSAppVersion extends StatelessWidget {
         final info = data.data;
         return Text(
           "${info.version} (${info.buildNumber})",
-          style: _textStyle,
+          style: textStyle ??
+              Theme.of(context)
+                  .textTheme
+                  .overline
+                  .copyWith(color: Theme.of(context).disabledColor),
         );
       },
     );
