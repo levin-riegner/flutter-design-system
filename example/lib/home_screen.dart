@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/dimens.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_banner.dart';
 import 'package:lr_design_system/views/ds_button.dart';

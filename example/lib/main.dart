@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:lr_design_system/theme/dimens.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:showcase/home_screen.dart';
 
 void main() async {

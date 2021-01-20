@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/dimens.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 
 class ShowCaseModifier extends StatelessWidget {
   final String title;
