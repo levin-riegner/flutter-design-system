@@ -9,6 +9,7 @@ class DSPrimaryButton extends _BaseButton {
   final bool isLoading;
   final bool enabled;
   final VoidCallback onPressed;
+  final bool forceUpperCase;
 
   const DSPrimaryButton({
     @required this.text,
@@ -16,6 +17,7 @@ class DSPrimaryButton extends _BaseButton {
     this.isLoading = false,
     this.enabled = true,
     this.width = double.infinity,
+    this.forceUpperCase = true,
   });
 
   @override
@@ -33,6 +35,7 @@ class DSPrimaryButton extends _BaseButton {
       disabledTextColor:
           Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
       loadingColor: Theme.of(context).colorScheme.onPrimary,
+      forceUpperCase: forceUpperCase,
     );
   }
 }
@@ -43,6 +46,7 @@ class DSOutlineButton extends _BaseButton {
   final bool isLoading;
   final bool enabled;
   final VoidCallback onPressed;
+  final bool forceUpperCase;
 
   const DSOutlineButton({
     @required this.text,
@@ -50,6 +54,7 @@ class DSOutlineButton extends _BaseButton {
     this.isLoading = false,
     this.enabled = true,
     this.width = double.infinity,
+    this.forceUpperCase = true,
   });
 
   @override
@@ -71,6 +76,7 @@ class DSOutlineButton extends _BaseButton {
       defaultTextColor: Theme.of(context).colorScheme.primary,
       disabledTextColor: Theme.of(context).disabledColor,
       loadingColor: Theme.of(context).colorScheme.primary,
+      forceUpperCase: forceUpperCase,
     );
   }
 }
@@ -91,6 +97,7 @@ class _BaseButton extends StatelessWidget {
   final BorderSide borderSide;
   final Color defaultTextColor;
   final Color disabledTextColor;
+  final bool forceUpperCase;
 
   const _BaseButton({
     @required this.text,
@@ -107,6 +114,7 @@ class _BaseButton extends StatelessWidget {
     this.textStyle,
     @required this.defaultTextColor,
     @required this.disabledTextColor,
+    @required this.forceUpperCase,
   });
 
   @override
@@ -126,7 +134,7 @@ class _BaseButton extends StatelessWidget {
             ? DSLoadingIndicator(
                 color: loadingColor ?? Theme.of(context).colorScheme.onPrimary)
             : Text(
-                text.toUpperCase(),
+                forceUpperCase ? text.toUpperCase() : text,
                 style: textStyle,
               ),
         disabledColor: isLoading

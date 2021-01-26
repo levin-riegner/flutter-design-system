@@ -18,6 +18,7 @@ class DSTextButton extends StatelessWidget {
   final TextStyle textStyle;
   final Color defaultTextColor;
   final Color disabledTextColor;
+  final bool forceUpperCase;
 
   DSTextButton({
     @required this.text,
@@ -32,6 +33,7 @@ class DSTextButton extends StatelessWidget {
     this.textStyle,
     this.defaultTextColor,
     this.disabledTextColor,
+    this.forceUpperCase = true,
   });
 
   @override
@@ -47,7 +49,7 @@ class DSTextButton extends StatelessWidget {
             : CupertinoButton(
                 padding: EdgeInsets.all(horizontalMargin),
                 child: Text(
-                  text.toUpperCase(),
+                  forceUpperCase ? text.toUpperCase() : text,
                   style: (textStyle ?? Theme.of(context).textTheme.button)
                       .copyWith(
                           color: enabled
