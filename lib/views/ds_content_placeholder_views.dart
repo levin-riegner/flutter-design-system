@@ -149,6 +149,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final body = _ContentPlaceholderBody(
+      iconView: iconView,
       icon: fallbackIcon,
       title: title,
       expanded: expanded,
