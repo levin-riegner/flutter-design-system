@@ -205,7 +205,7 @@ class _ContentPlaceholderBody extends StatelessWidget {
               size: kIconHeight,
               color: Theme.of(context).colorScheme.primary,
             ),
-        SizedBox(height: Dimens.of(context).marginXLarge),
+        SizedBox(height: Dimens.of(context).marginMedium),
         Text(
           title,
           style: Theme.of(context).textTheme.headline4,
