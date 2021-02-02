@@ -230,12 +230,14 @@ class _ContentPlaceholderBody extends StatelessWidget {
               DSPrimaryButton(
                 text: 'Refresh',
                 onPressed: onRefresh,
+                forceUpperCase: false,
               ),
             if (onBack != null)
               Padding(
                 padding: EdgeInsets.only(top: Dimens.of(context).marginMedium),
                 child: DSTextButton(
                   text: 'Go back',
+                  forceUpperCase: false,
                   onPressed: onBack,
                   alignment: Alignment.center,
                 ),
