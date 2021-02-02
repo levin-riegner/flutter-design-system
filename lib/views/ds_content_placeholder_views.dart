@@ -12,6 +12,8 @@ class DSErrorView extends StatelessWidget {
   final Widget iconView;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final String title;
+  final String description;
 
   const DSErrorView({
     Key key,
@@ -21,6 +23,8 @@ class DSErrorView extends StatelessWidget {
     this.iconView,
     @required this.onRefresh,
     this.onBack,
+    this.title,
+    this.description,
   }) : super(key: key);
 
   @override
@@ -30,9 +34,10 @@ class DSErrorView extends StatelessWidget {
       useScaffold: useScaffold,
       scaffoldTitle: scaffoldTitle ?? 'Error',
       expanded: expanded,
-      icon: Icons.warning,
-      title: 'It seems something has broken!',
-      description: 'Let\'s help get you back',
+      iconView: iconView,
+      fallbackIcon: Icons.warning,
+      title: title ?? 'It seems something has broken!',
+      description: description ?? 'Let\'s help get you back',
       onRefresh: onRefresh,
       onBack: onBack,
     );
@@ -46,6 +51,8 @@ class DSEmptyView extends StatelessWidget {
   final Widget iconView;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final String title;
+  final String description;
 
   const DSEmptyView({
     Key key,
@@ -55,6 +62,8 @@ class DSEmptyView extends StatelessWidget {
     this.iconView,
     this.onRefresh,
     this.onBack,
+    this.title,
+    this.description,
   }) : super(key: key);
 
   @override
@@ -63,9 +72,10 @@ class DSEmptyView extends StatelessWidget {
       useScaffold: useScaffold,
       scaffoldTitle: scaffoldTitle ?? '',
       expanded: expanded,
-      icon: Icons.insert_drive_file,
-      title: 'Nothing to see here',
-      description: 'It seems this page has no content...',
+      iconView: iconView,
+      fallbackIcon: Icons.insert_drive_file,
+      title: title ?? 'Nothing to see here',
+      description: description ?? 'It seems this page has no content...',
       onRefresh: onRefresh,
       onBack: onBack,
     );
@@ -79,6 +89,8 @@ class DSNoInternetView extends StatelessWidget {
   final Widget iconView;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final String title;
+  final String description;
 
   const DSNoInternetView({
     Key key,
@@ -88,6 +100,8 @@ class DSNoInternetView extends StatelessWidget {
     this.iconView,
     this.onRefresh,
     this.onBack,
+    this.title,
+    this.description,
   }) : super(key: key);
 
   @override
@@ -96,9 +110,10 @@ class DSNoInternetView extends StatelessWidget {
       useScaffold: useScaffold,
       scaffoldTitle: scaffoldTitle ?? '',
       expanded: expanded,
-      icon: Icons.cloud_off,
-      title: Strings.noInternetViewTitle,
-      description: Strings.noInternetViewDescription,
+      iconView: iconView,
+      fallbackIcon: Icons.cloud_off,
+      title: title ?? Strings.noInternetViewTitle,
+      description: description ?? Strings.noInternetViewDescription,
       onRefresh: onRefresh,
       onBack: onBack,
     );
@@ -110,7 +125,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   final String scaffoldTitle;
 
   final Widget iconView;
-  final IconData icon;
+  final IconData fallbackIcon;
   final bool expanded;
   final String title;
   final String description;
@@ -122,19 +137,19 @@ class _ContentPlaceholderScreen extends StatelessWidget {
     @required this.useScaffold,
     @required this.scaffoldTitle,
     this.iconView,
-    this.icon,
+    this.fallbackIcon,
     @required this.expanded,
     @required this.title,
     @required this.description,
     @required this.onRefresh,
     @required this.onBack,
-  })  : assert(icon != null || iconView != null),
+  })  : assert(fallbackIcon != null || iconView != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final body = _ContentPlaceholderBody(
-      icon: icon,
+      icon: fallbackIcon,
       title: title,
       expanded: expanded,
       description: description,
