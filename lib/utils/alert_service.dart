@@ -87,8 +87,8 @@ class SnackBarService {
   showSnackBar({
     @required BuildContext context,
     @required String title,
-    @required VoidCallback onAction,
-    @required String actionText,
+    VoidCallback onAction,
+    String actionText,
     TextStyle titleStyle,
     Color backgroundColor,
     int seconds,
@@ -105,7 +105,8 @@ class SnackBarService {
     Scaffold.of(context).showSnackBar(
       SnackBar(
         duration: Duration(seconds: seconds),
-        backgroundColor: backgroundColor,
+        backgroundColor:
+            backgroundColor ?? Theme.of(context).colorScheme.onBackground,
         behavior: snackBarBehavior,
         margin: margin,
         padding: padding,
@@ -113,13 +114,17 @@ class SnackBarService {
         shape: shape,
         content: Text(
           title,
-          style: titleStyle,
+          style: titleStyle ??
+              Theme.of(context).textTheme.caption.apply(
+                    color: Theme.of(context).colorScheme.background,
+                  ),
         ),
         action: (onAction != null && actionText != null)
             ? SnackBarAction(
                 label: actionText,
                 onPressed: onAction,
-                textColor: actionTextColor,
+                textColor:
+                    actionTextColor ?? Theme.of(context).colorScheme.primary,
               )
             : null,
       ),
