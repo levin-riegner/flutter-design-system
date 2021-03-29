@@ -370,7 +370,7 @@ Future<T> showDSModalBottomSheet<T>({
       context,
       _ModalBottomSheetRoute<T>(
         builder: builder,
-        theme: Theme.of(context, shadowThemeOnly: true)?.copyWith(canvasColor: Colors.transparent),
+        theme: Theme.of(context)?.copyWith(canvasColor: Colors.transparent),
         barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         title: title,
         backgroundColor: backgroundColor,

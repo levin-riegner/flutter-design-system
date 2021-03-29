@@ -14,6 +14,7 @@ class DSDialog extends StatelessWidget {
   final Color backgroundColor;
   final TextStyle titleTextStyle;
   final TextStyle descriptionTextStyle;
+  final bool forceUpperCaseButtons;
 
   const DSDialog({
     this.title,
@@ -25,6 +26,7 @@ class DSDialog extends StatelessWidget {
     this.backgroundColor,
     this.titleTextStyle,
     this.descriptionTextStyle,
+    this.forceUpperCaseButtons = true,
   })  : assert(title != null || description != null),
         assert((positiveButtonText != null && positiveCallback != null) ||
             (negativeButtonText != null && negativeCallback != null));
@@ -38,12 +40,7 @@ class DSDialog extends StatelessWidget {
           color: backgroundColor ?? Theme.of(context).colorScheme.surface,
         ),
         child: Padding(
-          padding: EdgeInsets.only(
-            left: Dimens.of(context).marginLarge,
-            right: Dimens.of(context).marginLarge,
-            top: Dimens.of(context).marginXLarge,
-            bottom: Dimens.of(context).marginXLarge,
-          ),
+          padding: EdgeInsets.all(Dimens.of(context).marginLarge),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -72,11 +69,12 @@ class DSDialog extends StatelessWidget {
                               .onSurface
                               .withOpacity(0.6)),
                 ),
-              SizedBox(height: Dimens.of(context).marginXLarge),
+              SizedBox(height: Dimens.of(context).marginLarge),
               if (positiveButtonText != null && positiveCallback != null) ...[
                 DSPrimaryButton(
                   text: positiveButtonText,
                   onPressed: positiveCallback,
+                  forceUpperCase: forceUpperCaseButtons,
                 ),
               ],
               if (negativeButtonText != null && negativeCallback != null) ...[
@@ -85,6 +83,7 @@ class DSDialog extends StatelessWidget {
                   text: negativeButtonText,
                   onPressed: negativeCallback,
                   alignment: Alignment.center,
+                  forceUpperCase: forceUpperCaseButtons,
                 ),
               ],
             ],
