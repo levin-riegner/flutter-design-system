@@ -53,7 +53,7 @@ class _DSInternetRequiredState extends State<DSInternetRequired> {
 
   @override
   Widget build(BuildContext context) {
-    return hasInternet == true
+    return hasInternet != false
         ? widget.child
         : DSNoInternetView(
             expanded: widget.expanded,
