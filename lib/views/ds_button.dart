@@ -40,6 +40,56 @@ class DSPrimaryButton extends _BaseButton {
   }
 }
 
+class DSButton extends _BaseButton {
+  final String text;
+  final double width;
+  final bool isLoading;
+  final bool enabled;
+  final VoidCallback onPressed;
+  final bool forceUpperCase;
+  final Color backgroundColor;
+  final Color textColor;
+  final Color disabledBackgroundColor;
+  final Color disabledTextColor;
+  final Color loadingColor;
+  final double borderRadius;
+
+  const DSButton({
+    @required this.text,
+    @required this.backgroundColor,
+    @required this.textColor,
+    this.onPressed,
+    this.isLoading = false,
+    this.enabled = true,
+    this.width = double.infinity,
+    this.forceUpperCase = true,
+    this.disabledBackgroundColor,
+    this.disabledTextColor,
+    this.borderRadius,
+    this.loadingColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return _BaseButton(
+      text: text,
+      onPressed: onPressed,
+      isLoading: isLoading,
+      enabled: enabled,
+      width: width,
+      borderSide: BorderSide.none,
+      defaultColor: backgroundColor,
+      disabledColor: disabledBackgroundColor ?? Theme.of(context).colorScheme.primary.withOpacity(0.25),
+      defaultTextColor: textColor ?? Theme.of(context).colorScheme.onPrimary,
+      disabledTextColor:
+          disabledTextColor ?? Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
+      loadingColor: loadingColor ?? Theme.of(context).colorScheme.onPrimary,
+      forceUpperCase: forceUpperCase,
+      borderRadius: borderRadius,
+    );
+  }
+}
+
 class DSOutlineButton extends _BaseButton {
   final String text;
   final double width;
