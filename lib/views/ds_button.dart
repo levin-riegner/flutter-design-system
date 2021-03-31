@@ -10,6 +10,7 @@ class DSPrimaryButton extends _BaseButton {
   final bool enabled;
   final VoidCallback onPressed;
   final bool forceUpperCase;
+  final double borderRadius;
 
   const DSPrimaryButton({
     @required this.text,
@@ -18,6 +19,7 @@ class DSPrimaryButton extends _BaseButton {
     this.enabled = true,
     this.width = double.infinity,
     this.forceUpperCase = true,
+    this.borderRadius,
   });
 
   @override
@@ -36,6 +38,7 @@ class DSPrimaryButton extends _BaseButton {
           Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
       loadingColor: Theme.of(context).colorScheme.onPrimary,
       forceUpperCase: forceUpperCase,
+      borderRadius: borderRadius,
     );
   }
 }
@@ -97,6 +100,7 @@ class DSOutlineButton extends _BaseButton {
   final bool enabled;
   final VoidCallback onPressed;
   final bool forceUpperCase;
+  final double borderRadius;
 
   const DSOutlineButton({
     @required this.text,
@@ -105,6 +109,7 @@ class DSOutlineButton extends _BaseButton {
     this.enabled = true,
     this.width = double.infinity,
     this.forceUpperCase = true,
+    this.borderRadius,
   });
 
   @override
@@ -127,6 +132,7 @@ class DSOutlineButton extends _BaseButton {
       disabledTextColor: Theme.of(context).disabledColor,
       loadingColor: Theme.of(context).colorScheme.primary,
       forceUpperCase: forceUpperCase,
+      borderRadius: borderRadius,
     );
   }
 }
