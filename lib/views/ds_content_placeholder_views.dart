@@ -14,6 +14,8 @@ class DSErrorView extends StatelessWidget {
   final VoidCallback onBack;
   final String title;
   final String description;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const DSErrorView({
     Key key,
@@ -25,6 +27,8 @@ class DSErrorView extends StatelessWidget {
     this.onBack,
     this.title,
     this.description,
+    this.titleTextStyle,
+    this.descriptionTextStyle,
   }) : super(key: key);
 
   @override
@@ -40,6 +44,8 @@ class DSErrorView extends StatelessWidget {
       description: description ?? 'Let\'s help get you back',
       onRefresh: onRefresh,
       onBack: onBack,
+      titleTextStyle: titleTextStyle,
+      descriptionTextStyle: descriptionTextStyle,
     );
   }
 }
@@ -53,6 +59,8 @@ class DSEmptyView extends StatelessWidget {
   final VoidCallback onBack;
   final String title;
   final String description;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const DSEmptyView({
     Key key,
@@ -64,6 +72,8 @@ class DSEmptyView extends StatelessWidget {
     this.onBack,
     this.title,
     this.description,
+    this.titleTextStyle,
+    this.descriptionTextStyle,
   }) : super(key: key);
 
   @override
@@ -78,6 +88,8 @@ class DSEmptyView extends StatelessWidget {
       description: description ?? 'It seems this page has no content...',
       onRefresh: onRefresh,
       onBack: onBack,
+      titleTextStyle: titleTextStyle,
+      descriptionTextStyle: descriptionTextStyle,
     );
   }
 }
@@ -91,6 +103,8 @@ class DSNoInternetView extends StatelessWidget {
   final VoidCallback onBack;
   final String title;
   final String description;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const DSNoInternetView({
     Key key,
@@ -102,6 +116,8 @@ class DSNoInternetView extends StatelessWidget {
     this.onBack,
     this.title,
     this.description,
+    this.titleTextStyle,
+    this.descriptionTextStyle,
   }) : super(key: key);
 
   @override
@@ -116,6 +132,8 @@ class DSNoInternetView extends StatelessWidget {
       description: description ?? Strings.noInternetViewDescription,
       onRefresh: onRefresh,
       onBack: onBack,
+      titleTextStyle: titleTextStyle,
+      descriptionTextStyle: descriptionTextStyle,
     );
   }
 }
@@ -131,6 +149,8 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   final String description;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const _ContentPlaceholderScreen({
     Key key,
@@ -143,6 +163,8 @@ class _ContentPlaceholderScreen extends StatelessWidget {
     @required this.description,
     @required this.onRefresh,
     @required this.onBack,
+    this.titleTextStyle,
+    this.descriptionTextStyle,
   })  : assert(fallbackIcon != null || iconView != null),
         super(key: key);
 
@@ -156,6 +178,8 @@ class _ContentPlaceholderScreen extends StatelessWidget {
       description: description,
       onRefresh: onRefresh,
       onBack: onBack,
+      titleTextStyle: titleTextStyle,
+      descriptionTextStyle: descriptionTextStyle,
     );
     return useScaffold
         ? Scaffold(
@@ -180,6 +204,8 @@ class _ContentPlaceholderBody extends StatelessWidget {
   final String description;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const _ContentPlaceholderBody({
     Key key,
@@ -190,6 +216,8 @@ class _ContentPlaceholderBody extends StatelessWidget {
     @required this.description,
     @required this.onRefresh,
     @required this.onBack,
+    @required this.titleTextStyle,
+    @required this.descriptionTextStyle,
   })  : assert(icon != null || iconView != null),
         super(key: key);
 
@@ -208,13 +236,13 @@ class _ContentPlaceholderBody extends StatelessWidget {
         SizedBox(height: Dimens.of(context).marginMedium),
         Text(
           title,
-          style: Theme.of(context).textTheme.headline4,
+          style: titleTextStyle ?? Theme.of(context).textTheme.headline4,
           textAlign: TextAlign.center,
         ),
         SizedBox(height: Dimens.of(context).marginMedium),
         Text(
           description,
-          style: Theme.of(context).textTheme.bodyText2,
+          style: descriptionTextStyle ?? Theme.of(context).textTheme.bodyText2,
           textAlign: TextAlign.center,
         ),
         SizedBox(height: Dimens.of(context).marginMedium),
