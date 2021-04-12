@@ -11,14 +11,14 @@ class DSRefreshIndicator
   DSRefreshIndicator({
     @required this.onRefresh,
     @required this.child,
-    @required this.sliverAppBar,
+    this.sliverAppBar,
   });
 
   @override
   CustomScrollView buildAndroidWidget(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        sliverAppBar,
+        if (sliverAppBar != null) sliverAppBar,
         SliverToBoxAdapter(
           child: RefreshIndicator(
             onRefresh: onRefresh,
@@ -33,7 +33,7 @@ class DSRefreshIndicator
   CustomScrollView buildIosWidget(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        sliverAppBar,
+        if (sliverAppBar != null) sliverAppBar,
         CupertinoSliverRefreshControl(
           onRefresh: onRefresh,
         ),
