@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lr_design_system/utils/platform_aware_widget.dart';
 
 class DSRefreshIndicator
-    extends PlatformAwareWidget<CustomScrollView, CustomScrollView> {
+    extends PlatformAwareWidget<CustomScrollView, RefreshIndicator> {
   final Future<void> Function() onRefresh;
   final Widget child;
   final Widget sliverAppBar;
@@ -17,18 +17,16 @@ class DSRefreshIndicator
   });
 
   @override
-  CustomScrollView buildAndroidWidget(BuildContext context) {
-    return CustomScrollView(
-      controller: controller,
-      slivers: [
-        if (sliverAppBar != null) sliverAppBar,
-        SliverToBoxAdapter(
-          child: RefreshIndicator(
-            onRefresh: onRefresh,
-            child: child,
-          ),
-        ),
-      ],
+  RefreshIndicator buildAndroidWidget(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: onRefresh,
+      child: CustomScrollView(
+        controller: controller,
+        slivers: [
+          if (sliverAppBar != null) sliverAppBar,
+          SliverToBoxAdapter(child: child),
+        ],
+      ),
     );
   }
 
