@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/utils/platform_aware_widget.dart';
 
+@Deprecated("Not usable until Material RefreshIndicator can be used with slivers")
 class DSRefreshIndicator
     extends PlatformAwareWidget<CustomScrollView, RefreshIndicator> {
   final Future<void> Function() onRefresh;
