@@ -11,7 +11,7 @@ class DSApp extends InheritedWidget {
     Key? key,
     required this.dimens,
     required this.config,
-    required MaterialApp child,
+    required Widget child,
   }) : super(key: key, child: child);
 
   @override
