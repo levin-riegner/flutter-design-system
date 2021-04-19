@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 
 const Duration _kBottomSheetDuration = Duration(milliseconds: 250);
 const double _kMinFlingVelocity = 700.0;
@@ -50,7 +50,7 @@ class BottomSheet extends StatefulWidget {
   final String title;
   final Color backgroundColor;
 
-  BottomSheet({
+  const BottomSheet({
     Key key,
     this.animationController,
     this.enableDrag = true,
@@ -58,12 +58,11 @@ class BottomSheet extends StatefulWidget {
     @required this.onClosing,
     @required this.builder,
     @required this.title,
-    Color backgroundColor,
+    this.backgroundColor,
   })  : assert(enableDrag != null),
         assert(onClosing != null),
         assert(builder != null),
         assert(elevation != null && elevation >= 0.0),
-        this.backgroundColor = backgroundColor ?? ThemeProvider.theme.colors.surface,
         super(key: key);
 
   /// The animation that controls the bottom sheet's position.
@@ -147,15 +146,15 @@ class _BottomSheetState extends State<BottomSheet> {
       elevation: widget.elevation,
       child: Container(
         decoration: BoxDecoration(
-          color: widget.backgroundColor,
+          color: (widget.backgroundColor ?? Theme.of(context).colorScheme.background),
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(ThemeProvider.theme.dimensions.radiusMedium),
-              topRight: Radius.circular(ThemeProvider.theme.dimensions.radiusMedium)),
+              topLeft: Radius.circular(Dimens.of(context).radiusMedium),
+              topRight: Radius.circular(Dimens.of(context).radiusMedium)),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(ThemeProvider.theme.dimensions.radiusMedium),
-            topRight: Radius.circular(ThemeProvider.theme.dimensions.radiusMedium),
+            topLeft: Radius.circular(Dimens.of(context).radiusMedium),
+            topRight: Radius.circular(Dimens.of(context).radiusMedium),
           ),
           child: Scaffold(
             appBar: AppBar(
@@ -262,7 +261,7 @@ class _ModalBottomSheetState<T> extends State<_ModalBottomSheet<T>> {
                   onClosing: () => Navigator.pop(context),
                   builder: widget.route.builder,
                   title: widget.title,
-                  backgroundColor: widget.backgroundColor,
+                  backgroundColor: (widget.backgroundColor ?? Theme.of(context).colorScheme.background),
                 ),
               ),
             ),
@@ -371,7 +370,7 @@ Future<T> showDSModalBottomSheet<T>({
       context,
       _ModalBottomSheetRoute<T>(
         builder: builder,
-        theme: Theme.of(context, shadowThemeOnly: true)?.copyWith(canvasColor: Colors.transparent),
+        theme: Theme.of(context)?.copyWith(canvasColor: Colors.transparent),
         barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         title: title,
         backgroundColor: backgroundColor,

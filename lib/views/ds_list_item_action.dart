@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_divider.dart';
 
 class DSListItemAction extends StatelessWidget {
@@ -9,7 +9,7 @@ class DSListItemAction extends StatelessWidget {
   final Widget leading;
   final VoidCallback onPressed;
 
-  DSListItemAction({
+  const DSListItemAction({
     @required this.text,
     @required this.type,
     @required this.onPressed,
@@ -22,36 +22,36 @@ class DSListItemAction extends StatelessWidget {
     return Column(
       children: <Widget>[
         Material(
-          color: ThemeProvider.theme.colors.background,
+          color: Theme.of(context).colorScheme.background,
           child: InkWell(
             onTap: onPressed,
             child: SizedBox(
               width: double.infinity,
-              height: ThemeProvider.theme.dimensions.listItemHeightLarge,
+              height: Dimens.of(context).listItemHeightLarge,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: ThemeProvider.theme.spacing.l),
+                padding: EdgeInsets.symmetric(horizontal: Dimens.of(context).marginLarge),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     if (leading != null)
                       Padding(
-                        padding: EdgeInsets.only(right: ThemeProvider.theme.spacing.s),
+                        padding: EdgeInsets.only(right: Dimens.of(context).marginSmall),
                         child: leading,
                       ),
                     Expanded(
                       child: Text(
                         text,
-                        style: ThemeProvider.theme.textStyles.body1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText2.copyWith(
                           color: type == DSListItemActionType.destructive
-                              ? ThemeProvider.theme.colors.primary
-                              : ThemeProvider.theme.colors.onBackground,
+                              ? Theme.of(context).colorScheme.primary
+                              : Theme.of(context).colorScheme.onBackground,
                         ),
                       ),
                     ),
                     if (type == DSListItemActionType.navigation)
                       Icon(
                         Icons.chevron_right,
-                        color: ThemeProvider.theme.colors.primary,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                   ],
                 ),

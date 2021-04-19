@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
-import 'package:lr_design_system/views/margins.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 
 class ShowCaseModifier extends StatelessWidget {
   final String title;
@@ -30,20 +29,20 @@ class ShowCaseItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+      margin: EdgeInsets.all(Dimens.of(context).marginMedium),
       child: Padding(
-        padding: EdgeInsets.all(ThemeProvider.theme.spacing.m),
+        padding: EdgeInsets.all(Dimens.of(context).marginMedium),
         child: Column(
           children: <Widget>[
             Text(
               title,
-              style: ThemeProvider.theme.textStyles.h5,
+              style: Theme.of(context).textTheme.headline5,
             ),
-            Margins.small,
+            Dimens.of(context).boxSmall,
             content,
             if (modifiers != null)
               Padding(
-                padding: EdgeInsets.only(top: ThemeProvider.theme.spacing.s),
+                padding: EdgeInsets.only(top: Dimens.of(context).marginSmall),
                 child: Wrap(
                   children: modifiers,
                 ),

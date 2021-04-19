@@ -1,5 +1,4 @@
-import 'package:lr_design_system/theme/theme.dart';
-import 'package:lr_design_system/views/margins.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:flutter/material.dart';
 
 class DSToggleButton extends StatelessWidget {
@@ -19,51 +18,43 @@ class DSToggleButton extends StatelessWidget {
   final Color selectedColor;
   final TextStyle textStyle;
 
-  DSToggleButton(
-      {@required this.text,
-      this.defaultIcon,
-      this.selectedIcon,
-      this.isSelected = false,
-      this.onSelected,
-      this.width = double.infinity,
-      this.tintIcon = true,
-      double height,
-      double radius,
-      double defaultBorderWidth,
-      Color defaultBorderColor,
-      Color defaultColor,
-      Color selectedColor,
-      TextStyle textStyle})
-      : this.height = height ?? ThemeProvider.theme.dimensions.buttonHeight,
-        this.radius = radius ?? ThemeProvider.theme.dimensions.radiusMedium,
-        this.defaultBorderWidth =
-            defaultBorderWidth ?? ThemeProvider.theme.dimensions.borderSmall,
-        this.defaultBorderColor = defaultBorderColor ??
-            ThemeProvider.theme.colors.primaryVariant.withOpacity(0.55),
-        this.defaultColor =
-            defaultColor ?? ThemeProvider.theme.colors.transparent,
-        this.selectedColor =
-            selectedColor ?? ThemeProvider.theme.colors.primary,
-        this.textStyle = textStyle ??
-            ThemeProvider.theme.textStyles.overline.apply(
-                color: isSelected
-                    ? ThemeProvider.theme.colors.onPrimary
-                    : ThemeProvider.theme.colors.onBackground);
+  const DSToggleButton({
+    @required this.text,
+    this.defaultIcon,
+    this.selectedIcon,
+    this.isSelected = false,
+    this.onSelected,
+    this.width = double.infinity,
+    this.tintIcon = true,
+    this.height,
+    this.radius,
+    this.defaultBorderWidth,
+    this.defaultBorderColor,
+    this.defaultColor = const Color.fromARGB(0, 0, 0, 0),
+    this.selectedColor,
+    this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
     final icon = isSelected ? selectedIcon : defaultIcon;
     return SizedBox(
       width: width,
-      height: height,
+      height: height ?? Dimens.of(context).buttonHeight,
       child: FlatButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: BorderRadius.circular(
+                radius ?? Dimens.of(context).radiusMedium),
             side: isSelected
                 ? BorderSide.none
                 : BorderSide(
-                    color: defaultBorderColor, width: defaultBorderWidth)),
-        color: isSelected ? selectedColor : defaultColor,
+                    color: defaultBorderColor ??
+                        Theme.of(context).colorScheme.primary.withOpacity(0.55),
+                    width:
+                        defaultBorderWidth ?? Dimens.of(context).borderSmall)),
+        color: isSelected
+            ? (selectedColor ?? Theme.of(context).colorScheme.primary)
+            : defaultColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,16 +64,19 @@ class DSToggleButton extends StatelessWidget {
                   ? ColorFiltered(
                       colorFilter: ColorFilter.mode(
                           isSelected
-                              ? ThemeProvider.theme.colors.onPrimary
-                              : ThemeProvider.theme.colors.onBackground,
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Theme.of(context).colorScheme.onBackground,
                           BlendMode.srcIn),
                       child: icon)
                   : icon,
-            if (icon != null) Margins.small,
+            if (icon != null) SizedBox(height: Dimens.of(context).marginSmall),
             Text(
               text.toUpperCase(),
               textAlign: TextAlign.center,
-              style: textStyle,
+              style: Theme.of(context).textTheme.overline.apply(
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onBackground),
             ),
           ],
         ),

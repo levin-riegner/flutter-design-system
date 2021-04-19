@@ -1,5 +1,5 @@
-import 'package:lr_design_system/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 
 class DSSegmentedProgressBar extends StatefulWidget {
   /// The current page index ValueNotifier
@@ -25,29 +25,19 @@ class DSSegmentedProgressBar extends StatefulWidget {
   ///Whether to pre-fill part the current step or not
   final bool prefillStep;
 
-  DSSegmentedProgressBar({
+  const DSSegmentedProgressBar({
     Key key,
     @required this.currentPageNotifier,
     @required this.itemCount,
     this.stepsCompletedNotifier,
-    double size,
-    double stepSpacing,
-    double previousStepColor,
-    double selectedStepColor,
-    double nextStepColor,
+    this.size,
+    this.stepSpacing,
+    this.previousStepColor,
+    this.selectedStepColor,
+    this.nextStepColor,
     this.prefillStep = false,
-  })  : this.size =
-            size ?? ThemeProvider.theme.dimensions.horizontalProgressHeight,
-        this.stepSpacing = stepSpacing ??
-            ThemeProvider.theme.dimensions.horizontalProgressHeight,
-        this.previousStepColor =
-            previousStepColor ?? ThemeProvider.theme.colors.primary,
-        this.selectedStepColor =
-            selectedStepColor ?? ThemeProvider.theme.colors.primary,
-        this.nextStepColor =
-            nextStepColor ?? ThemeProvider.theme.colors.interaction,
-        super(key: key);
-
+  }) : super(key: key);
+  
   @override
   _StepPageIndicatorState createState() {
     return _StepPageIndicatorState();
@@ -75,7 +65,7 @@ class _StepPageIndicatorState extends State<DSSegmentedProgressBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.size,
+      height: (widget.size ?? Dimens.of(context).horizontalProgressHeight),
       child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: List<Widget>.generate(widget.itemCount * 2, (int index) {
@@ -87,7 +77,7 @@ class _StepPageIndicatorState extends State<DSSegmentedProgressBar> {
               if (index == (widget.itemCount * 2) - 1)
                 return Container(); // Skip last item
               return SizedBox(
-                  width: widget.stepSpacing, height: widget.stepSpacing);
+                  width: (widget.stepSpacing ?? Dimens.of(context).horizontalProgressHeight), height: (widget.stepSpacing ?? Dimens.of(context).horizontalProgressHeight));
             }
           })),
     );
@@ -113,7 +103,7 @@ class _StepPageIndicatorState extends State<DSSegmentedProgressBar> {
   Widget _getStep(int index) {
     // Last Item and Completed
     if (isLast(index) && _stepsCompleted) {
-      return Container(color: widget.previousStepColor);
+      return Container(color: (widget.previousStepColor ?? Theme.of(context).colorScheme.primary));
     }
     // Current Item
     if (isSelected(index)) {
@@ -122,11 +112,11 @@ class _StepPageIndicatorState extends State<DSSegmentedProgressBar> {
           if (widget.prefillStep)
             Container(
               width: 5,
-              color: widget.selectedStepColor,
+              color: (widget.selectedStepColor ?? Theme.of(context).colorScheme.primary),
             ),
           Expanded(
               child: Container(
-            color: widget.nextStepColor,
+            color: (widget.nextStepColor ?? Theme.of(context).disabledColor),
           ))
         ],
       );
@@ -134,7 +124,7 @@ class _StepPageIndicatorState extends State<DSSegmentedProgressBar> {
     // Past or Next Item
     return Container(
         color: isPrevious(index)
-            ? widget.previousStepColor
-            : widget.nextStepColor);
+            ? (widget.previousStepColor ?? Theme.of(context).colorScheme.primary)
+            : (widget.nextStepColor ?? Theme.of(context).disabledColor));
   }
 }

@@ -9,7 +9,7 @@ class DSInternetRequired extends StatefulWidget {
   final bool expanded;
   final VoidCallback onInternetAvailable;
 
-  DSInternetRequired({
+  const DSInternetRequired({
     this.expanded = true,
     @required this.child,
     @required this.onInternetAvailable,
@@ -53,11 +53,11 @@ class _DSInternetRequiredState extends State<DSInternetRequired> {
 
   @override
   Widget build(BuildContext context) {
-    return hasInternet == true
-        ? widget.child
-        : DSNoInternetView(
+    return hasInternet == false
+        ? DSNoInternetView(
             expanded: widget.expanded,
             onRefresh: widget.onInternetAvailable,
-          );
+          )
+        : widget.child;
   }
 }

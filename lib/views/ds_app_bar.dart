@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
 
 class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
+
+  static const _kAppBarHeight = 56.0;
+
   final String title;
   final bool backEnabled;
   final VoidCallback onBack;
@@ -17,21 +19,21 @@ class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: ThemeProvider.theme.textStyles.h4.copyWith(color: ThemeProvider.theme.colors.onPrimary),
+        style: Theme.of(context).textTheme.headline4.copyWith(color: Theme.of(context).colorScheme.onPrimary),
       ),
       leading: backEnabled
           ? IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: ThemeProvider.theme.colors.onPrimary,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
               onPressed:  onBack != null ? onBack : () => Navigator.of(context).pop(),
             )
           : null,
-      backgroundColor: ThemeProvider.theme.colors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(ThemeProvider.theme.dimensions.navigationBarHeight);
+  Size get preferredSize => Size.fromHeight(_kAppBarHeight);
 }

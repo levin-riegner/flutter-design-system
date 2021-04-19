@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 
 class DSListHeader extends StatelessWidget {
   final String text;
@@ -7,7 +7,7 @@ class DSListHeader extends StatelessWidget {
   final VoidCallback onActionButtonPressed;
   final double margin;
 
-  DSListHeader({
+  const DSListHeader({
     @required this.text,
     this.actionButtonText,
     this.onActionButtonPressed,
@@ -19,27 +19,27 @@ class DSListHeader extends StatelessWidget {
     final hasActionButton = actionButtonText != null && onActionButtonPressed != null;
     return SizedBox(
       width: double.infinity,
-      height: ThemeProvider.theme.dimensions.listItemHeightLarge,
+      height: Dimens.of(context).listItemHeightLarge,
       child: Padding(
         padding: EdgeInsets.only(
-          left: margin ?? ThemeProvider.theme.spacing.l,
-          right: margin ?? (hasActionButton ? ThemeProvider.theme.spacing.s : ThemeProvider.theme.spacing.l),
+          left: margin ?? Dimens.of(context).marginLarge,
+          right: margin ?? (hasActionButton ? Dimens.of(context).marginSmall : Dimens.of(context).marginLarge),
         ),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(text, style: ThemeProvider.theme.textStyles.h4),
+              Text(text, style: Theme.of(context).textTheme.headline4),
               if (hasActionButton)
                 InkWell(
-                  borderRadius: BorderRadius.all(Radius.circular(ThemeProvider.theme.dimensions.radiusSmall)),
+                  borderRadius: BorderRadius.all(Radius.circular(Dimens.of(context).radiusSmall)),
                   onTap: onActionButtonPressed,
                   child: Padding(
-                    padding: EdgeInsets.all(ThemeProvider.theme.spacing.s),
+                    padding: EdgeInsets.all(Dimens.of(context).marginSmall),
                     child: Text(
                       actionButtonText,
-                      style: ThemeProvider.theme.textStyles.body2.copyWith(color: ThemeProvider.theme.colors.onBackground),
+                      style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).colorScheme.onBackground),
                     ),
                   ),
                 ),

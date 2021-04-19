@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
-import 'package:lr_design_system/ui/utils/validated_value.dart';
+import 'package:lr_design_system/utils/dimens.dart';
+import 'package:lr_design_system/utils/validated_value.dart';
 import 'package:lr_design_system/utils/cap_string.dart';
 
 class DSTextField extends StatefulWidget {
@@ -28,8 +28,6 @@ class DSTextField extends StatefulWidget {
 
   Widget get invisiblePasswordIcon => Icon(Icons.visibility_off);
 
-  Widget get errorIcon => Icon(Icons.warning, color: ThemeProvider.theme.colors.error);
-
   DSTextField({
     this.initialText = "",
     this.validatedValue,
@@ -44,14 +42,13 @@ class DSTextField extends StatefulWidget {
     this.autofocus = false,
     this.textCapitalization = TextCapitalization.none,
     this.maxLines = 1,
-    Color textColor,
+    this.textColor,
     this.enabled = true,
     this.obscureText = false,
     this.borderWidth,
     this.autoCorrect = false,
     this.onChanged,
   })  : focusNode = focusNode ?? FocusNode(),
-        textColor = textColor ?? ThemeProvider.theme.colors.onBackground,
         keyboardType = keyboardType ?? (maxLines > 1 ? TextInputType.multiline : TextInputType.text),
         textInputAction = textInputAction ??
             (maxLines > 1
@@ -67,17 +64,6 @@ class DSTextField extends StatefulWidget {
 }
 
 class _DSTextFieldState extends State<DSTextField> {
-  final _contentPadding = EdgeInsets.symmetric(
-    vertical: ThemeProvider.theme.spacing.s,
-    horizontal: ThemeProvider.theme.spacing.m,
-  );
-  final _errorPadding = EdgeInsets.only(
-    left: ThemeProvider.theme.spacing.s,
-    top: ThemeProvider.theme.spacing.s,
-    right: ThemeProvider.theme.spacing.s,
-    bottom: ThemeProvider.theme.spacing.m,
-  );
-  final _minFieldHeight = ThemeProvider.theme.dimensions.listItemHeight;
 
   final _controller = TextEditingController();
   bool _isObscure = true;
@@ -106,15 +92,17 @@ class _DSTextFieldState extends State<DSTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ThemeProvider.theme;
     return Column(children: [
       ConstrainedBox(
         constraints: BoxConstraints(
-          minHeight: _minFieldHeight,
+          minHeight: Dimens.of(context).listItemHeight,
         ),
         child: Container(
           alignment: Alignment.topLeft,
-          padding: _contentPadding,
+          padding: EdgeInsets.symmetric(
+            vertical: Dimens.of(context).marginSmall,
+            horizontal: Dimens.of(context).marginMedium,
+          ),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -124,7 +112,7 @@ class _DSTextFieldState extends State<DSTextField> {
                   enabled: widget.enabled,
                   keyboardType: widget.keyboardType,
                   controller: _controller,
-                  style: ThemeProvider.theme.textStyles.body1.copyWith(color: widget.textColor),
+                  style: Theme.of(context).textTheme.bodyText2.copyWith(color: widget.textColor ?? Theme.of(context).colorScheme.onBackground),
                   textInputAction: widget.textInputAction,
                   textCapitalization: widget.textCapitalization,
                   maxLines: widget.maxLines,
@@ -132,7 +120,7 @@ class _DSTextFieldState extends State<DSTextField> {
                   focusNode: widget.focusNode,
                   autofocus: widget.autofocus,
                   obscureText: widget.isSensible ? _isObscure : false,
-                  cursorColor: ThemeProvider.theme.colors.primary,
+                  cursorColor: Theme.of(context).colorScheme.primary,
                   onChanged: widget.onChanged,
                   onSubmitted: (text) {
                     if (widget.nextFocusNode != null) {
@@ -154,7 +142,7 @@ class _DSTextFieldState extends State<DSTextField> {
               ),
               if (widget.obscureText)
                 IconButton(
-                  color: theme.colors.onBackground.withOpacity(0.3),
+                  color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
                   icon: _isObscure ? widget.invisiblePasswordIcon : widget.visiblePasswordIcon,
                   onPressed: () {
                     setState(() {
@@ -169,24 +157,29 @@ class _DSTextFieldState extends State<DSTextField> {
                 ? null
                 : Border.all(
                     color: getBorderColor(),
-                    width: widget.borderWidth ?? theme.dimensions.borderSmall,
+                    width: widget.borderWidth ?? Dimens.of(context).borderSmall,
                   ),
             borderRadius: BorderRadius.circular(
-              theme.dimensions.radiusMedium,
+              Dimens.of(context).radiusMedium,
             ),
           ),
         ),
       ),
       if (widget.error != null)
         Padding(
-          padding: _errorPadding,
+          padding: EdgeInsets.only(
+            left: Dimens.of(context).marginSmall,
+            top: Dimens.of(context).marginSmall,
+            right: Dimens.of(context).marginSmall,
+            bottom: Dimens.of(context).marginMedium,
+          ),
           child: Row(children: <Widget>[
-            widget.errorIcon,
-            SizedBox(width: ThemeProvider.theme.spacing.s),
+            Icon(Icons.warning, color: Theme.of(context).colorScheme.error),
+            SizedBox(width: Dimens.of(context).marginSmall),
             Expanded(
               child: Text(
                 widget.error,
-                style: ThemeProvider.theme.textStyles.caption.copyWith(color: ThemeProvider.theme.colors.error),
+                style: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).colorScheme.error),
               ),
             ),
           ]),
@@ -197,15 +190,15 @@ class _DSTextFieldState extends State<DSTextField> {
   TextStyle getHintStyle() {
     if (_controller.text.isEmpty && !_hasFocus) {
       // If we change the font the box get resized.
-      return ThemeProvider.theme.textStyles.body1.copyWith(
-        color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3),
+      return Theme.of(context).textTheme.bodyText2.copyWith(
+        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
       );
     } else {
       if (_hasFocus) {
-        return ThemeProvider.theme.textStyles.body1.copyWith(color: ThemeProvider.theme.colors.primary);
+        return Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).colorScheme.primary);
       } else {
-        return ThemeProvider.theme.textStyles.body1.copyWith(
-          color: ThemeProvider.theme.colors.onBackground.withOpacity(0.3),
+        return Theme.of(context).textTheme.bodyText2.copyWith(
+          color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
         );
       }
     }
@@ -213,19 +206,19 @@ class _DSTextFieldState extends State<DSTextField> {
 
   Color getBorderColor() {
     if (_hasFocus) {
-      return ThemeProvider.theme.colors.primary;
+      return Theme.of(context).colorScheme.primary;
     }
     // No Border
     if (widget.borderWidth == 0) return null;
     // Has Error
     if (widget.validatedValue?.isValid == false) {
-      return ThemeProvider.theme.colors.error;
+      return Theme.of(context).colorScheme.error;
     }
     // Focused or has text
     if (_controller.text.isNotEmpty) {
-      return ThemeProvider.theme.colors.onBackground.withOpacity(0.2);
+      return Theme.of(context).colorScheme.onBackground.withOpacity(0.2);
     }
     // Default: Not focused & empty
-    return ThemeProvider.theme.colors.onBackground.withOpacity(0.2);
+    return Theme.of(context).colorScheme.onBackground.withOpacity(0.2);
   }
 }

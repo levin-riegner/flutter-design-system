@@ -1,7 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
 
 class AlertService {
   AlertService._();
@@ -17,6 +16,7 @@ class AlertService {
 
   static const int _durationSeconds = 3;
   static const int _durationWithActionsSeconds = 6;
+
   showAlert({
     @required BuildContext context,
     @required String message,
@@ -25,7 +25,8 @@ class AlertService {
     String actionText,
     VoidCallback onAction,
   }) {
-    seconds = seconds ?? (onAction == null ? _durationSeconds : _durationWithActionsSeconds);
+    seconds = seconds ??
+        (onAction == null ? _durationSeconds : _durationWithActionsSeconds);
     Flushbar(
       flushbarPosition: FlushbarPosition.TOP,
       flushbarStyle: FlushbarStyle.GROUNDED,
@@ -35,21 +36,31 @@ class AlertService {
           : Text(
               title,
               textAlign: TextAlign.center,
-              style: ThemeProvider.theme.textStyles.h4.copyWith(color: ThemeProvider.theme.colors.onPrimary),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
             ),
       messageText: Text(
         message,
         textAlign: TextAlign.center,
-        style: ThemeProvider.theme.textStyles.body1.copyWith(color: ThemeProvider.theme.colors.onPrimary),
+        style: Theme.of(context)
+            .textTheme
+            .bodyText2
+            .copyWith(color: Theme.of(context).colorScheme.onPrimary),
       ),
-      backgroundColor: ThemeProvider.theme.colors.primary,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       duration: Duration(seconds: seconds),
       onTap: (_) => onAction(),
       mainButton: (onAction != null && actionText != null)
           ? FlatButton(
               child: Text(
                 actionText,
-                style: ThemeProvider.theme.textStyles.button.apply(color: ThemeProvider.theme.colors.onPrimary.withOpacity(0.5)),
+                style: Theme.of(context).textTheme.button.apply(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onPrimary
+                        .withOpacity(0.5)),
               ),
               onPressed: onAction,
             )
@@ -58,3 +69,65 @@ class AlertService {
   }
 }
 
+class SnackBarService {
+  SnackBarService._();
+
+  static SnackBarService _instance;
+
+  static SnackBarService instance() {
+    if (_instance == null) {
+      _instance = SnackBarService._();
+    }
+    return _instance;
+  }
+
+  static const int _durationSeconds = 3;
+  static const int _durationWithActionsSeconds = 6;
+
+  showSnackBar({
+    @required BuildContext context,
+    @required String title,
+    VoidCallback onAction,
+    String actionText,
+    TextStyle titleStyle,
+    Color backgroundColor,
+    int seconds,
+    Color actionTextColor,
+    EdgeInsetsGeometry margin,
+    EdgeInsetsGeometry padding,
+    double elevation,
+    ShapeBorder shape,
+    SnackBarBehavior snackBarBehavior = SnackBarBehavior.floating,
+  }) {
+    seconds = seconds ??
+        (onAction == null ? _durationSeconds : _durationWithActionsSeconds);
+
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: seconds),
+        backgroundColor:
+            backgroundColor ?? Theme.of(context).colorScheme.onBackground,
+        behavior: snackBarBehavior,
+        margin: margin,
+        padding: padding,
+        elevation: elevation,
+        shape: shape,
+        content: Text(
+          title,
+          style: titleStyle ??
+              Theme.of(context).textTheme.caption.apply(
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+        ),
+        action: (onAction != null && actionText != null)
+            ? SnackBarAction(
+                label: actionText,
+                onPressed: onAction,
+                textColor:
+                    actionTextColor ?? Theme.of(context).colorScheme.primary,
+              )
+            : null,
+      ),
+    );
+  }
+}

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lr_design_system/theme/theme.dart';
-import 'package:lr_design_system/theme/theme_spacing.dart';
+import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/utils/strings.dart';
 import 'package:lr_design_system/views/ds_app_bar.dart';
 import 'package:lr_design_system/views/ds_button.dart';
@@ -13,6 +12,10 @@ class DSErrorView extends StatelessWidget {
   final Widget iconView;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final String title;
+  final String description;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const DSErrorView({
     Key key,
@@ -22,6 +25,10 @@ class DSErrorView extends StatelessWidget {
     this.iconView,
     @required this.onRefresh,
     this.onBack,
+    this.title,
+    this.description,
+    this.titleTextStyle,
+    this.descriptionTextStyle,
   }) : super(key: key);
 
   @override
@@ -31,11 +38,14 @@ class DSErrorView extends StatelessWidget {
       useScaffold: useScaffold,
       scaffoldTitle: scaffoldTitle ?? 'Error',
       expanded: expanded,
-      icon: Icons.warning,
-      title: 'It seems something has broken!',
-      description: 'Let\'s help get you back',
+      iconView: iconView,
+      fallbackIcon: Icons.warning,
+      title: title ?? 'It seems something has broken!',
+      description: description ?? 'Let\'s help get you back',
       onRefresh: onRefresh,
       onBack: onBack,
+      titleTextStyle: titleTextStyle,
+      descriptionTextStyle: descriptionTextStyle,
     );
   }
 }
@@ -47,6 +57,10 @@ class DSEmptyView extends StatelessWidget {
   final Widget iconView;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final String title;
+  final String description;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const DSEmptyView({
     Key key,
@@ -56,6 +70,10 @@ class DSEmptyView extends StatelessWidget {
     this.iconView,
     this.onRefresh,
     this.onBack,
+    this.title,
+    this.description,
+    this.titleTextStyle,
+    this.descriptionTextStyle,
   }) : super(key: key);
 
   @override
@@ -64,11 +82,14 @@ class DSEmptyView extends StatelessWidget {
       useScaffold: useScaffold,
       scaffoldTitle: scaffoldTitle ?? '',
       expanded: expanded,
-      icon: Icons.insert_drive_file,
-      title: 'Nothing to see here',
-      description: 'It seems this page has no content...',
+      iconView: iconView,
+      fallbackIcon: Icons.insert_drive_file,
+      title: title ?? 'Nothing to see here',
+      description: description ?? 'It seems this page has no content...',
       onRefresh: onRefresh,
       onBack: onBack,
+      titleTextStyle: titleTextStyle,
+      descriptionTextStyle: descriptionTextStyle,
     );
   }
 }
@@ -80,6 +101,10 @@ class DSNoInternetView extends StatelessWidget {
   final Widget iconView;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final String title;
+  final String description;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const DSNoInternetView({
     Key key,
@@ -89,6 +114,10 @@ class DSNoInternetView extends StatelessWidget {
     this.iconView,
     this.onRefresh,
     this.onBack,
+    this.title,
+    this.description,
+    this.titleTextStyle,
+    this.descriptionTextStyle,
   }) : super(key: key);
 
   @override
@@ -97,11 +126,14 @@ class DSNoInternetView extends StatelessWidget {
       useScaffold: useScaffold,
       scaffoldTitle: scaffoldTitle ?? '',
       expanded: expanded,
-      icon: Icons.cloud_off,
-      title: Strings.noInternetViewTitle,
-      description: Strings.noInternetViewDescription,
+      iconView: iconView,
+      fallbackIcon: Icons.cloud_off,
+      title: title ?? Strings.noInternetViewTitle,
+      description: description ?? Strings.noInternetViewDescription,
       onRefresh: onRefresh,
       onBack: onBack,
+      titleTextStyle: titleTextStyle,
+      descriptionTextStyle: descriptionTextStyle,
     );
   }
 }
@@ -111,36 +143,43 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   final String scaffoldTitle;
 
   final Widget iconView;
-  final IconData icon;
+  final IconData fallbackIcon;
   final bool expanded;
   final String title;
   final String description;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const _ContentPlaceholderScreen({
     Key key,
     @required this.useScaffold,
     @required this.scaffoldTitle,
     this.iconView,
-    this.icon,
+    this.fallbackIcon,
     @required this.expanded,
     @required this.title,
     @required this.description,
     @required this.onRefresh,
     @required this.onBack,
-  })  : assert(icon != null || iconView != null),
+    this.titleTextStyle,
+    this.descriptionTextStyle,
+  })  : assert(fallbackIcon != null || iconView != null),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final body = _ContentPlaceholderBody(
-      icon: icon,
+      iconView: iconView,
+      icon: fallbackIcon,
       title: title,
       expanded: expanded,
       description: description,
       onRefresh: onRefresh,
       onBack: onBack,
+      titleTextStyle: titleTextStyle,
+      descriptionTextStyle: descriptionTextStyle,
     );
     return useScaffold
         ? Scaffold(
@@ -165,6 +204,8 @@ class _ContentPlaceholderBody extends StatelessWidget {
   final String description;
   final VoidCallback onRefresh;
   final VoidCallback onBack;
+  final TextStyle titleTextStyle;
+  final TextStyle descriptionTextStyle;
 
   const _ContentPlaceholderBody({
     Key key,
@@ -175,6 +216,8 @@ class _ContentPlaceholderBody extends StatelessWidget {
     @required this.description,
     @required this.onRefresh,
     @required this.onBack,
+    @required this.titleTextStyle,
+    @required this.descriptionTextStyle,
   })  : assert(icon != null || iconView != null),
         super(key: key);
 
@@ -188,27 +231,27 @@ class _ContentPlaceholderBody extends StatelessWidget {
             Icon(
               icon,
               size: kIconHeight,
-              color: ThemeProvider.theme.colors.primary,
+              color: Theme.of(context).colorScheme.primary,
             ),
-        ThemeSpacing.XLarge,
+        SizedBox(height: Dimens.of(context).marginMedium),
         Text(
           title,
-          style: ThemeProvider.theme.textStyles.h4,
+          style: titleTextStyle ?? Theme.of(context).textTheme.headline4,
           textAlign: TextAlign.center,
         ),
-        ThemeSpacing.Medium,
+        SizedBox(height: Dimens.of(context).marginMedium),
         Text(
           description,
-          style: ThemeProvider.theme.textStyles.body1,
+          style: descriptionTextStyle ?? Theme.of(context).textTheme.bodyText2,
           textAlign: TextAlign.center,
         ),
-        ThemeSpacing.Medium,
+        SizedBox(height: Dimens.of(context).marginMedium),
       ],
     );
 
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(ThemeProvider.theme.spacing.l),
+        padding: EdgeInsets.all(Dimens.of(context).marginLarge),
         child: Column(
           children: [
             expanded ? Expanded(child: content) : content,
@@ -216,12 +259,14 @@ class _ContentPlaceholderBody extends StatelessWidget {
               DSPrimaryButton(
                 text: 'Refresh',
                 onPressed: onRefresh,
+                forceUpperCase: false,
               ),
             if (onBack != null)
               Padding(
-                padding: EdgeInsets.only(top: ThemeProvider.theme.spacing.m),
+                padding: EdgeInsets.only(top: Dimens.of(context).marginMedium),
                 child: DSTextButton(
                   text: 'Go back',
+                  forceUpperCase: false,
                   onPressed: onBack,
                   alignment: Alignment.center,
                 ),
