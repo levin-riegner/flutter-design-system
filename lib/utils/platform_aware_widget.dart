@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 abstract class PlatformAwareWidget<I extends Widget, A extends Widget>
     extends StatelessWidget {
   const PlatformAwareWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -12,15 +12,15 @@ class InAppWebView extends StatefulWidget {
   final String javascriptChannelName;
   final List<WebViewAction> actions;
   final bool useScaffold;
-  final String title;
-  final Color backgroundColor;
-  final String userAgent;
-  final String userToken;
+  final String? title;
+  final Color? backgroundColor;
+  final String? userAgent;
+  final String? userToken;
   final Widget noInternetView;
   final bool enableHybridComposition;
 
   InAppWebView({
-    @required this.urlNotifier,
+    required this.urlNotifier,
     this.javascriptChannelName = "MobileApp",
     this.actions = const [],
     this.title,
@@ -28,7 +28,7 @@ class InAppWebView extends StatefulWidget {
     this.userAgent,
     this.userToken,
     bool useScaffold = false,
-    Widget noInternetView,
+    Widget? noInternetView,
     this.enableHybridComposition = true,
   })  : useScaffold = title != null || useScaffold,
         this.noInternetView = noInternetView ?? DSNoInternetView();
@@ -40,10 +40,10 @@ class InAppWebView extends StatefulWidget {
 }
 
 class _InAppWebViewState extends State<InAppWebView> {
-  bool hasInternet;
-  StreamSubscription internetSubscription;
+  bool? hasInternet;
+  StreamSubscription? internetSubscription;
 
-  WebViewController webViewController;
+  WebViewController? webViewController;
 
   _reloadUrl() {
     setState(() {
@@ -96,19 +96,20 @@ class _InAppWebViewState extends State<InAppWebView> {
         name: widget.javascriptChannelName,
         onMessageReceived: (JavascriptMessage result) {
           debugPrint("Got JavascriptMessage: ${result.message}");
-          // Find action
-          final action = widget.actions.firstWhere(
-              (action) => action.message == result.message,
-              orElse: null);
-          if (action != null) {
-            // Custom Action
-            action?.onReceived();
-          } else if (result.message == "back" && widget.useScaffold) {
-            // Default back action
-            Navigator.of(context).pop();
-          } else {
-            // Unknown action
-            debugPrint("Unhandled javascript message ${result.message}");
+          try {
+            // Find action
+            final WebViewAction action = widget.actions
+                .firstWhere((action) => action.message == result.message);
+            action.onReceived();
+          } catch (e) {
+            // Action not found
+            if (result.message == "back" && widget.useScaffold) {
+              // Default back action
+              Navigator.of(context).pop();
+            } else {
+              // Unknown action
+              debugPrint("Unhandled javascript message ${result.message}");
+            }
           }
         },
       )
@@ -128,7 +129,7 @@ class _InAppWebViewState extends State<InAppWebView> {
             },
             onPageFinished: (url) {
               // Disable iOS allowLinksPreview
-              webViewController.evaluateJavascript(
+              webViewController!.evaluateJavascript(
                   "document.body.style.webkitTouchCallout='none';");
             },
           )
@@ -138,7 +139,7 @@ class _InAppWebViewState extends State<InAppWebView> {
         ? Scaffold(
             backgroundColor: widget.backgroundColor,
             appBar: AppBar(
-              title: widget.title != null ? Text(widget.title) : null,
+              title: widget.title != null ? Text(widget.title!) : null,
               leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () => Navigator.of(context).pop()),
@@ -156,5 +157,5 @@ class WebViewAction {
   final String message;
   final VoidCallback onReceived;
 
-  WebViewAction({@required this.message, @required this.onReceived});
+  WebViewAction({required this.message, required this.onReceived});
 }

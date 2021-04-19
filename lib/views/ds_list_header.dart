@@ -3,12 +3,12 @@ import 'package:lr_design_system/utils/dimens.dart';
 
 class DSListHeader extends StatelessWidget {
   final String text;
-  final String actionButtonText;
-  final VoidCallback onActionButtonPressed;
-  final double margin;
+  final String? actionButtonText;
+  final VoidCallback? onActionButtonPressed;
+  final double? margin;
 
   const DSListHeader({
-    @required this.text,
+    required this.text,
     this.actionButtonText,
     this.onActionButtonPressed,
     this.margin,
@@ -38,8 +38,8 @@ class DSListHeader extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(Dimens.of(context).marginSmall),
                     child: Text(
-                      actionButtonText,
-                      style: Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).colorScheme.onBackground),
+                      actionButtonText!,
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(color: Theme.of(context).colorScheme.onBackground),
                     ),
                   ),
                 ),

@@ -1,29 +1,14 @@
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
+import 'package:lr_design_system/config/ds_app.dart';
 
-class Dimens extends InheritedWidget {
-  final DimensData data;
-
-  const Dimens({
-    Key key,
-    this.data,
-    Widget child,
-  }) : super(key: key, child: child);
-
-  @override
-  bool updateShouldNotify(covariant Dimens oldWidget) {
-    return oldWidget.data != data;
-  }
-
+class Dimens {
   static DimensData of(BuildContext context) {
-    final Dimens dimens = context.dependOnInheritedWidgetOfExactType<Dimens>();
-    if (dimens == null) return DimensData.fallback();
-    return dimens.data;
+    final DSApp? dsApp = context.dependOnInheritedWidgetOfExactType<DSApp>();
+    return dsApp?.dimens ?? DimensData.fallback();
   }
 }
 
 class DimensData {
-  
   // region Margins
   final double marginXxxSmall;
   final double marginXxSmall;
@@ -35,17 +20,30 @@ class DimensData {
   final double marginXxLarge;
   final double marginXxxLarge;
 
-   SizedBox get boxXxxSmall => SizedBox(height: marginXxxSmall, width: marginXxxSmall);
-   SizedBox get boxXxSmall => SizedBox(height: marginXxSmall, width: marginXxSmall);
-   SizedBox get boxXSmall => SizedBox(height: marginXSmall, width: marginXSmall);
-   SizedBox get boxSmall => SizedBox(height: marginSmall, width: marginSmall);
-   SizedBox get boxMedium => SizedBox(height: marginMedium, width: marginMedium);
-   SizedBox get boxLarge => SizedBox(height: marginLarge, width: marginLarge);
-   SizedBox get boxXLarge => SizedBox(height: marginXLarge, width: marginXLarge);
-   SizedBox get boxXxLarge => SizedBox(height: marginXxLarge, width: marginXxLarge);
-   SizedBox get boxXxxLarge => SizedBox(height: marginXxxLarge, width: marginXxxLarge);
+  SizedBox get boxXxxSmall =>
+      SizedBox(height: marginXxxSmall, width: marginXxxSmall);
+
+  SizedBox get boxXxSmall =>
+      SizedBox(height: marginXxSmall, width: marginXxSmall);
+
+  SizedBox get boxXSmall => SizedBox(height: marginXSmall, width: marginXSmall);
+
+  SizedBox get boxSmall => SizedBox(height: marginSmall, width: marginSmall);
+
+  SizedBox get boxMedium => SizedBox(height: marginMedium, width: marginMedium);
+
+  SizedBox get boxLarge => SizedBox(height: marginLarge, width: marginLarge);
+
+  SizedBox get boxXLarge => SizedBox(height: marginXLarge, width: marginXLarge);
+
+  SizedBox get boxXxLarge =>
+      SizedBox(height: marginXxLarge, width: marginXxLarge);
+
+  SizedBox get boxXxxLarge =>
+      SizedBox(height: marginXxxLarge, width: marginXxxLarge);
+
   // endregion
-  
+
   final double radiusSmall;
   final double radiusMedium;
   final double radiusLarge;
@@ -95,55 +93,55 @@ class DimensData {
 //<editor-fold desc="Data Methods" defaultstate="collapsed">
 
   const DimensData({
-    @required this.marginXxxSmall,
-    @required this.marginXxSmall,
-    @required this.marginXSmall,
-    @required this.marginSmall,
-    @required this.marginMedium,
-    @required this.marginLarge,
-    @required this.marginXLarge,
-    @required this.marginXxLarge,
-    @required this.marginXxxLarge,
-    @required this.radiusSmall,
-    @required this.radiusMedium,
-    @required this.radiusLarge,
-    @required this.radiusXLarge,
-    @required this.listItemHeight,
-    @required this.listItemHeightLarge,
-    @required this.listItemHeightXLarge,
-    @required this.dividerHeight,
-    @required this.buttonHeight,
-    @required this.buttonMinWidth,
-    @required this.iconSize,
-    @required this.horizontalProgressHeight,
-    @required this.borderSmall,
-    @required this.navigationBarElevation,
+    required this.marginXxxSmall,
+    required this.marginXxSmall,
+    required this.marginXSmall,
+    required this.marginSmall,
+    required this.marginMedium,
+    required this.marginLarge,
+    required this.marginXLarge,
+    required this.marginXxLarge,
+    required this.marginXxxLarge,
+    required this.radiusSmall,
+    required this.radiusMedium,
+    required this.radiusLarge,
+    required this.radiusXLarge,
+    required this.listItemHeight,
+    required this.listItemHeightLarge,
+    required this.listItemHeightXLarge,
+    required this.dividerHeight,
+    required this.buttonHeight,
+    required this.buttonMinWidth,
+    required this.iconSize,
+    required this.horizontalProgressHeight,
+    required this.borderSmall,
+    required this.navigationBarElevation,
   });
 
   DimensData copyWith({
-    double marginXxxSmall,
-    double marginXxSmall,
-    double marginXSmall,
-    double marginSmall,
-    double marginMedium,
-    double marginLarge,
-    double marginXLarge,
-    double marginXxLarge,
-    double marginXxxLarge,
-    double radiusSmall,
-    double radiusMedium,
-    double radiusLarge,
-    double radiusXLarge,
-    double listItemHeight,
-    double listItemHeightLarge,
-    double listItemHeightXLarge,
-    double dividerHeight,
-    double buttonHeight,
-    double buttonMinWidth,
-    double iconSize,
-    double horizontalProgressHeight,
-    double borderSmall,
-    double navigationBarElevation,
+    double? marginXxxSmall,
+    double? marginXxSmall,
+    double? marginXSmall,
+    double? marginSmall,
+    double? marginMedium,
+    double? marginLarge,
+    double? marginXLarge,
+    double? marginXxLarge,
+    double? marginXxxLarge,
+    double? radiusSmall,
+    double? radiusMedium,
+    double? radiusLarge,
+    double? radiusXLarge,
+    double? listItemHeight,
+    double? listItemHeightLarge,
+    double? listItemHeightXLarge,
+    double? dividerHeight,
+    double? buttonHeight,
+    double? buttonMinWidth,
+    double? iconSize,
+    double? horizontalProgressHeight,
+    double? borderSmall,
+    double? navigationBarElevation,
   }) {
     if ((marginXxxSmall == null ||
             identical(marginXxxSmall, this.marginXxxSmall)) &&
@@ -271,63 +269,6 @@ class DimensData {
       horizontalProgressHeight.hashCode ^
       borderSmall.hashCode ^
       navigationBarElevation.hashCode;
-
-  factory DimensData.fromMap(Map<String, dynamic> map) {
-    return new DimensData(
-      marginXxxSmall: map['marginXxxSmall'] as double,
-      marginXxSmall: map['marginXxSmall'] as double,
-      marginXSmall: map['marginXSmall'] as double,
-      marginSmall: map['marginSmall'] as double,
-      marginMedium: map['marginMedium'] as double,
-      marginLarge: map['marginLarge'] as double,
-      marginXLarge: map['marginXLarge'] as double,
-      marginXxLarge: map['marginXxLarge'] as double,
-      marginXxxLarge: map['marginXxxLarge'] as double,
-      radiusSmall: map['radiusSmall'] as double,
-      radiusMedium: map['radiusMedium'] as double,
-      radiusLarge: map['radiusLarge'] as double,
-      radiusXLarge: map['radiusXLarge'] as double,
-      listItemHeight: map['listItemHeight'] as double,
-      listItemHeightLarge: map['listItemHeightLarge'] as double,
-      listItemHeightXLarge: map['listItemHeightXLarge'] as double,
-      dividerHeight: map['dividerHeight'] as double,
-      buttonHeight: map['buttonHeight'] as double,
-      buttonMinWidth: map['buttonMinWidth'] as double,
-      iconSize: map['iconSize'] as double,
-      horizontalProgressHeight: map['horizontalProgressHeight'] as double,
-      borderSmall: map['borderSmall'] as double,
-      navigationBarElevation: map['navigationBarElevation'] as double,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    // ignore: unnecessary_cast
-    return {
-      'marginXxxSmall': this.marginXxxSmall,
-      'marginXxSmall': this.marginXxSmall,
-      'marginXSmall': this.marginXSmall,
-      'marginSmall': this.marginSmall,
-      'marginMedium': this.marginMedium,
-      'marginLarge': this.marginLarge,
-      'marginXLarge': this.marginXLarge,
-      'marginXxLarge': this.marginXxLarge,
-      'marginXxxLarge': this.marginXxxLarge,
-      'radiusSmall': this.radiusSmall,
-      'radiusMedium': this.radiusMedium,
-      'radiusLarge': this.radiusLarge,
-      'radiusXLarge': this.radiusXLarge,
-      'listItemHeight': this.listItemHeight,
-      'listItemHeightLarge': this.listItemHeightLarge,
-      'listItemHeightXLarge': this.listItemHeightXLarge,
-      'dividerHeight': this.dividerHeight,
-      'buttonHeight': this.buttonHeight,
-      'buttonMinWidth': this.buttonMinWidth,
-      'iconSize': this.iconSize,
-      'horizontalProgressHeight': this.horizontalProgressHeight,
-      'borderSmall': this.borderSmall,
-      'navigationBarElevation': this.navigationBarElevation,
-    } as Map<String, dynamic>;
-  }
 
 //</editor-fold>
 

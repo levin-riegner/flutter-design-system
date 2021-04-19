@@ -6,13 +6,13 @@ class DSListItemAction extends StatelessWidget {
   final String text;
   final DSListItemActionType type;
   final bool useBottomDivider;
-  final Widget leading;
+  final Widget? leading;
   final VoidCallback onPressed;
 
   const DSListItemAction({
-    @required this.text,
-    @required this.type,
-    @required this.onPressed,
+    required this.text,
+    required this.type,
+    required this.onPressed,
     this.leading,
     this.useBottomDivider = false,
   });
@@ -41,7 +41,7 @@ class DSListItemAction extends StatelessWidget {
                     Expanded(
                       child: Text(
                         text,
-                        style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
                           color: type == DSListItemActionType.destructive
                               ? Theme.of(context).colorScheme.primary
                               : Theme.of(context).colorScheme.onBackground,

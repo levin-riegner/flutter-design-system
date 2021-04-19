@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_button.dart';
 import 'package:lr_design_system/views/ds_text_button.dart';
 
 class DSDialog extends StatelessWidget {
-  final String title;
-  final String description;
-  final String positiveButtonText;
-  final String negativeButtonText;
-  final VoidCallback positiveCallback;
-  final VoidCallback negativeCallback;
+  final String? title;
+  final String? description;
+  final String? positiveButtonText;
+  final String? negativeButtonText;
+  final VoidCallback? positiveCallback;
+  final VoidCallback? negativeCallback;
 
-  final Color backgroundColor;
-  final TextStyle titleTextStyle;
-  final TextStyle descriptionTextStyle;
-  final bool forceUpperCaseButtons;
+  final Color? backgroundColor;
+  final TextStyle? titleTextStyle;
+  final TextStyle? descriptionTextStyle;
+  final bool? forceUpperCaseButtons;
 
   const DSDialog({
     this.title,
@@ -26,7 +27,7 @@ class DSDialog extends StatelessWidget {
     this.backgroundColor,
     this.titleTextStyle,
     this.descriptionTextStyle,
-    this.forceUpperCaseButtons = true,
+    this.forceUpperCaseButtons,
   })  : assert(title != null || description != null),
         assert((positiveButtonText != null && positiveCallback != null) ||
             (negativeButtonText != null && negativeCallback != null));
@@ -47,9 +48,9 @@ class DSDialog extends StatelessWidget {
             children: <Widget>[
               if (title != null) ...[
                 Text(
-                  title,
+                  title!,
                   style:
-                      (titleTextStyle ?? Theme.of(context).textTheme.headline4)
+                      (titleTextStyle ?? Theme.of(context).textTheme.headline4)!
                           .copyWith(
                               color: Theme.of(context)
                                   .colorScheme
@@ -60,9 +61,9 @@ class DSDialog extends StatelessWidget {
               ],
               if (description != null)
                 Text(
-                  description,
+                  description!,
                   style: (descriptionTextStyle ??
-                          Theme.of(context).textTheme.bodyText2)
+                          Theme.of(context).textTheme.bodyText2)!
                       .copyWith(
                           color: Theme.of(context)
                               .colorScheme
@@ -72,7 +73,7 @@ class DSDialog extends StatelessWidget {
               SizedBox(height: Dimens.of(context).marginLarge),
               if (positiveButtonText != null && positiveCallback != null) ...[
                 DSPrimaryButton(
-                  text: positiveButtonText,
+                  text: positiveButtonText!,
                   onPressed: positiveCallback,
                   forceUpperCase: forceUpperCaseButtons,
                 ),
@@ -80,7 +81,7 @@ class DSDialog extends StatelessWidget {
               if (negativeButtonText != null && negativeCallback != null) ...[
                 SizedBox(height: Dimens.of(context).marginSmall),
                 DSTextButton(
-                  text: negativeButtonText,
+                  text: negativeButtonText!,
                   onPressed: negativeCallback,
                   alignment: Alignment.center,
                   forceUpperCase: forceUpperCaseButtons,

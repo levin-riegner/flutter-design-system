@@ -5,20 +5,20 @@ import 'ds_list_header.dart';
 
 class DSInnerList<T> extends StatelessWidget {
   final List<T> items;
-  final DSListHeader header;
+  final DSListHeader? header;
   final IndexedWidgetBuilder itemBuilder;
-  final double height;
+  final double? height;
   final bool shrinkWrap;
   final EdgeInsetsGeometry listPadding;
-  final double spacing;
+  final double? spacing;
 
   const DSInnerList({
-    @required this.items,
+    required this.items,
     this.header,
-    @required this.itemBuilder,
+    required this.itemBuilder,
     this.height,
     this.shrinkWrap = false,
-    @required this.listPadding,
+    required this.listPadding,
     this.spacing,
   });
 
@@ -38,7 +38,7 @@ class DSInnerList<T> extends StatelessWidget {
             child: ListView.builder(
               padding: listPadding,
               scrollDirection: Axis.horizontal,
-              itemCount: items?.length ?? 0,
+              itemCount: items.length,
               itemBuilder: spacedItemBuilder,
               shrinkWrap: shrinkWrap,
             ),
@@ -47,7 +47,7 @@ class DSInnerList<T> extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: listPadding,
             child: Row(
-              children: List<Widget>.generate(items?.length ?? 0, (index) => spacedItemBuilder(context, index)),
+              children: List<Widget>.generate(items.length, (index) => spacedItemBuilder(context, index)),
             ),
           );
 
@@ -57,7 +57,7 @@ class DSInnerList<T> extends StatelessWidget {
       children: <Widget>[
         if (header != null)
           Padding(
-            padding: EdgeInsets.only(bottom: Dimens.of(context).marginMedium),
+            padding: EdgeInsets.only(bottom: Dimens.of(context).marginSmall),
             child: header,
           ),
         list,

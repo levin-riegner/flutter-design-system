@@ -3,8 +3,8 @@ import 'package:lr_design_system/utils/dimens.dart';
 
 class DSDivider extends StatelessWidget {
   final double margin;
-  final double height;
-  final Color color;
+  final double? height;
+  final Color? color;
 
   const DSDivider({
     this.margin = 0.0,

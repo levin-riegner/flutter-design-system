@@ -6,29 +6,29 @@ class DSSegmentedProgressBar extends StatefulWidget {
   final ValueNotifier<int> currentPageNotifier;
 
   /// PageView completed ValueNotifier
-  final ValueNotifier<bool> stepsCompletedNotifier;
+  final ValueNotifier<bool>? stepsCompletedNotifier;
 
   /// The number of items managed by the PageController
   final int itemCount;
 
   ///The step color
-  final Color previousStepColor;
-  final Color selectedStepColor;
-  final Color nextStepColor;
+  final Color? previousStepColor;
+  final Color? selectedStepColor;
+  final Color? nextStepColor;
 
   ///The step size
-  final double size;
+  final double? size;
 
   ///The space between steps
-  final double stepSpacing;
+  final double? stepSpacing;
 
   ///Whether to pre-fill part the current step or not
   final bool prefillStep;
 
   const DSSegmentedProgressBar({
-    Key key,
-    @required this.currentPageNotifier,
-    @required this.itemCount,
+    Key? key,
+    required this.currentPageNotifier,
+    required this.itemCount,
     this.stepsCompletedNotifier,
     this.size,
     this.stepSpacing,
