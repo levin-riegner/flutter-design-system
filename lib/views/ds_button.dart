@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 
 import 'ds_loading_indicator.dart';
 
-class DSPrimaryButton extends _BaseButton {
+class DSPrimaryButton extends StatelessWidget {
   final String text;
   final double width;
   final bool isLoading;
   final bool enabled;
-  final VoidCallback onPressed;
-  final bool forceUpperCase;
-  final double borderRadius;
+  final VoidCallback? onPressed;
+  final bool? forceUpperCase;
+  final double? borderRadius;
 
   const DSPrimaryButton({
-    @required this.text,
+    required this.text,
     this.onPressed,
     this.isLoading = false,
     this.enabled = true,
     this.width = double.infinity,
-    this.forceUpperCase = true,
+    this.forceUpperCase,
     this.borderRadius,
   });
 
@@ -37,35 +38,35 @@ class DSPrimaryButton extends _BaseButton {
       disabledTextColor:
           Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
       loadingColor: Theme.of(context).colorScheme.onPrimary,
-      forceUpperCase: forceUpperCase,
+      forceUpperCase: forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
       borderRadius: borderRadius,
     );
   }
 }
 
-class DSButton extends _BaseButton {
+class DSButton extends StatelessWidget {
   final String text;
   final double width;
   final bool isLoading;
   final bool enabled;
-  final VoidCallback onPressed;
-  final bool forceUpperCase;
+  final VoidCallback? onPressed;
+  final bool? forceUpperCase;
   final Color backgroundColor;
   final Color textColor;
-  final Color disabledBackgroundColor;
-  final Color disabledTextColor;
-  final Color loadingColor;
-  final double borderRadius;
+  final Color? disabledBackgroundColor;
+  final Color? disabledTextColor;
+  final Color? loadingColor;
+  final double? borderRadius;
 
   const DSButton({
-    @required this.text,
-    @required this.backgroundColor,
-    @required this.textColor,
+    required this.text,
+    required this.backgroundColor,
+    required this.textColor,
     this.onPressed,
     this.isLoading = false,
     this.enabled = true,
     this.width = double.infinity,
-    this.forceUpperCase = true,
+    this.forceUpperCase,
     this.disabledBackgroundColor,
     this.disabledTextColor,
     this.borderRadius,
@@ -83,32 +84,32 @@ class DSButton extends _BaseButton {
       borderSide: BorderSide.none,
       defaultColor: backgroundColor,
       disabledColor: disabledBackgroundColor ?? Theme.of(context).colorScheme.primary.withOpacity(0.25),
-      defaultTextColor: textColor ?? Theme.of(context).colorScheme.onPrimary,
+      defaultTextColor: textColor,
       disabledTextColor:
           disabledTextColor ?? Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
       loadingColor: loadingColor ?? Theme.of(context).colorScheme.onPrimary,
-      forceUpperCase: forceUpperCase,
+      forceUpperCase: forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
       borderRadius: borderRadius,
     );
   }
 }
 
-class DSOutlineButton extends _BaseButton {
+class DSOutlineButton extends StatelessWidget {
   final String text;
   final double width;
   final bool isLoading;
   final bool enabled;
-  final VoidCallback onPressed;
-  final bool forceUpperCase;
-  final double borderRadius;
+  final VoidCallback? onPressed;
+  final bool? forceUpperCase;
+  final double? borderRadius;
 
   const DSOutlineButton({
-    @required this.text,
+    required this.text,
     this.onPressed,
     this.isLoading = false,
     this.enabled = true,
     this.width = double.infinity,
-    this.forceUpperCase = true,
+    this.forceUpperCase,
     this.borderRadius,
   });
 
@@ -131,7 +132,7 @@ class DSOutlineButton extends _BaseButton {
       defaultTextColor: Theme.of(context).colorScheme.primary,
       disabledTextColor: Theme.of(context).disabledColor,
       loadingColor: Theme.of(context).colorScheme.primary,
-      forceUpperCase: forceUpperCase,
+      forceUpperCase: forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
       borderRadius: borderRadius,
     );
   }
@@ -142,35 +143,35 @@ class _BaseButton extends StatelessWidget {
   final double width;
   final bool isLoading;
   final bool enabled;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
-  final Color loadingColor;
-  final double height;
-  final double borderRadius;
+  final Color? loadingColor;
+  final double? height;
+  final double? borderRadius;
   final Color defaultColor;
   final Color disabledColor;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final BorderSide borderSide;
   final Color defaultTextColor;
-  final Color disabledTextColor;
+  final Color? disabledTextColor;
   final bool forceUpperCase;
 
   const _BaseButton({
-    @required this.text,
-    @required this.isLoading,
-    @required this.enabled,
-    @required this.width,
-    @required this.borderSide,
+    required this.text,
+    required this.isLoading,
+    required this.enabled,
+    required this.width,
+    required this.borderSide,
     this.onPressed,
-    @required this.loadingColor,
+    required this.loadingColor,
     this.height,
     this.borderRadius,
-    @required this.defaultColor,
-    @required this.disabledColor,
+    required this.defaultColor,
+    required this.disabledColor,
     this.textStyle,
-    @required this.defaultTextColor,
-    @required this.disabledTextColor,
-    @required this.forceUpperCase,
+    required this.defaultTextColor,
+    required this.disabledTextColor,
+    required this.forceUpperCase,
   });
 
   @override
@@ -184,8 +185,8 @@ class _BaseButton extends StatelessWidget {
               borderRadius ?? Dimens.of(context).radiusMedium),
           side: borderSide,
         ),
-        color: defaultColor ?? Theme.of(context).colorScheme.primary,
-        textColor: defaultTextColor ?? Theme.of(context).colorScheme.onPrimary,
+        color: defaultColor,
+        textColor: defaultTextColor,
         child: isLoading
             ? DSLoadingIndicator(
                 color: loadingColor ?? Theme.of(context).colorScheme.onPrimary)
@@ -194,8 +195,8 @@ class _BaseButton extends StatelessWidget {
                 style: textStyle,
               ),
         disabledColor: isLoading
-            ? (defaultColor ?? Theme.of(context).colorScheme.primary)
-            : (disabledColor ?? Theme.of(context).disabledColor),
+            ? (defaultColor)
+            : (disabledColor),
         disabledTextColor: disabledTextColor ??
             Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
         onPressed: (enabled && !isLoading) ? onPressed : null,

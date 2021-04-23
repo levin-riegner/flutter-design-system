@@ -5,24 +5,24 @@ import 'package:lr_design_system/utils/cap_string.dart';
 
 class DSTextField extends StatefulWidget {
   final String initialText;
-  final ValidatedValue validatedValue;
+  final ValidatedValue? validatedValue;
   final bool isSensible;
-  final String hint;
-  final String error;
+  final String? hint;
+  final String? error;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final FocusNode focusNode;
-  final FocusNode nextFocusNode;
-  final VoidCallback onSubmitted;
+  final FocusNode? nextFocusNode;
+  final VoidCallback? onSubmitted;
   final bool autofocus;
   final TextCapitalization textCapitalization;
   final int maxLines;
-  final Color textColor;
+  final Color? textColor;
   final bool enabled;
   final bool obscureText;
-  final double borderWidth;
+  final double? borderWidth;
   final bool autoCorrect;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
 
   Widget get visiblePasswordIcon => Icon(Icons.visibility);
 
@@ -34,9 +34,9 @@ class DSTextField extends StatefulWidget {
     this.isSensible = false,
     this.hint,
     this.error,
-    TextInputType keyboardType,
-    TextInputAction textInputAction,
-    FocusNode focusNode,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction,
+    FocusNode? focusNode,
     this.nextFocusNode,
     this.onSubmitted,
     this.autofocus = false,
@@ -73,7 +73,7 @@ class _DSTextFieldState extends State<DSTextField> {
   void initState() {
     super.initState();
     // Initial Text
-    _controller.text = widget.initialText ?? widget.validatedValue?.value ?? "";
+    _controller.text = widget.initialText;
     // Listen to Field Selected
     widget.focusNode.addListener(_onFocusChange);
   }
@@ -95,13 +95,13 @@ class _DSTextFieldState extends State<DSTextField> {
     return Column(children: [
       ConstrainedBox(
         constraints: BoxConstraints(
-          minHeight: Dimens.of(context).listItemHeight,
+          minHeight: Dimens.of(context).marginSmall,
         ),
         child: Container(
           alignment: Alignment.topLeft,
           padding: EdgeInsets.symmetric(
             vertical: Dimens.of(context).marginSmall,
-            horizontal: Dimens.of(context).marginMedium,
+            horizontal: Dimens.of(context).marginSmall,
           ),
           child: Row(
             children: <Widget>[
@@ -112,7 +112,7 @@ class _DSTextFieldState extends State<DSTextField> {
                   enabled: widget.enabled,
                   keyboardType: widget.keyboardType,
                   controller: _controller,
-                  style: Theme.of(context).textTheme.bodyText2.copyWith(color: widget.textColor ?? Theme.of(context).colorScheme.onBackground),
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(color: widget.textColor ?? Theme.of(context).colorScheme.onBackground),
                   textInputAction: widget.textInputAction,
                   textCapitalization: widget.textCapitalization,
                   maxLines: widget.maxLines,
@@ -128,7 +128,7 @@ class _DSTextFieldState extends State<DSTextField> {
                     }
                     if (widget.onSubmitted != null) {
                       FocusScope.of(context).unfocus();
-                      widget.onSubmitted();
+                      widget.onSubmitted!();
                     }
                   },
                   decoration: InputDecoration(
@@ -156,7 +156,7 @@ class _DSTextFieldState extends State<DSTextField> {
             border: widget.borderWidth == 0
                 ? null
                 : Border.all(
-                    color: getBorderColor(),
+                    color: getBorderColor()!,
                     width: widget.borderWidth ?? Dimens.of(context).borderSmall,
                   ),
             borderRadius: BorderRadius.circular(
@@ -171,15 +171,15 @@ class _DSTextFieldState extends State<DSTextField> {
             left: Dimens.of(context).marginSmall,
             top: Dimens.of(context).marginSmall,
             right: Dimens.of(context).marginSmall,
-            bottom: Dimens.of(context).marginMedium,
+            bottom: Dimens.of(context).marginSmall,
           ),
           child: Row(children: <Widget>[
             Icon(Icons.warning, color: Theme.of(context).colorScheme.error),
             SizedBox(width: Dimens.of(context).marginSmall),
             Expanded(
               child: Text(
-                widget.error,
-                style: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).colorScheme.error),
+                widget.error!,
+                style: Theme.of(context).textTheme.caption!.copyWith(color: Theme.of(context).colorScheme.error),
               ),
             ),
           ]),
@@ -190,21 +190,21 @@ class _DSTextFieldState extends State<DSTextField> {
   TextStyle getHintStyle() {
     if (_controller.text.isEmpty && !_hasFocus) {
       // If we change the font the box get resized.
-      return Theme.of(context).textTheme.bodyText2.copyWith(
+      return Theme.of(context).textTheme.bodyText2!.copyWith(
         color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
       );
     } else {
       if (_hasFocus) {
-        return Theme.of(context).textTheme.bodyText2.copyWith(color: Theme.of(context).colorScheme.primary);
+        return Theme.of(context).textTheme.bodyText2!.copyWith(color: Theme.of(context).colorScheme.primary);
       } else {
-        return Theme.of(context).textTheme.bodyText2.copyWith(
+        return Theme.of(context).textTheme.bodyText2!.copyWith(
           color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
         );
       }
     }
   }
 
-  Color getBorderColor() {
+  Color? getBorderColor() {
     if (_hasFocus) {
       return Theme.of(context).colorScheme.primary;
     }

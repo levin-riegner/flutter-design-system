@@ -4,21 +4,20 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/animation.dart';
 
 class DSLoadingIndicator extends StatefulWidget {
-  final Color color;
+  final Color? color;
   final double size;
-  final IndexedWidgetBuilder itemBuilder;
+  final IndexedWidgetBuilder? itemBuilder;
   final Duration duration;
-  final AnimationController controller;
+  final AnimationController? controller;
 
   const DSLoadingIndicator({
-    Key key,
+    Key? key,
     this.color,
     this.size = 15.0,
     this.itemBuilder,
     this.duration = const Duration(milliseconds: 1000),
     this.controller,
-  })  : assert(size != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   _DSLoadingIndicatorState createState() => _DSLoadingIndicatorState();
@@ -26,7 +25,7 @@ class DSLoadingIndicator extends StatefulWidget {
 
 class _DSLoadingIndicatorState extends State<DSLoadingIndicator>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
   @override
   void initState() {
@@ -62,7 +61,7 @@ class _DSLoadingIndicatorState extends State<DSLoadingIndicator>
   }
 
   Widget _itemBuilder(int index) => widget.itemBuilder != null
-      ? widget.itemBuilder(context, index)
+      ? widget.itemBuilder!(context, index)
       : DecoratedBox(
           decoration: BoxDecoration(
               color: (widget.color ?? Theme.of(context).colorScheme.primary),
@@ -70,14 +69,14 @@ class _DSLoadingIndicatorState extends State<DSLoadingIndicator>
 }
 
 class DelayTween extends Tween<double> {
-  DelayTween({double begin, double end, this.delay})
+  DelayTween({double? begin, double? end, this.delay})
       : super(begin: begin, end: end);
 
-  final double delay;
+  final double? delay;
 
   @override
   double lerp(double t) =>
-      super.lerp((math.sin((t - delay) * 2 * math.pi) + 1) / 2);
+      super.lerp((math.sin((t - delay!) * 2 * math.pi) + 1) / 2);
 
   @override
   double evaluate(Animation<double> animation) => lerp(animation.value);

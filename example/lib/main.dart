@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:lr_design_system/config/ds_app.dart';
+import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 import 'package:showcase/home_screen.dart';
 
@@ -18,11 +19,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light().copyWith(colorScheme: ThemeData.light().colorScheme.copyWith(onBackground: Colors.black, background: Colors.white)),
-      home: Dimens(
-        data: DimensData.fallback(),
-        child: HomeScreen(),
+    return DSApp(
+      dimens: DimensData.fallback(),
+      config: DSConfig.fallback(),
+      child: MaterialApp(
+        theme: ThemeData.light().copyWith(
+            colorScheme: ThemeData.light().colorScheme.copyWith(
+                onBackground: Colors.black, background: Colors.white)),
+        home: HomeScreen(),
       ),
     );
   }

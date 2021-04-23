@@ -7,23 +7,23 @@ import 'package:lr_design_system/views/ds_text_button.dart';
 
 class DSErrorView extends StatelessWidget {
   final bool useScaffold;
-  final String scaffoldTitle;
+  final String? scaffoldTitle;
   final bool expanded;
-  final Widget iconView;
+  final Widget? iconView;
   final VoidCallback onRefresh;
-  final VoidCallback onBack;
-  final String title;
-  final String description;
-  final TextStyle titleTextStyle;
-  final TextStyle descriptionTextStyle;
+  final VoidCallback? onBack;
+  final String? title;
+  final String? description;
+  final TextStyle? titleTextStyle;
+  final TextStyle? descriptionTextStyle;
 
   const DSErrorView({
-    Key key,
+    Key? key,
     this.useScaffold = false,
     this.scaffoldTitle,
     this.expanded = true,
     this.iconView,
-    @required this.onRefresh,
+    required this.onRefresh,
     this.onBack,
     this.title,
     this.description,
@@ -52,18 +52,18 @@ class DSErrorView extends StatelessWidget {
 
 class DSEmptyView extends StatelessWidget {
   final bool useScaffold;
-  final String scaffoldTitle;
+  final String? scaffoldTitle;
   final bool expanded;
-  final Widget iconView;
-  final VoidCallback onRefresh;
-  final VoidCallback onBack;
-  final String title;
-  final String description;
-  final TextStyle titleTextStyle;
-  final TextStyle descriptionTextStyle;
+  final Widget? iconView;
+  final VoidCallback? onRefresh;
+  final VoidCallback? onBack;
+  final String? title;
+  final String? description;
+  final TextStyle? titleTextStyle;
+  final TextStyle? descriptionTextStyle;
 
   const DSEmptyView({
-    Key key,
+    Key? key,
     this.useScaffold = false,
     this.scaffoldTitle,
     this.expanded = true,
@@ -96,18 +96,18 @@ class DSEmptyView extends StatelessWidget {
 
 class DSNoInternetView extends StatelessWidget {
   final bool useScaffold;
-  final String scaffoldTitle;
+  final String? scaffoldTitle;
   final bool expanded;
-  final Widget iconView;
-  final VoidCallback onRefresh;
-  final VoidCallback onBack;
-  final String title;
-  final String description;
-  final TextStyle titleTextStyle;
-  final TextStyle descriptionTextStyle;
+  final Widget? iconView;
+  final VoidCallback? onRefresh;
+  final VoidCallback? onBack;
+  final String? title;
+  final String? description;
+  final TextStyle? titleTextStyle;
+  final TextStyle? descriptionTextStyle;
 
   const DSNoInternetView({
-    Key key,
+    Key? key,
     this.useScaffold = false,
     this.scaffoldTitle,
     this.expanded = true,
@@ -142,27 +142,27 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   final bool useScaffold;
   final String scaffoldTitle;
 
-  final Widget iconView;
-  final IconData fallbackIcon;
+  final Widget? iconView;
+  final IconData? fallbackIcon;
   final bool expanded;
   final String title;
   final String description;
-  final VoidCallback onRefresh;
-  final VoidCallback onBack;
-  final TextStyle titleTextStyle;
-  final TextStyle descriptionTextStyle;
+  final VoidCallback? onRefresh;
+  final VoidCallback? onBack;
+  final TextStyle? titleTextStyle;
+  final TextStyle? descriptionTextStyle;
 
   const _ContentPlaceholderScreen({
-    Key key,
-    @required this.useScaffold,
-    @required this.scaffoldTitle,
+    Key? key,
+    required this.useScaffold,
+    required this.scaffoldTitle,
     this.iconView,
     this.fallbackIcon,
-    @required this.expanded,
-    @required this.title,
-    @required this.description,
-    @required this.onRefresh,
-    @required this.onBack,
+    required this.expanded,
+    required this.title,
+    required this.description,
+    required this.onRefresh,
+    required this.onBack,
     this.titleTextStyle,
     this.descriptionTextStyle,
   })  : assert(fallbackIcon != null || iconView != null),
@@ -197,27 +197,27 @@ class _ContentPlaceholderScreen extends StatelessWidget {
 class _ContentPlaceholderBody extends StatelessWidget {
   static const kIconHeight = 115.0;
 
-  final Widget iconView;
-  final IconData icon;
+  final Widget? iconView;
+  final IconData? icon;
   final bool expanded;
   final String title;
   final String description;
-  final VoidCallback onRefresh;
-  final VoidCallback onBack;
-  final TextStyle titleTextStyle;
-  final TextStyle descriptionTextStyle;
+  final VoidCallback? onRefresh;
+  final VoidCallback? onBack;
+  final TextStyle? titleTextStyle;
+  final TextStyle? descriptionTextStyle;
 
   const _ContentPlaceholderBody({
-    Key key,
+    Key? key,
     this.iconView,
     this.icon,
-    @required this.expanded,
-    @required this.title,
-    @required this.description,
-    @required this.onRefresh,
-    @required this.onBack,
-    @required this.titleTextStyle,
-    @required this.descriptionTextStyle,
+    required this.expanded,
+    required this.title,
+    required this.description,
+    required this.onRefresh,
+    required this.onBack,
+    required this.titleTextStyle,
+    required this.descriptionTextStyle,
   })  : assert(icon != null || iconView != null),
         super(key: key);
 
@@ -259,14 +259,12 @@ class _ContentPlaceholderBody extends StatelessWidget {
               DSPrimaryButton(
                 text: 'Refresh',
                 onPressed: onRefresh,
-                forceUpperCase: false,
               ),
             if (onBack != null)
               Padding(
-                padding: EdgeInsets.only(top: Dimens.of(context).marginMedium),
+                padding: EdgeInsets.only(top: Dimens.of(context).marginSmall),
                 child: DSTextButton(
                   text: 'Go back',
-                  forceUpperCase: false,
                   onPressed: onBack,
                   alignment: Alignment.center,
                 ),

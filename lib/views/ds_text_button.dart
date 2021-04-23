@@ -1,27 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lr_design_system/config/ds_config.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 
 import 'ds_loading_indicator.dart';
 
 class DSTextButton extends StatelessWidget {
   final String text;
-  final double width;
+  final double? width;
   final bool isLoading;
   final bool enabled;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Alignment alignment;
   final double horizontalMargin;
 
-  final Color loadingColor;
-  final double height;
-  final TextStyle textStyle;
-  final Color defaultTextColor;
-  final Color disabledTextColor;
-  final bool forceUpperCase;
+  final Color? loadingColor;
+  final double? height;
+  final TextStyle? textStyle;
+  final Color? defaultTextColor;
+  final Color? disabledTextColor;
+  final bool? forceUpperCase;
 
   DSTextButton({
-    @required this.text,
+    required this.text,
     this.onPressed,
     this.isLoading = false,
     this.enabled = true,
@@ -33,11 +34,13 @@ class DSTextButton extends StatelessWidget {
     this.textStyle,
     this.defaultTextColor,
     this.disabledTextColor,
-    this.forceUpperCase = true,
+    this.forceUpperCase,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool forceUpperCase =
+        this.forceUpperCase ?? DSConfig.of(context).buttonTextUppercased;
     return SizedBox(
       width: width,
       height: height ?? Dimens.of(context).buttonHeight,
@@ -50,7 +53,7 @@ class DSTextButton extends StatelessWidget {
                 padding: EdgeInsets.all(horizontalMargin),
                 child: Text(
                   forceUpperCase ? text.toUpperCase() : text,
-                  style: (textStyle ?? Theme.of(context).textTheme.button)
+                  style: (textStyle ?? Theme.of(context).textTheme.button)!
                       .copyWith(
                           color: enabled
                               ? (defaultTextColor ??

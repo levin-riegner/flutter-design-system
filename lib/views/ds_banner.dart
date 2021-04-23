@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 
 class DSBanner extends StatelessWidget {
-  final double progress; // [0, 1]
-  final Widget leading;
-  final VoidCallback onDismiss;
-  final String title;
-  final String message;
+  final double? progress; // [0, 1]
+  final Widget? leading;
+  final VoidCallback? onDismiss;
+  final String? title;
+  final String? message;
   final bool isWarning;
   final EdgeInsets padding;
 
-  final double borderRadius;
-  final double contentPadding;
-  final Color warningBackgroundColor;
-  final Color defaultBackgroundColor;
-  final Color activeProgressColor;
-  final Color defaultProgressColor;
-  final TextStyle titleTextStyle;
-  final TextStyle messageTextStyle;
+  final double? borderRadius;
+  final double? contentPadding;
+  final Color? warningBackgroundColor;
+  final Color? defaultBackgroundColor;
+  final Color? activeProgressColor;
+  final Color? defaultProgressColor;
+  final TextStyle? titleTextStyle;
+  final TextStyle? messageTextStyle;
 
   const DSBanner({
     this.progress,
@@ -67,7 +67,7 @@ class DSBanner extends StatelessWidget {
                 ),
               Padding(
                 padding: EdgeInsets.all(
-                    contentPadding ?? Dimens.of(context).marginMedium),
+                    contentPadding ?? Dimens.of(context).marginSmall),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -83,7 +83,7 @@ class DSBanner extends StatelessWidget {
                         children: <Widget>[
                           if (title != null)
                             Text(
-                              title,
+                              title!,
                               style: (titleTextStyle ??
                                   Theme.of(context).textTheme.headline4),
                               textAlign: TextAlign.start,
@@ -92,7 +92,7 @@ class DSBanner extends StatelessWidget {
                             SizedBox(height: Dimens.of(context).marginXSmall),
                           if (message != null)
                             Text(
-                              message,
+                              message!,
                               style: (messageTextStyle ??
                                   Theme.of(context).textTheme.bodyText2),
                               textAlign: TextAlign.start,

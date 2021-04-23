@@ -11,8 +11,8 @@ class DSInternetRequired extends StatefulWidget {
 
   const DSInternetRequired({
     this.expanded = true,
-    @required this.child,
-    @required this.onInternetAvailable,
+    required this.child,
+    required this.onInternetAvailable,
   });
 
   @override
@@ -20,8 +20,8 @@ class DSInternetRequired extends StatefulWidget {
 }
 
 class _DSInternetRequiredState extends State<DSInternetRequired> {
-  bool hasInternet;
-  StreamSubscription internetSubscription;
+  bool? hasInternet;
+  StreamSubscription? internetSubscription;
 
   @override
   void initState() {

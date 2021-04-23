@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 
 class DSToggleButton extends StatelessWidget {
   final String text;
-  final Widget defaultIcon;
-  final Widget selectedIcon;
+  final Widget? defaultIcon;
+  final Widget? selectedIcon;
   final bool isSelected;
-  final Function(bool) onSelected;
+  final Function(bool)? onSelected;
   final bool tintIcon;
 
   final double width;
-  final double height;
-  final double radius;
-  final double defaultBorderWidth;
-  final Color defaultBorderColor;
+  final double? height;
+  final double? radius;
+  final double? defaultBorderWidth;
+  final Color? defaultBorderColor;
   final Color defaultColor;
-  final Color selectedColor;
-  final TextStyle textStyle;
+  final Color? selectedColor;
+  final TextStyle? textStyle;
 
   const DSToggleButton({
-    @required this.text,
+    required this.text,
     this.defaultIcon,
     this.selectedIcon,
     this.isSelected = false,
@@ -73,14 +73,14 @@ class DSToggleButton extends StatelessWidget {
             Text(
               text.toUpperCase(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.overline.apply(
+              style: Theme.of(context).textTheme.overline!.apply(
                   color: isSelected
                       ? Theme.of(context).colorScheme.onPrimary
                       : Theme.of(context).colorScheme.onBackground),
             ),
           ],
         ),
-        onPressed: onSelected != null ? () => onSelected(!isSelected) : null,
+        onPressed: onSelected != null ? () => onSelected!(!isSelected) : null,
       ),
     );
   }

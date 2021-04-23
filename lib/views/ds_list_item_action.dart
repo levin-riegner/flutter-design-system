@@ -6,15 +6,17 @@ class DSListItemAction extends StatelessWidget {
   final String text;
   final DSListItemActionType type;
   final bool useBottomDivider;
-  final Widget leading;
+  final Widget? leading;
   final VoidCallback onPressed;
+  final Color? textColor;
 
   const DSListItemAction({
-    @required this.text,
-    @required this.type,
-    @required this.onPressed,
+    required this.text,
+    required this.type,
+    required this.onPressed,
     this.leading,
     this.useBottomDivider = false,
+    this.textColor,
   });
 
   @override
@@ -29,23 +31,28 @@ class DSListItemAction extends StatelessWidget {
               width: double.infinity,
               height: Dimens.of(context).listItemHeightLarge,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimens.of(context).marginLarge),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimens.of(context).marginLarge),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     if (leading != null)
                       Padding(
-                        padding: EdgeInsets.only(right: Dimens.of(context).marginSmall),
+                        padding: EdgeInsets.only(
+                            right: Dimens.of(context).marginSmall),
                         child: leading,
                       ),
                     Expanded(
                       child: Text(
                         text,
-                        style: Theme.of(context).textTheme.bodyText2.copyWith(
-                          color: type == DSListItemActionType.destructive
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).colorScheme.onBackground,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                              color: textColor ??
+                                  (type == DSListItemActionType.destructive
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onBackground),
+                            ),
                       ),
                     ),
                     if (type == DSListItemActionType.navigation)
@@ -59,8 +66,7 @@ class DSListItemAction extends StatelessWidget {
             ),
           ),
         ),
-        if (useBottomDivider)
-          DSDivider(),
+        if (useBottomDivider) DSDivider(),
       ],
     );
   }

@@ -7,12 +7,12 @@ class DSRefreshIndicator
     extends PlatformAwareWidget<CustomScrollView, RefreshIndicator> {
   final Future<void> Function() onRefresh;
   final Widget child;
-  final Widget sliverAppBar;
-  final ScrollController controller;
+  final Widget? sliverAppBar;
+  final ScrollController? controller;
 
   DSRefreshIndicator({
-    @required this.onRefresh,
-    @required this.child,
+    required this.onRefresh,
+    required this.child,
     this.controller,
     this.sliverAppBar,
   });
@@ -24,7 +24,7 @@ class DSRefreshIndicator
       child: CustomScrollView(
         controller: controller,
         slivers: [
-          if (sliverAppBar != null) sliverAppBar,
+          if (sliverAppBar != null) sliverAppBar!,
           SliverToBoxAdapter(child: child),
         ],
       ),
@@ -36,7 +36,7 @@ class DSRefreshIndicator
     return CustomScrollView(
       controller: controller,
       slivers: [
-        if (sliverAppBar != null) sliverAppBar,
+        if (sliverAppBar != null) sliverAppBar!,
         CupertinoSliverRefreshControl(
           onRefresh: onRefresh,
         ),

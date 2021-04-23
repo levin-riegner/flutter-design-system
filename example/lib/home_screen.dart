@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lr_design_system/config/ds_config.dart';
+import 'package:lr_design_system/utils/alert_service.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 import 'package:lr_design_system/views/ds_app_version.dart';
 import 'package:lr_design_system/views/ds_banner.dart';
@@ -94,8 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
               message:
                   "With some useful description to catch the user's attention.\n- Some progress can be added.\n- Also an icon",
               progress: 0.2,
-              defaultProgressColor:
-                  Theme.of(context).disabledColor, // Remove
+              defaultProgressColor: Theme.of(context).disabledColor, // Remove
             ),
           ),
           ShowCaseItem(
@@ -349,6 +350,32 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.all(Dimens.of(context).marginMedium),
               child: DSAppVersion(),
             ),
+          ),
+          ShowCaseItem(
+            title: "Alert",
+            content: Container(),
+            modifiers: [
+              ShowCaseModifier(
+                title: "SackBar",
+                action: () => AlertService.instance().showAlert(
+                  context: context,
+                  message: "This is a message",
+                  actionText: "Action",
+                  onAction: () {},
+                  type: AlertType.SnackBar,
+                ),
+              ),
+              ShowCaseModifier(
+                title: "Top Bar",
+                action: () => AlertService.instance().showAlert(
+                  context: context,
+                  message: "This is a message",
+                  actionText: "Action",
+                  onAction: () {},
+                  type: AlertType.TopBar,
+                ),
+              ),
+            ],
           ),
         ],
       ),
