@@ -16,6 +16,8 @@ class DSDialog extends StatelessWidget {
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
   final bool? forceUpperCaseButtons;
+  final bool? isPositiveButtonLoading;
+  final bool? isNegativeButtonLoading;
 
   const DSDialog({
     this.title,
@@ -28,6 +30,8 @@ class DSDialog extends StatelessWidget {
     this.titleTextStyle,
     this.descriptionTextStyle,
     this.forceUpperCaseButtons,
+    this.isPositiveButtonLoading,
+    this.isNegativeButtonLoading,
   })  : assert(title != null || description != null),
         assert((positiveButtonText != null && positiveCallback != null) ||
             (negativeButtonText != null && negativeCallback != null));
@@ -76,6 +80,7 @@ class DSDialog extends StatelessWidget {
                   text: positiveButtonText!,
                   onPressed: positiveCallback,
                   forceUpperCase: forceUpperCaseButtons,
+                  isLoading: isPositiveButtonLoading ?? false,
                 ),
               ],
               if (negativeButtonText != null && negativeCallback != null) ...[
@@ -85,6 +90,7 @@ class DSDialog extends StatelessWidget {
                   onPressed: negativeCallback,
                   alignment: Alignment.center,
                   forceUpperCase: forceUpperCaseButtons,
+                  isLoading: isNegativeButtonLoading ?? false,
                 ),
               ],
             ],
