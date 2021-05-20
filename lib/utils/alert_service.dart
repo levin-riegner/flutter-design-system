@@ -28,6 +28,10 @@ class AlertService {
     AlertType? type,
     Color? backgroundColor,
     Color? actionTextColor,
+    double? snackBarElevation,
+    ShapeBorder? snackBarShape,
+    EdgeInsetsGeometry? snackBarMargin,
+    EdgeInsetsGeometry? snackBarPadding,
   }) {
     type = type ?? DSConfig.of(context).alertType;
     seconds = seconds ??
@@ -77,6 +81,11 @@ class AlertService {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          behavior: SnackBarBehavior.floating,
+          elevation: snackBarElevation,
+          shape: snackBarShape,
+          margin: snackBarMargin,
+          padding: snackBarPadding,
           duration: Duration(seconds: seconds),
           backgroundColor: backgroundColor,
           content: Text(message),
