@@ -53,8 +53,8 @@ class DSTextButton extends StatelessWidget {
                 padding: EdgeInsets.all(horizontalMargin),
                 child: Text(
                   forceUpperCase ? text.toUpperCase() : text,
-                  style: (textStyle ?? Theme.of(context).textTheme.button)!
-                      .copyWith(
+                  style: textStyle ??
+                      Theme.of(context).textTheme.button!.copyWith(
                           color: enabled
                               ? (defaultTextColor ??
                                   Theme.of(context).colorScheme.primary)
