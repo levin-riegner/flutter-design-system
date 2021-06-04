@@ -15,7 +15,11 @@ class DSDialog extends StatelessWidget {
   final Color? backgroundColor;
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
+  final TextStyle? positiveButtonTextStyle;
+  final TextStyle? negativeButtonTextStyle;
   final bool? forceUpperCaseButtons;
+  final bool? isPositiveButtonLoading;
+  final bool? isNegativeButtonLoading;
 
   const DSDialog({
     this.title,
@@ -27,7 +31,11 @@ class DSDialog extends StatelessWidget {
     this.backgroundColor,
     this.titleTextStyle,
     this.descriptionTextStyle,
+    this.positiveButtonTextStyle,
+    this.negativeButtonTextStyle,
     this.forceUpperCaseButtons,
+    this.isPositiveButtonLoading,
+    this.isNegativeButtonLoading,
   })  : assert(title != null || description != null),
         assert((positiveButtonText != null && positiveCallback != null) ||
             (negativeButtonText != null && negativeCallback != null));
@@ -49,22 +57,20 @@ class DSDialog extends StatelessWidget {
               if (title != null) ...[
                 Text(
                   title!,
-                  style:
-                      (titleTextStyle ?? Theme.of(context).textTheme.headline4)!
-                          .copyWith(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurface
-                                  .withOpacity(0.87)),
+                  style: titleTextStyle ??
+                      Theme.of(context).textTheme.headline4!.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.87)),
                 ),
                 SizedBox(height: Dimens.of(context).marginMedium),
               ],
               if (description != null)
                 Text(
                   description!,
-                  style: (descriptionTextStyle ??
-                          Theme.of(context).textTheme.bodyText2)!
-                      .copyWith(
+                  style: descriptionTextStyle ??
+                      Theme.of(context).textTheme.bodyText2!.copyWith(
                           color: Theme.of(context)
                               .colorScheme
                               .onSurface
@@ -76,6 +82,7 @@ class DSDialog extends StatelessWidget {
                   text: positiveButtonText!,
                   onPressed: positiveCallback,
                   forceUpperCase: forceUpperCaseButtons,
+                  isLoading: isPositiveButtonLoading ?? false,
                 ),
               ],
               if (negativeButtonText != null && negativeCallback != null) ...[
@@ -85,6 +92,8 @@ class DSDialog extends StatelessWidget {
                   onPressed: negativeCallback,
                   alignment: Alignment.center,
                   forceUpperCase: forceUpperCaseButtons,
+                  isLoading: isNegativeButtonLoading ?? false,
+                  textStyle: negativeButtonTextStyle,
                 ),
               ],
             ],

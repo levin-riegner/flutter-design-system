@@ -12,6 +12,7 @@ class DSPrimaryButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool? forceUpperCase;
   final double? borderRadius;
+  final EdgeInsetsGeometry? contentPadding;
 
   const DSPrimaryButton({
     required this.text,
@@ -21,6 +22,7 @@ class DSPrimaryButton extends StatelessWidget {
     this.width = double.infinity,
     this.forceUpperCase,
     this.borderRadius,
+    this.contentPadding,
   });
 
   @override
@@ -38,8 +40,10 @@ class DSPrimaryButton extends StatelessWidget {
       disabledTextColor:
           Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
       loadingColor: Theme.of(context).colorScheme.onPrimary,
-      forceUpperCase: forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
+      forceUpperCase:
+          forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
       borderRadius: borderRadius,
+      contentPadding: contentPadding,
     );
   }
 }
@@ -57,6 +61,7 @@ class DSButton extends StatelessWidget {
   final Color? disabledTextColor;
   final Color? loadingColor;
   final double? borderRadius;
+  final EdgeInsetsGeometry? contentPadding;
 
   const DSButton({
     required this.text,
@@ -71,6 +76,7 @@ class DSButton extends StatelessWidget {
     this.disabledTextColor,
     this.borderRadius,
     this.loadingColor,
+    this.contentPadding,
   });
 
   @override
@@ -83,13 +89,16 @@ class DSButton extends StatelessWidget {
       width: width,
       borderSide: BorderSide.none,
       defaultColor: backgroundColor,
-      disabledColor: disabledBackgroundColor ?? Theme.of(context).colorScheme.primary.withOpacity(0.25),
+      disabledColor: disabledBackgroundColor ??
+          Theme.of(context).colorScheme.primary.withOpacity(0.25),
       defaultTextColor: textColor,
-      disabledTextColor:
-          disabledTextColor ?? Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
+      disabledTextColor: disabledTextColor ??
+          Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
       loadingColor: loadingColor ?? Theme.of(context).colorScheme.onPrimary,
-      forceUpperCase: forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
+      forceUpperCase:
+          forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
       borderRadius: borderRadius,
+      contentPadding: contentPadding,
     );
   }
 }
@@ -102,6 +111,7 @@ class DSOutlineButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool? forceUpperCase;
   final double? borderRadius;
+  final EdgeInsetsGeometry? contentPadding;
 
   const DSOutlineButton({
     required this.text,
@@ -111,6 +121,7 @@ class DSOutlineButton extends StatelessWidget {
     this.width = double.infinity,
     this.forceUpperCase,
     this.borderRadius,
+    this.contentPadding,
   });
 
   @override
@@ -132,8 +143,10 @@ class DSOutlineButton extends StatelessWidget {
       defaultTextColor: Theme.of(context).colorScheme.primary,
       disabledTextColor: Theme.of(context).disabledColor,
       loadingColor: Theme.of(context).colorScheme.primary,
-      forceUpperCase: forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
+      forceUpperCase:
+          forceUpperCase ?? DSConfig.of(context).buttonTextUppercased,
       borderRadius: borderRadius,
+      contentPadding: contentPadding,
     );
   }
 }
@@ -155,6 +168,7 @@ class _BaseButton extends StatelessWidget {
   final Color defaultTextColor;
   final Color? disabledTextColor;
   final bool forceUpperCase;
+  final EdgeInsetsGeometry? contentPadding;
 
   const _BaseButton({
     required this.text,
@@ -172,6 +186,7 @@ class _BaseButton extends StatelessWidget {
     required this.defaultTextColor,
     required this.disabledTextColor,
     required this.forceUpperCase,
+    this.contentPadding,
   });
 
   @override
@@ -187,16 +202,20 @@ class _BaseButton extends StatelessWidget {
         ),
         color: defaultColor,
         textColor: defaultTextColor,
-        child: isLoading
-            ? DSLoadingIndicator(
-                color: loadingColor ?? Theme.of(context).colorScheme.onPrimary)
-            : Text(
-                forceUpperCase ? text.toUpperCase() : text,
-                style: textStyle,
+        child: Center(
+          child: isLoading
+              ? DSLoadingIndicator(
+                  color:
+                      loadingColor ?? Theme.of(context).colorScheme.onPrimary)
+              : Padding(
+                padding: contentPadding ?? EdgeInsets.zero,
+                child: Text(
+                    forceUpperCase ? text.toUpperCase() : text,
+                    style: textStyle,
+                  ),
               ),
-        disabledColor: isLoading
-            ? (defaultColor)
-            : (disabledColor),
+        ),
+        disabledColor: isLoading ? (defaultColor) : (disabledColor),
         disabledTextColor: disabledTextColor ??
             Theme.of(context).colorScheme.onSurface.withOpacity(0.30),
         onPressed: (enabled && !isLoading) ? onPressed : null,
