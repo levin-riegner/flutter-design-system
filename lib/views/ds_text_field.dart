@@ -4,7 +4,7 @@ import 'package:lr_design_system/utils/validated_value.dart';
 import 'package:lr_design_system/utils/cap_string.dart';
 
 class DSTextField extends StatefulWidget {
-  final String initialText;
+  final String? initialText;
   final ValidatedValue? validatedValue;
   final bool isSensible;
   final String? hint;
@@ -23,13 +23,14 @@ class DSTextField extends StatefulWidget {
   final double? borderWidth;
   final bool autoCorrect;
   final Function(String)? onChanged;
+  final EdgeInsetsGeometry? contentPadding;
 
   Widget get visiblePasswordIcon => Icon(Icons.visibility);
 
   Widget get invisiblePasswordIcon => Icon(Icons.visibility_off);
 
   DSTextField({
-    this.initialText = "",
+    this.initialText,
     this.validatedValue,
     this.isSensible = false,
     this.hint,
@@ -47,6 +48,7 @@ class DSTextField extends StatefulWidget {
     this.obscureText = false,
     this.borderWidth,
     this.autoCorrect = false,
+    this.contentPadding,
     this.onChanged,
   })  : focusNode = focusNode ?? FocusNode(),
         keyboardType = keyboardType ?? (maxLines > 1 ? TextInputType.multiline : TextInputType.text),
@@ -73,9 +75,17 @@ class _DSTextFieldState extends State<DSTextField> {
   void initState() {
     super.initState();
     // Initial Text
-    _controller.text = widget.initialText;
+    _controller.text = widget.initialText ?? widget.validatedValue?.value ??  "";
     // Listen to Field Selected
     widget.focusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void didUpdateWidget(covariant DSTextField oldWidget) {
+    if(oldWidget.initialText != widget.initialText && _controller.text.isNotEmpty != true) {
+      _controller.text = widget.initialText ?? widget.validatedValue?.value;
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -134,7 +144,7 @@ class _DSTextFieldState extends State<DSTextField> {
                   decoration: InputDecoration(
                     isDense: true,
                     labelText: widget.hint?.titleCase,
-                    contentPadding: EdgeInsets.zero,
+                    contentPadding: widget.contentPadding ?? EdgeInsets.zero,
                     border: InputBorder.none,
                     labelStyle: getHintStyle(),
                   ),
