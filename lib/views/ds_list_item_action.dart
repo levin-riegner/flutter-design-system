@@ -9,6 +9,8 @@ class DSListItemAction extends StatelessWidget {
   final Widget? leading;
   final VoidCallback onPressed;
   final Color? textColor;
+  final Color? dividerColor;
+  final Color? actionColor;
 
   const DSListItemAction({
     required this.text,
@@ -17,6 +19,8 @@ class DSListItemAction extends StatelessWidget {
     this.leading,
     this.useBottomDivider = false,
     this.textColor,
+    this.dividerColor,
+    this.actionColor,
   });
 
   @override
@@ -58,7 +62,7 @@ class DSListItemAction extends StatelessWidget {
                     if (type == DSListItemActionType.navigation)
                       Icon(
                         Icons.chevron_right,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: actionColor ?? Theme.of(context).colorScheme.primary,
                       ),
                   ],
                 ),
@@ -66,10 +70,13 @@ class DSListItemAction extends StatelessWidget {
             ),
           ),
         ),
-        if (useBottomDivider) DSDivider(),
+        if (useBottomDivider)
+          DSDivider(
+            color: dividerColor,
+          ),
       ],
     );
   }
 }
 
-enum DSListItemActionType { navigation, destructive }
+enum DSListItemActionType { navigation, destructive, simple }
