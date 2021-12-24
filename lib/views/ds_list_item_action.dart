@@ -11,6 +11,7 @@ class DSListItemAction extends StatelessWidget {
   final Color? textColor;
   final Color? dividerColor;
   final Color? actionColor;
+  final EdgeInsetsGeometry? dividerPadding;
 
   const DSListItemAction({
     required this.text,
@@ -21,6 +22,7 @@ class DSListItemAction extends StatelessWidget {
     this.textColor,
     this.dividerColor,
     this.actionColor,
+    this.dividerPadding,
   });
 
   @override
@@ -71,8 +73,11 @@ class DSListItemAction extends StatelessWidget {
           ),
         ),
         if (useBottomDivider)
-          DSDivider(
-            color: dividerColor,
+          Padding(
+            padding: dividerPadding ?? EdgeInsets.zero,
+            child: DSDivider(
+              color: dividerColor,
+            ),
           ),
       ],
     );
