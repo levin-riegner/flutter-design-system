@@ -6,7 +6,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:lr_design_system/utils/dimens.dart';
 
 const Duration _kBottomSheetDuration = Duration(milliseconds: 250);
@@ -59,10 +58,7 @@ class BottomSheet extends StatefulWidget {
     required this.builder,
     required this.title,
     this.backgroundColor,
-  })  : assert(enableDrag != null),
-        assert(onClosing != null),
-        assert(builder != null),
-        assert(elevation != null && elevation >= 0.0),
+  })  : assert(elevation >= 0.0),
         super(key: key);
 
   /// The animation that controls the bottom sheet's position.
@@ -114,27 +110,33 @@ class _BottomSheetState extends State<BottomSheet> {
   final GlobalKey _childKey = GlobalKey(debugLabel: 'BottomSheet child');
 
   double get _childHeight {
-    final RenderBox renderBox = _childKey.currentContext!.findRenderObject() as RenderBox;
+    final RenderBox renderBox =
+        _childKey.currentContext!.findRenderObject() as RenderBox;
     return renderBox.size.height;
   }
 
-  bool get _dismissUnderway => widget.animationController!.status == AnimationStatus.reverse;
+  bool get _dismissUnderway =>
+      widget.animationController!.status == AnimationStatus.reverse;
 
   void _handleDragUpdate(DragUpdateDetails details) {
     if (_dismissUnderway) return;
     if (widget.animationController != null && details.primaryDelta != null) {
-      widget.animationController!.value -= details.primaryDelta! / (_childHeight);
+      widget.animationController!.value -=
+          details.primaryDelta! / (_childHeight);
     }
   }
 
   void _handleDragEnd(DragEndDetails details) {
     if (_dismissUnderway) return;
     if (details.velocity.pixelsPerSecond.dy > _kMinFlingVelocity) {
-      final double flingVelocity = -details.velocity.pixelsPerSecond.dy / _childHeight;
-      if (widget.animationController!.value > 0.0) widget.animationController!.fling(velocity: flingVelocity);
+      final double flingVelocity =
+          -details.velocity.pixelsPerSecond.dy / _childHeight;
+      if (widget.animationController!.value > 0.0)
+        widget.animationController!.fling(velocity: flingVelocity);
       if (flingVelocity < 0.0) widget.onClosing();
     } else if (widget.animationController!.value < _kCloseProgressThreshold) {
-      if (widget.animationController!.value > 0.0) widget.animationController!.fling(velocity: -1.0);
+      if (widget.animationController!.value > 0.0)
+        widget.animationController!.fling(velocity: -1.0);
       widget.onClosing();
     } else {
       widget.animationController!.forward();
@@ -148,7 +150,8 @@ class _BottomSheetState extends State<BottomSheet> {
       elevation: widget.elevation,
       child: Container(
         decoration: BoxDecoration(
-          color: (widget.backgroundColor ?? Theme.of(context).colorScheme.background),
+          color: (widget.backgroundColor ??
+              Theme.of(context).colorScheme.background),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(Dimens.of(context).radiusMedium),
               topRight: Radius.circular(Dimens.of(context).radiusMedium)),
@@ -161,7 +164,9 @@ class _BottomSheetState extends State<BottomSheet> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(widget.title),
-              leading: IconButton(icon: Icon(Icons.close), onPressed: () => Navigator.of(context).pop()),
+              leading: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () => Navigator.of(context).pop()),
             ),
             body: widget.builder(context),
           ),
@@ -217,7 +222,9 @@ class _ModalBottomSheet<T> extends StatefulWidget {
   final String title;
   final Color? backgroundColor;
 
-  const _ModalBottomSheet({Key? key, this.route, required this.title, this.backgroundColor}) : super(key: key);
+  const _ModalBottomSheet(
+      {Key? key, this.route, required this.title, this.backgroundColor})
+      : super(key: key);
 
   final _ModalBottomSheetRoute<T>? route;
 
@@ -229,14 +236,14 @@ class _ModalBottomSheetState<T> extends State<_ModalBottomSheet<T>> {
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
-    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+    final MaterialLocalizations localizations =
+        MaterialLocalizations.of(context);
     String? routeLabel;
     switch (defaultTargetPlatform) {
       case TargetPlatform.iOS:
         routeLabel = '';
         break;
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
+      default:
         routeLabel = localizations.dialogLabel;
         break;
     }
@@ -249,7 +256,9 @@ class _ModalBottomSheetState<T> extends State<_ModalBottomSheet<T>> {
         builder: (BuildContext context, Widget? child) {
           // Disable the initial animation when accessible navigation is on so
           // that the semantics are added to the tree at the correct time.
-          final double animationValue = mediaQuery.accessibleNavigation ? 1.0 : widget.route!.animation!.value;
+          final double animationValue = mediaQuery.accessibleNavigation
+              ? 1.0
+              : widget.route!.animation!.value;
           return Semantics(
             scopesRoute: true,
             namesRoute: true,
@@ -263,7 +272,8 @@ class _ModalBottomSheetState<T> extends State<_ModalBottomSheet<T>> {
                   onClosing: () => Navigator.pop(context),
                   builder: widget.route!.builder!,
                   title: widget.title,
-                  backgroundColor: (widget.backgroundColor ?? Theme.of(context).colorScheme.background),
+                  backgroundColor: (widget.backgroundColor ??
+                      Theme.of(context).colorScheme.background),
                 ),
               ),
             ),
@@ -307,12 +317,14 @@ class _ModalBottomSheetRoute<T> extends PopupRoute<T> {
   @override
   AnimationController createAnimationController() {
     assert(_animationController == null);
-    _animationController = BottomSheet.createAnimationController(navigator!.overlay!);
+    _animationController =
+        BottomSheet.createAnimationController(navigator!.overlay!);
     return _animationController!;
   }
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
     // By definition, the bottom sheet is aligned to the bottom of the page
     // and isn't exposed to the top padding of the MediaQuery.
     Widget bottomSheet = MediaQuery.removePadding(
@@ -327,7 +339,9 @@ class _ModalBottomSheetRoute<T> extends PopupRoute<T> {
     if (theme != null) {
       bottomSheet = Theme(data: theme!, child: bottomSheet);
     } else {
-      bottomSheet = Theme(data: Theme.of(context).copyWith(canvasColor: Colors.transparent), child: bottomSheet);
+      bottomSheet = Theme(
+          data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
+          child: bottomSheet);
     }
     return bottomSheet;
   }
@@ -365,15 +379,14 @@ Future<T?> showDSModalBottomSheet<T>({
   required String title,
   Color? backgroundColor,
 }) {
-  assert(context != null);
-  assert(builder != null);
   assert(debugCheckHasMaterialLocalizations(context));
   return Navigator.push(
       context,
       _ModalBottomSheetRoute<T>(
         builder: builder,
         theme: Theme.of(context).copyWith(canvasColor: Colors.transparent),
-        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         title: title,
         backgroundColor: backgroundColor,
       ));
@@ -420,7 +433,5 @@ PersistentBottomSheetController<T> showBottomSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
 }) {
-  assert(context != null);
-  assert(builder != null);
   return Scaffold.of(context).showBottomSheet<T>(builder);
 }
