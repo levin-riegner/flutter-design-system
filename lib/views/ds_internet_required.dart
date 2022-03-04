@@ -7,12 +7,14 @@ import 'package:lr_design_system/views/ds_content_placeholder_views.dart';
 class DSInternetRequired extends StatefulWidget {
   final Widget child;
   final bool expanded;
+  final EdgeInsetsGeometry? contentPadding;
   final VoidCallback onInternetAvailable;
 
   const DSInternetRequired({
     this.expanded = true,
     required this.child,
     required this.onInternetAvailable,
+    this.contentPadding,
   });
 
   @override
@@ -57,6 +59,7 @@ class _DSInternetRequiredState extends State<DSInternetRequired> {
         ? DSNoInternetView(
             expanded: widget.expanded,
             onRefresh: widget.onInternetAvailable,
+            contentPadding: widget.contentPadding,
           )
         : widget.child;
   }

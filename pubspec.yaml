@@ -11,10 +11,10 @@ dependencies:
     sdk: flutter
 
   # External Libraries
-  connectivity: 3.0.3 # 0.4.9
-  webview_flutter: 2.0.4 # 1.0.7
+  connectivity_plus: ^2.2.1
+  webview_flutter: ^3.0.1
   another_flushbar: ^1.10.18
-  package_info: 2.0.0 # ^0.4.3+2
+  package_info_plus: ^1.4.0
 
 dev_dependencies:
   flutter_driver:

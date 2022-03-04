@@ -16,6 +16,7 @@ class DSErrorView extends StatelessWidget {
   final String? description;
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
+  final EdgeInsetsGeometry? contentPadding;
 
   const DSErrorView({
     Key? key,
@@ -29,6 +30,7 @@ class DSErrorView extends StatelessWidget {
     this.description,
     this.titleTextStyle,
     this.descriptionTextStyle,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -46,6 +48,7 @@ class DSErrorView extends StatelessWidget {
       onBack: onBack,
       titleTextStyle: titleTextStyle,
       descriptionTextStyle: descriptionTextStyle,
+      contentPadding: contentPadding,
     );
   }
 }
@@ -61,6 +64,7 @@ class DSEmptyView extends StatelessWidget {
   final String? description;
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
+  final EdgeInsetsGeometry? contentPadding;
 
   const DSEmptyView({
     Key? key,
@@ -74,6 +78,7 @@ class DSEmptyView extends StatelessWidget {
     this.description,
     this.titleTextStyle,
     this.descriptionTextStyle,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -90,6 +95,7 @@ class DSEmptyView extends StatelessWidget {
       onBack: onBack,
       titleTextStyle: titleTextStyle,
       descriptionTextStyle: descriptionTextStyle,
+      contentPadding: contentPadding,
     );
   }
 }
@@ -105,6 +111,7 @@ class DSNoInternetView extends StatelessWidget {
   final String? description;
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
+  final EdgeInsetsGeometry? contentPadding;
 
   const DSNoInternetView({
     Key? key,
@@ -118,6 +125,7 @@ class DSNoInternetView extends StatelessWidget {
     this.description,
     this.titleTextStyle,
     this.descriptionTextStyle,
+    this.contentPadding,
   }) : super(key: key);
 
   @override
@@ -134,6 +142,7 @@ class DSNoInternetView extends StatelessWidget {
       onBack: onBack,
       titleTextStyle: titleTextStyle,
       descriptionTextStyle: descriptionTextStyle,
+      contentPadding: contentPadding,
     );
   }
 }
@@ -151,6 +160,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   final VoidCallback? onBack;
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
+  final EdgeInsetsGeometry? contentPadding;
 
   const _ContentPlaceholderScreen({
     Key? key,
@@ -165,6 +175,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
     required this.onBack,
     this.titleTextStyle,
     this.descriptionTextStyle,
+    this.contentPadding,
   })  : assert(fallbackIcon != null || iconView != null),
         super(key: key);
 
@@ -180,6 +191,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
       onBack: onBack,
       titleTextStyle: titleTextStyle,
       descriptionTextStyle: descriptionTextStyle,
+      contentPadding: contentPadding,
     );
     return useScaffold
         ? Scaffold(
@@ -206,6 +218,7 @@ class _ContentPlaceholderBody extends StatelessWidget {
   final VoidCallback? onBack;
   final TextStyle? titleTextStyle;
   final TextStyle? descriptionTextStyle;
+  final EdgeInsetsGeometry? contentPadding;
 
   const _ContentPlaceholderBody({
     Key? key,
@@ -218,6 +231,7 @@ class _ContentPlaceholderBody extends StatelessWidget {
     required this.onBack,
     required this.titleTextStyle,
     required this.descriptionTextStyle,
+    this.contentPadding,
   })  : assert(icon != null || iconView != null),
         super(key: key);
 
@@ -251,7 +265,7 @@ class _ContentPlaceholderBody extends StatelessWidget {
 
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(Dimens.of(context).marginLarge),
+        padding: contentPadding ?? EdgeInsets.all(Dimens.of(context).marginLarge),
         child: Column(
           children: [
             expanded ? Expanded(child: content) : content,

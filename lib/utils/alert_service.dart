@@ -1,5 +1,4 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lr_design_system/config/ds_config.dart';
 
@@ -30,8 +29,9 @@ class AlertService {
     Color? actionTextColor,
     double? snackBarElevation,
     ShapeBorder? snackBarShape,
-    EdgeInsetsGeometry? snackBarMargin,
-    EdgeInsetsGeometry? snackBarPadding,
+    EdgeInsetsGeometry? margin,
+    EdgeInsetsGeometry? padding,
+    TextAlign? textAlign,
   }) {
     type = type ?? DSConfig.of(context).alertType;
     seconds = seconds ??
@@ -39,13 +39,16 @@ class AlertService {
     if (type == AlertType.TopBar) {
       Flushbar(
         flushbarPosition: FlushbarPosition.TOP,
-        flushbarStyle: FlushbarStyle.GROUNDED,
+        flushbarStyle:
+            margin != null ? FlushbarStyle.FLOATING : FlushbarStyle.GROUNDED,
         animationDuration: const Duration(milliseconds: 500),
+        margin: margin?.resolve(TextDirection.ltr) ?? EdgeInsets.all(0.0),
+        padding: padding?.resolve(TextDirection.ltr) ?? EdgeInsets.all(16),
         titleText: title == null
             ? null
             : Text(
                 title,
-                textAlign: TextAlign.center,
+                textAlign: textAlign ?? TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
                     .headline4!
@@ -53,7 +56,7 @@ class AlertService {
               ),
         messageText: Text(
           message,
-          textAlign: TextAlign.center,
+          textAlign: textAlign ?? TextAlign.center,
           style: Theme.of(context)
               .textTheme
               .bodyText2!
@@ -84,11 +87,14 @@ class AlertService {
           behavior: SnackBarBehavior.floating,
           elevation: snackBarElevation,
           shape: snackBarShape,
-          margin: snackBarMargin,
-          padding: snackBarPadding,
+          margin: margin,
+          padding: padding,
           duration: Duration(seconds: seconds),
           backgroundColor: backgroundColor,
-          content: Text(message),
+          content: Text(
+            message,
+            textAlign: textAlign,
+          ),
           action: (onAction != null && actionText != null)
               ? SnackBarAction(
                   label: actionText,
