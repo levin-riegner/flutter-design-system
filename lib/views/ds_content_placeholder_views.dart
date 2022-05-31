@@ -10,6 +10,7 @@ class DSErrorView extends StatelessWidget {
   final String? scaffoldTitle;
   final bool expanded;
   final Widget? iconView;
+  final String? refreshButtonText;
   final VoidCallback onRefresh;
   final VoidCallback? onBack;
   final String? title;
@@ -24,6 +25,7 @@ class DSErrorView extends StatelessWidget {
     this.scaffoldTitle,
     this.expanded = true,
     this.iconView,
+    this.refreshButtonText,
     required this.onRefresh,
     this.onBack,
     this.title,
@@ -44,6 +46,7 @@ class DSErrorView extends StatelessWidget {
       fallbackIcon: Icons.warning,
       title: title ?? 'It seems something has broken!',
       description: description ?? 'Let\'s help get you back',
+      refreshButtonText: refreshButtonText,
       onRefresh: onRefresh,
       onBack: onBack,
       titleTextStyle: titleTextStyle,
@@ -156,6 +159,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
   final bool expanded;
   final String title;
   final String description;
+  final String? refreshButtonText;
   final VoidCallback? onRefresh;
   final VoidCallback? onBack;
   final TextStyle? titleTextStyle;
@@ -171,6 +175,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
     required this.expanded,
     required this.title,
     required this.description,
+    this.refreshButtonText,
     required this.onRefresh,
     required this.onBack,
     this.titleTextStyle,
@@ -187,6 +192,7 @@ class _ContentPlaceholderScreen extends StatelessWidget {
       title: title,
       expanded: expanded,
       description: description,
+      refreshButtonText: refreshButtonText,
       onRefresh: onRefresh,
       onBack: onBack,
       titleTextStyle: titleTextStyle,
@@ -214,6 +220,7 @@ class _ContentPlaceholderBody extends StatelessWidget {
   final bool expanded;
   final String title;
   final String description;
+  final String? refreshButtonText;
   final VoidCallback? onRefresh;
   final VoidCallback? onBack;
   final TextStyle? titleTextStyle;
@@ -227,6 +234,7 @@ class _ContentPlaceholderBody extends StatelessWidget {
     required this.expanded,
     required this.title,
     required this.description,
+    this.refreshButtonText,
     required this.onRefresh,
     required this.onBack,
     required this.titleTextStyle,
@@ -265,13 +273,14 @@ class _ContentPlaceholderBody extends StatelessWidget {
 
     return Center(
       child: Padding(
-        padding: contentPadding ?? EdgeInsets.all(Dimens.of(context).marginLarge),
+        padding:
+            contentPadding ?? EdgeInsets.all(Dimens.of(context).marginLarge),
         child: Column(
           children: [
             expanded ? Expanded(child: content) : content,
             if (onRefresh != null)
               DSPrimaryButton(
-                text: 'Refresh',
+                text: refreshButtonText ?? 'Refresh',
                 onPressed: onRefresh,
               ),
             if (onBack != null)

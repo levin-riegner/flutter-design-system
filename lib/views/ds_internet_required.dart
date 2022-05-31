@@ -8,12 +8,12 @@ class DSInternetRequired extends StatefulWidget {
   final Widget child;
   final bool expanded;
   final EdgeInsetsGeometry? contentPadding;
-  final VoidCallback onInternetAvailable;
+  final VoidCallback? onInternetAvailable;
 
   const DSInternetRequired({
     this.expanded = true,
     required this.child,
-    required this.onInternetAvailable,
+    this.onInternetAvailable,
     this.contentPadding,
   });
 
@@ -40,6 +40,8 @@ class _DSInternetRequiredState extends State<DSInternetRequired> {
               // Internet recovered, stop listening
               internetSubscription?.cancel();
               setState(() => this.hasInternet = isConnected);
+              // Notify
+              widget.onInternetAvailable?.call();
             }
           });
         }
@@ -58,7 +60,6 @@ class _DSInternetRequiredState extends State<DSInternetRequired> {
     return hasInternet == false
         ? DSNoInternetView(
             expanded: widget.expanded,
-            onRefresh: widget.onInternetAvailable,
             contentPadding: widget.contentPadding,
           )
         : widget.child;
