@@ -1,6 +1,6 @@
 name: lr_design_system
 description: L+R Design System Package
-version: 0.1.3
+version: 1.0.0
 homepage: https://levinriegner.com/home
 
 environment:
@@ -11,10 +11,10 @@ dependencies:
     sdk: flutter
 
   # External Libraries
-  connectivity_plus: ^2.2.1
-  webview_flutter: ^3.0.1
-  another_flushbar: ^1.10.18
-  package_info_plus: ^1.4.0
+  connectivity_plus: ^2.3.7
+  webview_flutter: ^3.0.4
+  another_flushbar: ^1.12.29
+  package_info_plus: ^1.4.3+1
 
 dev_dependencies:
   flutter_driver:
