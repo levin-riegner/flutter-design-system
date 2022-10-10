@@ -13,7 +13,7 @@
 *.iml
 *.ipr
 *.iws
-.idea/
+**/.idea/
 # Exception for IntelliJ run configurations
 !.idea/runConfigurations/
 !.run/
@@ -59,6 +59,8 @@ android/private/*
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+# Native code
+**/android/app/.cxx/
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -93,12 +95,11 @@ android/private/*
 !**/ios/**/default.mode2v3
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
-!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 # Build Files
-.flutter-plugins-dependencies
 **/ios/*.app.dSYM.zip
 **/ios/*.ipa
+**/ios/build/
 
 # GraphQL helpers
 .graphqlconfig
@@ -108,6 +109,10 @@ graphql/
 **/*.g.dart
 **/*.freezed.dart
 **/*.chopper.dart
+**/*.gr.dart
 
-# Example build folder
-example/build/
+# Code coverage
+coverage/
+
+# fvm
+.fvm/flutter_sdk

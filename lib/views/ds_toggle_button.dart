@@ -41,20 +41,29 @@ class DSToggleButton extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height ?? Dimens.of(context).buttonHeight,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-                radius ?? Dimens.of(context).radiusMedium),
-            side: isSelected
-                ? BorderSide.none
-                : BorderSide(
-                    color: defaultBorderColor ??
-                        Theme.of(context).colorScheme.primary.withOpacity(0.55),
-                    width:
-                        defaultBorderWidth ?? Dimens.of(context).borderSmall)),
-        color: isSelected
-            ? (selectedColor ?? Theme.of(context).colorScheme.primary)
-            : defaultColor,
+      child: TextButton(
+        style: ButtonStyle(
+          shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                    radius ?? Dimens.of(context).radiusMedium),
+                side: isSelected
+                    ? BorderSide.none
+                    : BorderSide(
+                        color: defaultBorderColor ??
+                            Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withOpacity(0.55),
+                        width: defaultBorderWidth ??
+                            Dimens.of(context).borderSmall)),
+          ),
+          backgroundColor: MaterialStatePropertyAll(
+            isSelected
+                ? (selectedColor ?? Theme.of(context).colorScheme.primary)
+                : defaultColor,
+          ),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
